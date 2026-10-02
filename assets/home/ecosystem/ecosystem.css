@@ -1,0 +1,108 @@
+/* ============================================================
+   khyzr.com homepage — Ecosystem: "The brace".
+   Ported from labs/sections/ecosystem.html, design 1 (.d1), values
+   unchanged; every selector re-scoped from .d1 to .hs-ecosystem.
+   The seven partners are typeset as one list, and a single green brace
+   gathers them into "One team, not twenty vendors." The brace draws
+   out from its point, the names darken from the middle outward as it
+   takes them in, and the statement slides out of the point. On a phone
+   the brace turns into an underbrace. No JavaScript of its own: it
+   keys off .is-in from assets/home/hs.js.
+   ============================================================ */
+
+/* ---- shared (the lab page's rules this design relies on) ---- */
+/* the marks carry their monochrome treatment baked in (marks/: the ink, and Focused Hunts' ink tone, as the
+   SVG filters drew them), so no filter runs on the GPU. Optical sizing: --S is the nominal size, --e the per-mark factor */
+.hs-ecosystem .eco-mark{display:block;height:calc(var(--S,1.875rem) * var(--e,1.2));width:auto;max-width:none;transform:translate(var(--dx,0),var(--dy,0))}
+.hs-ecosystem .m-npc{--e:1.1}
+.hs-ecosystem .m-tfs{--e:1.23}
+.hs-ecosystem .m-96m{--e:1.5;--dx:-2.5%;--dy:1.7%}
+.hs-ecosystem .m-wax{--e:1.55;--dx:-.8%}
+.hs-ecosystem .m-tds{--e:1.2}
+.hs-ecosystem .m-fh{--e:1.17;--dy:.5%}
+.hs-ecosystem .m-uc{--e:1.44;--dx:-.5%}
+.hs-ecosystem .feat p,.hs-ecosystem .ln{text-wrap:pretty}
+/* ---- the brace ---- */
+.hs-ecosystem{padding:var(--section-pad-y) var(--gx);color:var(--body)}
+.hs-ecosystem .in{max-width:var(--container);margin:0 auto}
+.hs-ecosystem .grid{display:grid;grid-template-columns:minmax(0,1fr) 3.5rem minmax(0,.5fr);column-gap:clamp(1.5rem,3vw,2.75rem)}
+.hs-ecosystem .head{align-items:end}
+.hs-ecosystem .head .hs-title{grid-column:1}
+/* the lede stands in the statement's column, so the two read as one column */
+.hs-ecosystem .head .hs-lede{grid-column:3;margin:0;padding-bottom:.3em}
+.hs-ecosystem .body{margin-top:var(--hs-head-gap);align-items:center}
+.hs-ecosystem .roster{list-style:none;grid-column:1}
+.hs-ecosystem .roster li{--mk:3.25rem;display:grid;grid-template-columns:var(--mk) minmax(0,20.25rem) minmax(0,1fr);column-gap:1.375rem;align-items:baseline;padding:.9375rem 0}
+/* the mark stands centred on its name's line, however many lines the details run to */
+.hs-ecosystem .mk{align-self:start;margin-top:calc((1.1 * clamp(1.4rem,2.15vw,1.95rem) - 3rem) / 2);width:var(--mk);height:3rem;display:grid;place-items:center;--S:1.6875rem}
+.hs-ecosystem .nm{font:var(--fw-ui) clamp(1.4rem,2.15vw,1.95rem)/1.1 var(--font-display);letter-spacing:-.022em;color:var(--ink)}
+.hs-ecosystem .det{display:block;padding-left:.375rem}
+.hs-ecosystem .dc{display:block;font-size:.84375rem;line-height:1.35;color:var(--muted)}
+.hs-ecosystem .ln{display:block;margin-top:.1875rem;font-size:.9375rem;line-height:1.45;color:var(--body)}
+.hs-ecosystem .brace{display:flex}
+.hs-ecosystem .brace svg{display:block;flex:none;overflow:visible}
+.hs-ecosystem .brace path{fill:none;stroke:var(--khyzr-green);stroke-width:3;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:0}
+.hs-ecosystem .brace .arm{display:block;background:var(--khyzr-green)}
+.hs-ecosystem .brace.v{grid-column:2;flex-direction:column;align-self:stretch;width:3.5rem;padding:.75rem 0}
+.hs-ecosystem .brace.v .arm{flex:1;width:.1875rem;margin-left:1.1875rem}
+.hs-ecosystem .brace.v .up{transform-origin:50% 100%}
+.hs-ecosystem .brace.v .dn{transform-origin:50% 0}
+.hs-ecosystem .brace.h{display:none}
+.hs-ecosystem .feat{grid-column:3;align-self:center;max-width:26rem}
+.hs-ecosystem .feat h3{font:var(--fw-display) clamp(2rem,3vw,3.05rem)/1.02 var(--font-display);letter-spacing:-.03em;color:var(--ink);text-wrap:balance}
+.hs-ecosystem .feat p{margin-top:1.25rem;font-size:1.0625rem;line-height:1.55;color:var(--body);max-width:30ch}
+
+/* motion: the title rises; the list waits, faint; the brace draws out of its point and
+   takes the names in from the middle; the statement slides out of the point. */
+.hs-ecosystem .nm,.hs-ecosystem .dc,.hs-ecosystem .ln{transition:color .7s ease;transition-delay:var(--t)}
+.hs-ecosystem .mk{transition:opacity .7s ease;transition-delay:var(--t)}
+.hs-ecosystem .roster li{--t:calc(.52s + var(--d) * .06s + var(--d) * var(--d) * .04s)}
+.hs-ecosystem .mid path{transition:stroke-dashoffset .34s cubic-bezier(.4,0,.2,1) .2s}
+.hs-ecosystem .brace .arm{transition:transform .82s var(--ease-drift) .5s}
+.hs-ecosystem .cap path{transition:stroke-dashoffset .42s var(--ease-drift) 1.12s}
+.hs-ecosystem .feat{transition:opacity .8s ease 1.2s,transform var(--dur-enter) var(--ease-trace) 1.2s}
+.js .hs-ecosystem:not(.is-in) .nm,.js .hs-ecosystem:not(.is-in) .dc,.js .hs-ecosystem:not(.is-in) .ln{color:#CDD2CD;transition:none}
+.js .hs-ecosystem:not(.is-in) .mk{opacity:.22;transition:none}
+.js .hs-ecosystem:not(.is-in) .brace path{stroke-dashoffset:1;transition:none}
+.js .hs-ecosystem:not(.is-in) .brace.v .arm{transform:scaleY(0);transition:none}
+.js .hs-ecosystem:not(.is-in) .brace.h .arm{transform:scaleX(0);transition:none}
+.js .hs-ecosystem:not(.is-in) .feat{opacity:0;transform:translateX(-22px);transition:none}
+
+/* tablets: the statement's column widens, and the lede goes under the title where that column is narrow */
+@media (min-width:761px) and (max-width:1180px){
+  .hs-ecosystem .grid{grid-template-columns:minmax(0,1fr) 3.5rem minmax(0,.8fr)}
+}
+@media (min-width:761px) and (max-width:1000px){
+  .hs-ecosystem .head .hs-title,.hs-ecosystem .head .hs-lede{grid-column:1/-1}
+  .hs-ecosystem .head .hs-lede{margin-top:var(--space-3);padding:0;max-width:34rem}
+}
+/* tablets: the roster narrows before the brace does, so each partner's details stand under its name */
+@media (min-width:761px) and (max-width:1180px){
+  .hs-ecosystem .roster li{grid-template-columns:var(--mk) minmax(0,1fr);align-items:start;padding:.75rem 0}
+  .hs-ecosystem .mk{align-self:start;margin-top:0}
+  .hs-ecosystem .nm{padding-top:.5rem}
+  .hs-ecosystem .det{grid-column:2;padding:.25rem 0 0}
+}
+@media (max-width:760px){
+  .hs-ecosystem .grid{grid-template-columns:minmax(0,1fr)}
+  .hs-ecosystem .head .hs-title,.hs-ecosystem .head .hs-lede,.hs-ecosystem .roster,.hs-ecosystem .feat{grid-column:1}
+  .hs-ecosystem .head .hs-lede{margin-top:var(--space-3);padding:0}
+  .hs-ecosystem .roster li{--mk:2.5rem;grid-template-columns:var(--mk) minmax(0,1fr);column-gap:1rem;align-items:start;padding:.75rem 0}
+  .hs-ecosystem .mk{height:2.5rem;--S:1.375rem;align-self:start;margin-top:0}
+  .hs-ecosystem .nm{font-size:1.32rem;padding-top:.4375rem}
+  .hs-ecosystem .det{grid-column:2;padding:2px 0 0}
+  .hs-ecosystem .dc{font-size:.8125rem}
+  .hs-ecosystem .ln{font-size:.90625rem}
+  .hs-ecosystem .brace.v{display:none}
+  .hs-ecosystem .brace.h{display:flex;grid-column:1;height:3.5rem;margin:1rem 0 0}
+  .hs-ecosystem .brace.h .arm{flex:1;height:.1875rem;margin-top:1.1875rem}
+  .hs-ecosystem .brace.h .lf{transform-origin:100% 50%}
+  .hs-ecosystem .brace.h .rt{transform-origin:0 50%}
+  .hs-ecosystem .feat{justify-self:center;text-align:center;margin-top:1.375rem;max-width:22rem}
+  .hs-ecosystem .feat h3{font-size:2.15rem}
+  .hs-ecosystem .feat p{margin:1rem auto 0;font-size:1rem}
+  .js .hs-ecosystem:not(.is-in) .feat{transform:translateY(-14px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .hs-ecosystem *{transition:none!important}
+}

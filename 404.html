@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found — khyzr</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/com/design-system/assets/logos/khyzr-symbol_on-dark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/com/assets/home/tokens.css">
+<!--
+  The lost page (2 Oct 2026, the launch kit: docs/LAUNCH.md). Served for any missing path, so every URL here is
+  root-absolute. No nav and no footer: the symbol alone, its four corners opening once from the centre (whole under
+  reduced motion), then one line, one sentence and one way home.
+-->
+<style>
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:56px max(var(--gutter),env(safe-area-inset-left,0px),env(safe-area-inset-right,0px));background:var(--paper);color:var(--body);
+  font:var(--fw-text) 17px/1.6 var(--font-text);-webkit-font-smoothing:antialiased;text-align:center}
+::selection{background:var(--selection)}
+.lost{display:flex;flex-direction:column;align-items:center;max-width:40rem}
+.mark{position:relative;width:84px;height:84px;margin-bottom:clamp(36px,5.5vh,56px)}
+/* the light the symbol stands in, the close's green dot made large and soft */
+.mark::before{content:"";position:absolute;inset:-70%;border-radius:50%;background:radial-gradient(closest-side,rgba(20,147,20,.13),rgba(20,147,20,.04) 55%,rgba(20,147,20,0));
+  animation:light 1.8s ease .15s both}
+.mark svg{position:relative;display:block;width:100%;height:100%;overflow:visible}
+.mark g{transform-box:view-box;transform-origin:80px 80px;animation:bloom 1s var(--ease-trace) both}
+.mark g:nth-child(1){animation-delay:.12s}.mark g:nth-child(2){animation-delay:.2s}.mark g:nth-child(3){animation-delay:.28s}.mark g:nth-child(4){animation-delay:.36s}
+h1{font:var(--fw-display) var(--text-title)/1.04 var(--font-display);letter-spacing:var(--tracking-display);color:var(--ink);text-wrap:balance}
+p{margin-top:var(--space-3);max-width:34ch;font-size:var(--text-lede);line-height:1.5;color:var(--muted);text-wrap:pretty}
+.home{margin-top:clamp(32px,4.5vh,44px);display:inline-flex;align-items:center;gap:.6em;height:52px;padding:0 26px;border-radius:var(--radius-pill);
+  background:var(--ink);color:#fff;font:var(--fw-ui) 15px/1 var(--font-text);text-decoration:none;
+  transition:transform var(--dur-hover) var(--ease-pop),background-color .2s ease,box-shadow var(--dur-hover) ease}
+.home svg{width:1.05em;height:1.05em;transition:transform var(--dur-hover) var(--ease-pop)}
+@media (hover:hover){.home:hover{transform:scale(1.05);background:#000;box-shadow:0 14px 30px -12px rgba(0,0,0,.55)}.home:hover svg{transform:translateX(3px)}}
+.home:active{transform:scale(.98)}
+.home:focus-visible{outline:2px solid var(--khyzr-green);outline-offset:4px}
+h1,p,.home{animation:rise var(--dur-enter) var(--ease-trace) both}
+h1{animation-delay:.42s}p{animation-delay:.54s}.home{animation-delay:.66s}
+@keyframes bloom{from{opacity:0;transform:scale(.3) rotate(-30deg)}40%{opacity:1}to{opacity:1;transform:none}}
+@keyframes light{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(var(--rise-distance)) scale(var(--rise-scale))}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="lost">
+  <div class="mark"><svg viewBox="0 0 160 160" aria-hidden="true" focusable="false"><g><path fill="#149314" d="M 46.019531 46.019531 C 40.046875 51.988281 33.089844 56.679688 25.339844 59.957031 C 17.300781 63.355469 8.777344 65.078125 0 65.078125 L 0 46.445312 C 25.648438 46.445312 46.445312 25.648438 46.445312 0 L 65.078125 0 C 65.078125 8.777344 63.355469 17.300781 59.957031 25.339844 C 56.679688 33.089844 51.988281 40.046875 46.019531 46.019531"/><path fill="#149314" d="M 87.058594 58.722656 C 83.304688 64.277344 78.996094 69.5 74.246094 74.25 C 69.5 78.996094 64.277344 83.304688 58.722656 87.058594 C 53.105469 90.851562 47.101562 94.109375 40.878906 96.742188 C 27.921875 102.222656 14.167969 105.003906 0 105.003906 L 0 86.367188 C 47.699219 86.367188 86.367188 47.699219 86.367188 0 L 105.003906 0 C 105.003906 14.167969 102.222656 27.921875 96.742188 40.878906 C 94.109375 47.101562 90.851562 53.105469 87.058594 58.722656"/></g><g><path fill="#136E13" d="M 113.980469 46.019531 C 119.953125 51.988281 126.910156 56.679688 134.660156 59.957031 C 142.699219 63.355469 151.222656 65.078125 160 65.078125 L 160 46.445312 C 134.351562 46.445312 113.554688 25.648438 113.554688 0 L 94.921875 0 C 94.921875 8.777344 96.644531 17.300781 100.042969 25.339844 C 103.320312 33.089844 108.011719 40.046875 113.980469 46.019531"/><path fill="#136E13" d="M 72.941406 58.722656 C 76.695312 64.277344 81.003906 69.5 85.753906 74.25 C 90.5 78.996094 95.722656 83.304688 101.277344 87.058594 C 106.894531 90.851562 112.898438 94.109375 119.121094 96.742188 C 132.078125 102.222656 145.832031 105.003906 160 105.003906 L 160 86.367188 C 112.300781 86.367188 73.632812 47.699219 73.632812 0 L 54.996094 0 C 54.996094 14.167969 57.777344 27.921875 63.257812 40.878906 C 65.890625 47.101562 69.148438 53.105469 72.941406 58.722656"/></g><g><path fill="#0C4A0C" d="M 113.980469 113.980469 C 119.953125 108.011719 126.910156 103.320312 134.660156 100.042969 C 142.699219 96.644531 151.222656 94.921875 160 94.921875 L 160 113.554688 C 134.351562 113.554688 113.554688 134.351562 113.554688 160 L 94.921875 160 C 94.921875 151.222656 96.644531 142.699219 100.042969 134.660156 C 103.320312 126.910156 108.011719 119.953125 113.980469 113.980469"/><path fill="#0C4A0C" d="M 72.941406 101.277344 C 76.695312 95.722656 81.003906 90.5 85.753906 85.75 C 90.5 81.003906 95.722656 76.695312 101.277344 72.941406 C 106.894531 69.148438 112.898438 65.890625 119.121094 63.257812 C 132.078125 57.777344 145.832031 54.996094 160 54.996094 L 160 73.632812 C 112.300781 73.632812 73.632812 112.300781 73.632812 160 L 54.996094 160 C 54.996094 145.832031 57.777344 132.078125 63.257812 119.121094 C 65.890625 112.898438 69.148438 106.894531 72.941406 101.277344"/></g><g><path fill="#136E13" d="M 46.019531 113.980469 C 40.046875 108.011719 33.089844 103.320312 25.339844 100.042969 C 17.300781 96.644531 8.777344 94.921875 0 94.921875 L 0 113.554688 C 25.648438 113.554688 46.445312 134.351562 46.445312 160 L 65.078125 160 C 65.078125 151.222656 63.355469 142.699219 59.957031 134.660156 C 56.679688 126.910156 51.988281 119.953125 46.019531 113.980469"/><path fill="#136E13" d="M 87.058594 101.277344 C 83.304688 95.722656 78.996094 90.5 74.246094 85.75 C 69.5 81.003906 64.277344 76.695312 58.722656 72.941406 C 53.105469 69.148438 47.101562 65.890625 40.878906 63.257812 C 27.921875 57.777344 14.167969 54.996094 0 54.996094 L 0 73.632812 C 47.699219 73.632812 86.367188 112.300781 86.367188 160 L 105.003906 160 C 105.003906 145.832031 102.222656 132.078125 96.742188 119.121094 C 94.109375 112.898438 90.851562 106.894531 87.058594 101.277344"/></g></svg></div>
+  <h1>This page isn’t here.</h1>
+  <p>It may have moved, or the address may be mistyped. Everything starts on the homepage.</p>
+  <a class="home" href="/com/">Back to the homepage<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
+</main>
+</body>
+</html>

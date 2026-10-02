@@ -1,0 +1,81 @@
+/* ============================================================
+   khyzr.com homepage — the shared vocabulary every section uses.
+   One rhythm, two surfaces, one section header, one text link, one
+   entrance. Values are the design system's tokens (tokens.css); the
+   section header and the text link are the system's Components page,
+   the entrance is its Motion page (The Green Trace).
+   ============================================================ */
+
+/* ---- rhythm and surfaces ----
+   Every section stands on paper and pads by the section rhythm; the
+   surface alternates White → #F5F5F5 (the system's Layout rule) so
+   neighbours read as two places, not one long page. */
+.hs{--hs-head-gap:clamp(2.75rem,6vw,4.5rem);background:var(--paper)}
+.hs.hs--alt{background:var(--surface-2)}
+section.hs[id]{scroll-margin-top:0}
+/* the side gutter, kept clear of a phone's notch and rounded corners when it is turned on its side (index.html asks
+   for the whole screen, viewport-fit=cover, so the dark sections run to its edges): the system's gutter, or the
+   screen's safe inset where that is wider */
+:root{--gx:max(var(--gutter),env(safe-area-inset-left,0px),env(safe-area-inset-right,0px))}
+
+/* ---- the desktop step (2 Oct 2026, Cisco: "increase the margins (and therefor like zoom out) the page on viewports
+   like 1920x1080 and similar sizes"; it "reads AMAZING at 2440p"). The type and the sections reach their full size
+   by about 1400px wide and hold it, so a 1080p monitor showed the 2560 page with its margins cut from 500px to 180,
+   on a screen whose pixels are physically larger. There, on a standard-density screen 1600–2299px wide (1080p,
+   1200p and 1680 monitors; a laptop's dense screen stays at full size, as do 1440p screens and phones), the page
+   draws a step smaller, as a whole: one knob, --z, sets the root's size, every size in the sections is in rem, the
+   column narrows with it so the margins grow, and the few sizes measured in the screen's height multiply by it.
+   The system's px tokens get their rem twins here, the same at the default size, so they follow too. */
+:root{--z:1;
+  --space-1:.75rem;--space-2:1rem;--space-3:1.5rem;--space-4:2rem;--space-5:2.5rem;--space-6:4rem;
+  --container:97.5rem;--gutter:clamp(1.5rem,5vw,6rem);--section-pad-y:clamp(5.5rem,calc(14vh * var(--z)),11.25rem);
+  --text-body:1rem;--text-eyebrow:.75rem;--text-label:.6875rem}
+html{font-size:calc(100% * var(--z))}
+@media (min-width:1600px) and (max-width:2299.98px) and (max-resolution:1.49dppx),
+       (min-width:1600px) and (max-width:2299.98px) and (-webkit-max-device-pixel-ratio:1.49){:root{--z:.9}}
+/* the band's edges ease in, so a window dragged across them doesn't jump */
+@media (min-width:1600px) and (max-width:1679.98px) and (max-resolution:1.49dppx),
+       (min-width:1600px) and (max-width:1679.98px) and (-webkit-max-device-pixel-ratio:1.49){:root{--z:.95}}
+@media (min-width:2200px) and (max-width:2299.98px) and (max-resolution:1.49dppx),
+       (min-width:2200px) and (max-width:2299.98px) and (-webkit-max-device-pixel-ratio:1.49){:root{--z:.95}}
+/* a section that receives focus after an in-page jump (glide.js) takes it quietly */
+.hs[tabindex="-1"]:focus{outline:none}
+
+/* ---- the section header: title, lede (the eyebrows went page-wide on 2 Oct 2026, Cisco: "remove eyebrows page-wide") ---- */
+.hs-title{font:var(--fw-display) var(--text-title)/1.02 var(--font-display);letter-spacing:var(--tracking-display);color:var(--ink);text-wrap:balance}
+.hs-title .g{color:var(--khyzr-green)}
+.hs-lede{max-width:34ch;font:var(--fw-text) var(--text-lede)/1.5 var(--font-text);color:var(--muted);text-wrap:pretty}
+.hs-head > .hs-lede{margin-top:var(--space-3)}
+/* split: the title holds the left, the lede stands at the right on the title's last line */
+.hs-head--split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);align-items:end;gap:var(--space-3) var(--space-6)}
+.hs-head--split > .hs-lede{margin:0;padding-bottom:.3em}
+@media (max-width:760px){
+  .hs-head--split{grid-template-columns:minmax(0,1fr);gap:0}
+  .hs-head--split > .hs-lede{margin-top:var(--space-3);padding:0}
+}
+/* on dark */
+.hs-dark .hs-title{color:var(--on-dark-heading)}
+.hs-dark .hs-lede{color:var(--on-dark-body)}
+
+/* ---- the text link: ink, an arrow that slides 4px on hover ---- */
+.hs-link{position:relative;display:inline-flex;align-items:center;gap:.5em;font:var(--fw-ui) 1rem/1.3 var(--font-text);color:var(--ink);text-decoration:none;border-radius:var(--radius-s)}
+/* a 44px hit area, without moving anything */
+.hs-link::after{content:"";position:absolute;inset:-.75rem -.375rem}
+.hs-link svg{flex:none;width:1.05em;height:1.05em;transition:transform var(--dur-hover) var(--ease-pop)}
+@media (hover:hover){.hs-link:hover svg{transform:translateX(4px)}}
+.hs-link:focus-visible{outline-offset:4px}
+
+/* ---- the entrance: rise from the baseline, crisp, overlapping (hs.js staggers a batch) ---- */
+.hs-rise{transform-origin:50% 100%;transition:opacity .9s ease var(--hs-d,0s),transform var(--dur-enter) var(--ease-trace) var(--hs-d,0s)}
+.js .hs-rise:not(.is-in){opacity:0;transform:translateY(var(--rise-distance)) scale(var(--rise-scale));transition:none}
+@media (prefers-reduced-motion:reduce){.hs-rise{opacity:1!important;transform:none!important;transition:none!important}}
+
+/* ---- photographs develop in rather than pop in (hs.js adds .ld when each has loaded) ---- */
+.js .hs-photo{opacity:0;transition:opacity .7s ease}
+.js .hs-photo.ld{opacity:1}
+@media (prefers-reduced-motion:reduce){.js .hs-photo{transition:none}}
+
+/* ---- touch: hovers that move things only where there is a pointer that hovers; presses answer every pointer ---- */
+.hs-link:active svg{transform:translateX(2px)}
+/* a placeholder link (its page isn't built yet): it reads as the design has it, and does nothing */
+.hs a:not([href]){pointer-events:none;cursor:default}

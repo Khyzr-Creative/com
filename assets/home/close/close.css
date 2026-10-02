@@ -1,0 +1,100 @@
+/* ============================================================
+   khyzr.com homepage — the close: "The full stop", in the dark.
+   Ported from labs/sections/close.html, design 1 (.d1).
+   The tagline's last full stop is the green light from the night
+   field; after a beat it grows into the "Book a conversation" pill,
+   so the sentence ends in the action.
+
+   The hand-off is an overlap: the close pulls up over the night
+   field's last --close-lap pixels (above it, z-index 1) and its top
+   layer runs from transparent into the field's ground colour
+   (--close-top, the mean of the field's bottom rows in its last
+   frame), so the grass sinks into the night instead of being cut; from
+   there the ground settles into ink (the system: the footer is always
+   Ink, and it follows straight on), on an eased gradient. The padding takes the lap back, so the type sits
+   where the lab set it. Where the field is not drawn (no JS, no
+   WebGL: the name ends in flat pitch) --close-top stays pitch and the
+   overlap is invisible. Under reduced motion the lap is shallower,
+   so it stays under the name's pillars, which then stand near its
+   floor.
+
+   The light (the dot, then the pill) carries one glow, a filter on
+   its wrapper, so the glow keeps its size while the dot grows and
+   hands over to the pill unchanged.
+   ============================================================ */
+.hs-close .vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+.hs-close{--F:clamp(2.6rem,9.2vw,9.5rem);
+  --close-lap:clamp(6rem,12vh,7.5rem);
+  --close-top:var(--pitch);
+  --close-g1:clamp(.1875rem,calc(var(--F) * .045),.4375rem);
+  --close-g2:clamp(.75rem,calc(var(--F) * .2),1.875rem);
+  --close-glow:drop-shadow(0 0 var(--close-g1) rgba(145,188,145,.55)) drop-shadow(0 0 var(--close-g2) rgba(59,135,59,.5));
+  --close-glow-up:drop-shadow(0 0 var(--close-g1) rgba(145,188,145,.75)) drop-shadow(0 0 calc(var(--close-g2) * 1.4) rgba(59,135,59,.62));
+  z-index:1;margin-top:calc(var(--close-lap) * -1);
+  /* #start lands with the type where it would without the lap (index.html sets [id]{scroll-margin-top:6rem}) */
+  scroll-margin-top:calc(6rem - var(--close-lap));
+  background:linear-gradient(to bottom,transparent 0,var(--close-top) var(--close-lap),var(--ink) 48%);
+  background:linear-gradient(to bottom,
+    transparent 0,
+    color-mix(in srgb,var(--close-top) 15.6%,transparent) calc(var(--close-lap) * .25),
+    color-mix(in srgb,var(--close-top) 50%,transparent) calc(var(--close-lap) * .5),
+    color-mix(in srgb,var(--close-top) 84.4%,transparent) calc(var(--close-lap) * .75),
+    var(--close-top) var(--close-lap),
+    color-mix(in oklab,var(--close-top) 95.7%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .125),
+    color-mix(in oklab,var(--close-top) 84.4%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .25),
+    color-mix(in oklab,var(--close-top) 66.4%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .375),
+    color-mix(in oklab,var(--close-top) 50%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .5),
+    color-mix(in oklab,var(--close-top) 33.6%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .625),
+    color-mix(in oklab,var(--close-top) 15.6%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .75),
+    color-mix(in oklab,var(--close-top) 4.3%,var(--ink)) calc(var(--close-lap) + (48% - var(--close-lap)) * .875),
+    var(--ink) 48%);
+  color:var(--on-dark-body);
+  padding:calc(clamp(7rem,calc(18vh * var(--z,1)),13.75rem) + var(--close-lap)) var(--gx) var(--section-pad-y)}
+/* the foreground (2 Oct 2026, Cisco on this hand-off: "not sure if there's a way of how to improve this transition"): where
+   the field is drawn, the close's top edge is a strip of grass in silhouette, in the ground's own colour, standing in
+   front of the lit field, so the eye sinks through the grass into the night instead of watching the field fade into a
+   flat band. The strip's solid foot lands where the overlap reaches the ground colour (--close-lap), so the gradient
+   carries on below it unbroken; the blades (grass-edge.svg: three layers, the tallest a little see-through, a seamless
+   tile) rise --edge-h above that. And the ground settles into ink by 48% of the close (was 70%), so no long flat green
+   stands under the strip. */
+.hs-close{--edge-h:clamp(8.25rem,15vw,14.5rem)}
+.js .hs-name.gl-on + .hs-close::before{content:"";position:absolute;left:0;right:0;top:calc(var(--close-lap) - var(--edge-h) * .8167);height:var(--edge-h);
+  background:var(--pitch);pointer-events:none;
+  -webkit-mask:url(grass-edge.svg) 0 0/calc(var(--edge-h) * 3.75) var(--edge-h) repeat-x;mask:url(grass-edge.svg) 0 0/calc(var(--edge-h) * 3.75) var(--edge-h) repeat-x}
+/* the night field's ground at its bottom edge, only where the field is drawn (name.js adds .gl-on;
+   the name sits right before the close). Sampled from the last frame, 390–1920px wide: #091C0B–#0D2410. */
+.js .hs-name.gl-on + .hs-close{--close-top:var(--pitch)}   /* was #0B200E, the field's ground: under the silhouette the night goes straight to black */
+@media (prefers-reduced-motion:reduce){.hs-close{--close-lap:clamp(2.5rem,7vh,4.5rem)}}
+
+.hs-close .in{position:relative;max-width:var(--container);margin:0 auto}
+/* the tagline alone, its full stop growing into the pill (the line above it and the paragraph under it left on 2 Oct
+   2026, Cisco: "Remove this"; labs khyzr-com/homepage-cuts/) */
+.hs-close .tg{font:var(--fw-display) var(--F)/.95 var(--font-display);letter-spacing:-.035em;color:var(--on-dark-heading)}
+.hs-close h2{display:inline;font:inherit;letter-spacing:inherit;color:inherit}
+.hs-close .ln{position:relative;z-index:1;display:inline-block}  /* the words stay in front of the light's glow */
+.hs-close .dot{position:relative;display:inline-block;width:0;height:0;filter:var(--close-glow)}
+.hs-close .dot i{position:absolute;left:.06em;bottom:-.012em;width:.178em;height:.178em;border-radius:50%;background:var(--green-300);opacity:0;transform-origin:0 0}
+.hs-close .stop{position:relative;display:inline-block;vertical-align:baseline;overflow:hidden;height:calc(var(--F)*.71);margin-left:calc(var(--F)*.11);padding:0 calc(var(--F)*.29);
+  border-radius:var(--radius-pill);text-decoration:none;color:var(--ink);font:var(--fw-ui) max(.9375rem,calc(var(--F)*.195))/calc(var(--F)*.71) var(--font-text);   /* 15px at the least: a phone on its side, a small tablet */
+  letter-spacing:-.012em;white-space:nowrap;
+  filter:var(--close-glow);transform-origin:0 100%;transition:transform var(--dur-hover) var(--ease-pop),filter .4s ease}
+.hs-close .stop .bg{position:absolute;inset:0;border-radius:inherit;background:var(--green-300);transition:background-color .3s ease}
+.hs-close .stop .lab{position:relative}
+/* hover: the light brightens as you reach for it */
+@media (hover:hover){.hs-close .stop:hover{transform:scale(1.05);filter:var(--close-glow-up)}.hs-close .stop:hover .bg{background:var(--green-200)}}
+.hs-close .stop:active{transform:scale(.98)}
+.hs-close .stop:focus-visible{outline:2px solid var(--on-dark-heading);outline-offset:4px}
+/* entrance: the words rise, then JS grows the full stop into the pill */
+.hs-close .rise{transition:opacity .9s ease,transform var(--dur-enter) var(--ease-trace);transform-origin:50% 100%}
+.hs-close .rise.k1{transition-delay:.14s}.hs-close .rise.k2{transition-delay:.28s}
+.js .hs-close:not(.is-in) .rise{opacity:0;transform:translateY(var(--rise-distance)) scale(var(--rise-scale));transition:none}
+.hs-close.armed .dot i{opacity:1}
+.hs-close.armed.swapped .dot i{opacity:0}
+.hs-close.armed:not(.grown) .stop .bg,.hs-close.armed:not(.grown) .stop .lab{opacity:0}
+@media (max-width:640px){
+  .hs-close{--F:12.3vw}
+  .hs-close .tg{line-height:.98}
+  .hs-close .stop{display:block;width:fit-content;margin:1.625rem var(--pr,0px) 0 auto;height:3.5rem;padding:0 1.75rem;font-size:1.0625rem;line-height:3.5rem;letter-spacing:0;transform-origin:100% 50%}
+}
+@media (prefers-reduced-motion:reduce){.hs-close .rise{opacity:1!important;transform:none!important;transition:none!important}}

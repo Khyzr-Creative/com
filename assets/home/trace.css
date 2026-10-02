@@ -1,0 +1,38 @@
+/* ============================================================
+   khyzr.com homepage — the scrollbar: The trace (chosen from
+   labs/scrollbars on 2 Oct 2026). A hairline rail at the window's
+   edge with the brand's green trace for a thumb and the sections
+   ticked along it; while you scroll, or when you reach for it, the
+   section you are in names itself, quietly, beside the thumb.
+
+   Only where the pointer is fine (mouse, trackpad) and JS runs: the
+   head's first script adds html.trace-on, which hides the native bar;
+   touch screens and no-JS keep the browser's own. trace.js draws it.
+   ============================================================ */
+html.trace-on{scrollbar-width:none}
+html.trace-on::-webkit-scrollbar{display:none}
+
+.trace{position:fixed;top:0;right:0;bottom:0;width:22px;z-index:70;
+  --trace-g:#0A690A;--trace-rail:rgba(10,10,10,.1);--trace-tick:rgba(10,10,10,.22);
+  --trace-lb:#5D665F;--trace-lb-bg:rgba(255,255,255,.72);--trace-lb-line:rgba(10,10,10,.06)}
+.trace.dark{--trace-g:#91BC91;--trace-rail:rgba(255,255,255,.14);--trace-tick:rgba(255,255,255,.3);
+  --trace-lb:#8D948F;--trace-lb-bg:rgba(10,10,10,.55);--trace-lb-line:rgba(255,255,255,.08)}
+.trace .trk{position:absolute;top:74px;bottom:10px;right:8px;width:2px;border-radius:2px;background:var(--trace-rail);transition:width .3s ease,right .3s ease,background-color .3s ease}
+.trace .tk{position:absolute;right:8px;width:6px;height:1px;background:var(--trace-tick);opacity:0;transform:translateX(3px);
+  transition:opacity .3s ease,transform .4s cubic-bezier(.34,1.56,.64,1),background-color .3s ease}
+.trace .th{position:absolute;top:0;right:2px;width:16px;cursor:grab;touch-action:none}
+.trace .th i{position:absolute;top:0;bottom:0;right:6px;width:2px;border-radius:3px;background:var(--trace-g);
+  transition:width .3s cubic-bezier(.34,1.56,.64,1),right .3s cubic-bezier(.34,1.56,.64,1),background-color .3s ease}
+/* the name: small, in the technical register, on a frosted chip that lets the page show through */
+.trace .lb{position:absolute;top:0;right:24px;transform:translate(4px,-50%);padding:4px 8px;border-radius:999px;white-space:nowrap;pointer-events:none;
+  font:600 9.5px/1.2 "Manrope",system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--trace-lb);
+  background:var(--trace-lb-bg);box-shadow:0 0 0 1px var(--trace-lb-line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .3s ease,transform .45s cubic-bezier(.34,1.56,.64,1),color .3s ease,background-color .3s ease}
+.trace:hover .trk,.trace-drag .trace .trk{width:4px;right:7px}
+.trace:hover .th i,.trace-drag .trace .th i{width:6px;right:5px}
+.trace:hover .tk,.trace-drag .trace .tk{opacity:1;transform:none}
+.trace.live .lb,.trace:hover .lb,.trace-drag .trace .lb{opacity:1;transform:translate(0,-50%)}
+.trace-drag,.trace-drag *{cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important}
+html.perf-lite .trace .lb{-webkit-backdrop-filter:none;backdrop-filter:none}
+@media (prefers-reduced-motion:reduce){.trace *{transition:none!important}}
+@media (pointer:coarse){.trace{display:none}}

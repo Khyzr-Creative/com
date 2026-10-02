@@ -1,0 +1,28 @@
+/* ============================================================
+   khyzr.com homepage — Alongside: a half-section of its own (2 Oct 2026,
+   Cisco: "align this as if it was a section of its own (Or a
+   half-section) and change the wording to 'We come in…' … and improve
+   the layout/design a bit").
+   It was the people block at the foot of Disciplines: the photograph on
+   three of its six columns, the words on the other three, sat on the
+   photo's bottom edge. Now it stands on its own: the photograph on seven
+   twelfths, the line beside it set as the section's title and centred on
+   the picture, its last words in green as the other titles carry theirs;
+   half a section's air above (Disciplines gives the other half) and a
+   whole one below, before Principles' grey.
+   ============================================================ */
+.hs-alongside{padding:calc(var(--section-pad-y) * .6) var(--gx) var(--section-pad-y)}
+.hs-alongside .in{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2rem,5.5vw,6.5rem);align-items:center}
+.hs-alongside .ph{margin:0}
+.hs-alongside .frame{position:relative;aspect-ratio:16/10.5;border-radius:var(--radius-l);overflow:hidden;background:var(--surface-2)}
+/* the system's photo grade, saturate(.88) contrast(1.02), is baked into the file (no filter to run) */
+.hs-alongside .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 40%}
+/* no credit under it (Cisco, 2 Oct 2026: "Remove this"; the Pexels licence asks for none) */
+.hs-alongside .lead{font:var(--fw-display) var(--text-quote)/1.08 var(--font-display);letter-spacing:var(--tracking-display);color:var(--ink);text-wrap:balance}
+.hs-alongside .lead .g{color:var(--khyzr-green)}
+.hs-alongside .rest{margin-top:var(--space-3);max-width:34ch;font:var(--fw-text) var(--text-lede)/1.5 var(--font-text);color:var(--muted);text-wrap:pretty}
+@media (max-width:860px){
+  .hs-alongside{padding-bottom:calc(var(--section-pad-y) * .75)}
+  .hs-alongside .in{grid-template-columns:minmax(0,1fr);gap:var(--space-5)}
+  .hs-alongside .lead{font-size:var(--text-title);line-height:1.04}
+}

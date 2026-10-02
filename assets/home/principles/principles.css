@@ -1,0 +1,60 @@
+/* ============================================================
+   khyzr.com homepage — Principles (the original section, on the
+   shared layer). The line it holds with clients, scrubbed in word by
+   word as it scrolls up; and the five principles as an expanding spine
+   (hover, focus or tap opens one; Integrity rests open). The one it held
+   quietly, beside a photograph, left on 2 Oct 2026 (Cisco: "Remove this";
+   labs khyzr-com/homepage-cuts/).
+   Since 2 Oct 2026 it fits one screen (Cisco: "this should fit in a single screen, it's too tall"): the title and
+   the quote stand side by side over the spine, the spine is shorter, and the one held quietly is a strip with the
+   photograph as its thumbnail. It was about 1,500px tall at 1440 × 900 (the head, the quote, a spine of 56vh and
+   the photograph at 180px, each under the other).
+   ============================================================ */
+.hs-principles{padding:clamp(2.5rem,calc(6.5vh * var(--z,1)),6.5rem) var(--gx)}
+.hs-principles .in{max-width:var(--container);margin:0 auto}
+.hs-principles .hs-head{max-width:47.5rem}
+
+/* the title and the quote, one row: the quote answers the title, set a step smaller than a section's quote */
+.hs-principles .top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:var(--space-4) clamp(2rem,5vw,6rem);align-items:end}
+.hs-principles .quote{max-width:62.5rem;padding-bottom:.2em;font:var(--fw-display) clamp(1.35rem,2.25vw,2.15rem)/1.18 var(--font-display);letter-spacing:-.022em;color:var(--ink);text-wrap:pretty}
+.hs-principles .quote .g{color:var(--khyzr-green)}
+@media (min-width:861px){.hs-principles .quote .g{display:block}}
+
+/* the spine */
+.hs-principles .row{margin-top:clamp(1.75rem,calc(4.5vh * var(--z,1)),3.25rem);display:flex;gap:.625rem;min-height:clamp(13.5rem,calc(32vh * var(--z,1)),25rem)}
+.hs-principles .pp{appearance:none;font:inherit;text-align:left;cursor:pointer;position:relative;overflow:hidden;flex:1 1 0;min-width:0;
+  display:flex;flex-direction:column;padding:1.5rem 1.5rem 1.625rem;border:1px solid var(--hairline);border-radius:var(--radius-m);background:var(--paper);
+  transition:flex-grow .6s var(--ease-drift),background-color .35s ease,border-color .35s ease}
+.hs-principles .n{font:500 var(--text-eyebrow)/1.2 var(--font-tech);letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums;transition:color .3s ease}
+.hs-principles .v{position:absolute;left:50%;bottom:1.625rem;translate:-50% 0;writing-mode:vertical-rl;rotate:180deg;white-space:nowrap;
+  font:var(--fw-ui) clamp(1.25rem,1.8vw,1.65rem)/1 var(--font-text);letter-spacing:-.015em;color:var(--ink);transition:opacity .3s ease}
+.hs-principles .b{display:block;margin-top:auto;width:clamp(15rem,27vw,25.625rem);opacity:0;transform:translateY(16px);transition:opacity .35s ease,transform .5s var(--ease-drift)}
+.hs-principles .t{display:block;margin-bottom:var(--space-1);font:var(--fw-ui) clamp(1.7rem,2.6vw,2.3rem)/1.1 var(--font-text);letter-spacing:-.022em;color:var(--on-dark-heading)}
+.hs-principles .d{display:block;max-width:38ch;font-size:1.02rem;line-height:1.6;color:var(--on-dark-body);text-wrap:pretty}
+@media (hover:hover){.hs-principles .pp:not(.on):hover{border-color:#d6dcd5}}
+.hs-principles .pp.on{flex-grow:3.4;background:var(--green-900);border-color:var(--green-900);cursor:default}
+.hs-principles .pp.on .n{color:var(--on-dark-accent)}
+.hs-principles .pp.on .v{opacity:0}
+.hs-principles .pp.on .b{opacity:1;transform:none}
+@media (max-width:860px){
+  .hs-principles .top{grid-template-columns:minmax(0,1fr)}
+  .hs-principles .row{flex-direction:column;min-height:0;gap:.75rem}
+  .hs-principles .pp,.hs-principles .pp.on{flex:none;background:var(--paper);border-color:var(--hairline);cursor:default}
+  .hs-principles .v{display:none}
+  .hs-principles .b,.hs-principles .pp.on .b{opacity:1;transform:none;margin-top:var(--space-1);width:auto}
+  .hs-principles .t{margin-bottom:.375rem;font-size:1.2rem;color:var(--ink)}
+  .hs-principles .d{font-size:.97rem;color:var(--muted)}
+  .hs-principles .pp.on .n{color:var(--muted)}
+}
+@media (min-width:641px) and (max-width:860px){.hs-principles .d{max-width:60ch}}
+
+/* without JS the spine can't open, so every principle reads, stacked (the phone layout) */
+html:not(.js) .hs-principles .row{flex-direction:column;min-height:0;gap:.75rem}
+html:not(.js) .hs-principles .pp{flex:none;cursor:default}
+html:not(.js) .hs-principles .v{display:none}
+html:not(.js) .hs-principles .b{opacity:1;transform:none;margin-top:var(--space-1);width:auto}
+html:not(.js) .hs-principles .t{margin-bottom:.375rem;font-size:1.2rem;color:var(--ink)}
+html:not(.js) .hs-principles .d{font-size:.97rem;color:var(--muted)}
+
+
+@media (prefers-reduced-motion:reduce){.hs-principles .pp,.hs-principles .v,.hs-principles .b{transition:none}}

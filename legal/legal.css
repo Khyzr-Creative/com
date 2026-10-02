@@ -1,0 +1,62 @@
+/* ============================================================
+   khyzr.com — the legal pages (2 Oct 2026, the launch kit:
+   docs/LAUNCH.md). Drafts until the company facts land, so each
+   is noindex and stays out of the sitemap; what is still to be
+   confirmed is marked where it stands. On the homepage's tokens
+   (assets/home/tokens.css), its section header (home.css) and its
+   footer's base row (footer/footer.css). No script.
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--body);font:var(--fw-text) var(--text-body)/1.65 var(--font-text);-webkit-font-smoothing:antialiased}
+::selection{background:var(--selection)}
+a{color:inherit}
+.skip{position:fixed;left:1rem;top:.75rem;z-index:100;padding:.75rem 1.125rem;border-radius:var(--radius-pill);background:var(--ink);color:#fff;
+  font:var(--fw-ui) .875rem/1 var(--font-text);text-decoration:none;transform:translateY(-200%)}
+.skip:focus{transform:none}
+
+/* the bar: the wordmark home, and the homepage's one ask */
+.lg-bar{padding:0 var(--gutter)}
+.lg-bar .in{max-width:var(--container);margin:0 auto;height:4.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;border-bottom:1px solid var(--hairline)}
+.lg-bar .home img{display:block;width:4.75rem;height:auto}   /* the homepage nav's size (2 Oct 2026) */
+.lg-bar .cta{display:inline-flex;align-items:center;height:2.5rem;padding:0 1.25rem;border-radius:var(--radius-pill);background:var(--ink);color:#fff;
+  font:var(--fw-ui) .84375rem/1 var(--font-text);text-decoration:none;white-space:nowrap;transition:transform var(--dur-hover) var(--ease-pop),background-color .2s ease}
+@media (hover:hover){.lg-bar .cta:hover{transform:scale(1.05);background:#000}}
+.lg-bar .cta:active{transform:scale(.98)}
+.lg-bar a:focus-visible{outline:2px solid var(--khyzr-green);outline-offset:3px;border-radius:6px}
+.lg-bar .cta:focus-visible{border-radius:var(--radius-pill)}
+
+/* the page: one reading column */
+.lg{padding:clamp(3.5rem,9vh,7rem) var(--gutter) var(--section-pad-y)}
+.lg .in{max-width:45rem;margin:0 auto}
+.lg .hs-title{font-size:clamp(2.3rem,5vw,3.4rem)}
+.lg-date{margin-top:var(--space-3);font:600 var(--text-eyebrow)/1.4 var(--font-tech);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.lg-draft{margin-top:var(--space-3);padding:.875rem 1.125rem;border-radius:var(--radius-m);background:var(--surface-2);font-size:.9375rem;line-height:1.55;color:var(--muted)}
+.lg-lede{margin-top:var(--space-5);font-size:var(--text-lede);line-height:1.55;color:var(--muted)}
+.lg h2{margin:clamp(2.75rem,5vw,3.75rem) 0 var(--space-2);font:var(--fw-display) clamp(1.3rem,2vw,1.55rem)/1.25 var(--font-display);letter-spacing:-.014em;color:var(--ink)}
+.lg p{max-width:66ch;text-wrap:pretty}
+.lg h2 + p,.lg p + p{margin-top:var(--space-2)}
+.lg h2 + p{margin-top:0}
+.lg p a{text-decoration:underline 1px;text-decoration-color:var(--green-200);text-underline-offset:.24em;transition:color .2s ease,text-decoration-color .2s ease}
+.lg p a:hover{color:var(--ink);text-decoration-color:var(--khyzr-green)}
+/* what is still to be confirmed shows as such */
+.tbd{padding:.02em .2em;margin:0 -.04em;border-radius:5px;background:rgba(232,169,60,.2);color:var(--ink);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* the imprint's facts */
+.lg-facts{margin-top:var(--space-5);display:grid;grid-template-columns:minmax(0,13em) minmax(0,1fr);border-top:1px solid var(--hairline)}
+.lg-facts dt,.lg-facts dd{padding:.875rem 0;border-bottom:1px solid var(--hairline)}
+.lg-facts dt{padding-top:1.0625rem;font:600 var(--text-label)/1.5 var(--font-tech);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.lg-facts dd{color:var(--ink)}
+/* a finger's target: the bar's pill at full height, and the email in the facts the height of its row */
+@media (pointer:coarse){.lg-bar .cta{height:2.75rem}.lg-facts dd a{position:relative}.lg-facts dd a::after{content:"";position:absolute;inset:-.75rem -.375rem}}
+@media (max-width:560px){
+  .lg-facts{grid-template-columns:minmax(0,1fr)}
+  .lg-facts dt{padding-bottom:0;border-bottom:0}
+  .lg-facts dd{padding-top:.25rem}
+}
+
+/* the footer: the homepage footer's base row alone */
+.lg-foot.hs-footer{padding-top:1.75rem;padding-bottom:1.75rem}
+.lg-foot .base{margin-top:0;padding-top:0}
+.lg-foot .base::before{display:none}
+.lg-foot .legal a[aria-current]{color:var(--on-dark-body)}
