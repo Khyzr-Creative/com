@@ -1,0 +1,85 @@
+/* ============================================================
+   khyzr.com homepage — Disciplines: six cards on one ground
+   (8 Oct 2026, Cisco, shown four other designs of the section: "maybe
+   we keep the cards, but any way of elevating their design?").
+   The cards stay: the same six, the same words. What changed is how
+   they are made, and what holds them. The title is the picture: one
+   ground, the page's grey, lies under all six and shows between them as
+   one narrow seam (the team); on it six white cards (every discipline).
+   A card is set as a calling card: a card's proportion (seven by four
+   at 1440), the name large at its head where a card carries a name,
+   the discipline's icon bare in the corner as its mark, its line at
+   the foot.
+   Under a pointer the card in hand is covered in khyzr green, from its
+   foot up ("Wherever the gap is, we already cover it"): the section's
+   one green besides the title's. The edge passes through the words and
+   leaves them whole, ink above it and white below, as the manifesto is
+   inked (disciplines.js lays the green face over the card). Nothing
+   lifts and nothing casts a shadow. The cards open nothing, so they are
+   not controls and a keyboard has nothing to stop at.
+   The set arrives once: the ground comes up whole and bare, and the six
+   are laid on it in reading order.
+   Before this (2 Oct 2026, "make these cards nicer, and actual cards"):
+   six loose grey cards on the paper, the icon on a white tile, the name
+   at a label's size, a card lifting to white under the pointer. Before
+   that, "In register" (labs khyzr-com/disciplines-in-register/). The
+   four designs passed over on 8 Oct are in labs/disciplines/.
+   ============================================================ */
+/* the measures both faces of a card are set by: the seam, the card's padding and least height, the mark, the name,
+   the line (its size, its gap from the name, its measure) */
+.hs-disciplines{--seam:.625rem;--pad:clamp(1.375rem,2.2*var(--u),2.125rem);--ch:clamp(11rem,16.6*var(--u),16.5rem);--ic:clamp(2.25rem,3.1*var(--u),3rem);
+  --ns:clamp(1.5rem,2.5*var(--u),2.625rem);--ls:clamp(.875rem,1.3*var(--u),.96875rem);--lg:1.25rem;--lm:21em;
+  padding:var(--section-pad-y) var(--gx) calc(var(--section-pad-y) * .6)}
+.hs-disciplines .in{max-width:var(--container);margin:0 auto}
+
+/* ---- the ground: one, under all six, a seam wide between them and around them ---- */
+.hs-disciplines .cards{list-style:none;margin-top:var(--hs-head-gap);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--seam);padding:var(--seam);
+  border-radius:var(--radius-l);background:var(--surface-2);
+  transform-origin:50% 100%;transition:transform var(--dur-enter) var(--ease-trace),opacity .8s ease}
+
+/* ---- a card, and its green face: the name at the head, the mark in the corner, the line at the foot ---- */
+.hs-disciplines .card,.hs-disciplines .cv{display:flex;flex-direction:column;justify-content:space-between;padding:var(--pad)}
+.hs-disciplines .card{position:relative;isolation:isolate;overflow:hidden;min-height:var(--ch);border-radius:var(--radius-s);background:var(--paper);box-shadow:inset 0 0 0 1px var(--hairline);
+  transform-origin:50% 100%;transition:transform var(--dur-enter) var(--ease-trace) calc(.2s + var(--i) * 90ms),opacity .6s ease calc(.2s + var(--i) * 90ms)}
+/* the name: the card's picture. One line in every card from 360px up, "Sales & Marketing" the longest, clear of the mark */
+.hs-disciplines .card h3,.hs-disciplines .cv .n{display:block;padding-right:calc(var(--ic) + .75rem);font:var(--fw-ui) var(--ns)/1.05 var(--font-display);letter-spacing:-.03em;color:var(--ink)}
+/* the mark: the discipline's illustrative icon from the system, bare, forest on light, never under the set's 32px. It
+   is centred on the name's line at every size, and stands an eighth out so its ink, not its box, meets the padding */
+.hs-disciplines .ic{position:absolute;top:calc(var(--pad) + (var(--ns) * 1.05 - var(--ic)) / 2);right:calc(var(--pad) - .125rem);font-size:var(--ic);line-height:0;color:var(--forest)}
+.hs-disciplines .ic svg{display:block}
+/* the line: at the foot, three even lines on a desktop (two to four on the narrower cuts) */
+.hs-disciplines .card p,.hs-disciplines .cv .l{display:block;margin-top:var(--lg);max-width:var(--lm);font-size:var(--ls);line-height:1.5;color:var(--muted);text-wrap:balance}
+
+/* ---- the card in hand: its green face comes up from the foot. The face is a picture of the card (disciplines.js):
+   its words are drawn here from the card's own, so a search finds each line once and nothing in it can be selected ---- */
+.hs-disciplines .cv{position:absolute;inset:0;z-index:1;background:var(--khyzr-green);pointer-events:none;user-select:none;-webkit-user-select:none;
+  clip-path:inset(100% 0 0 0);transition:clip-path var(--dur-hover) var(--ease-drift)}
+.hs-disciplines .cv .n::before,.hs-disciplines .cv .l::before{content:attr(data-t)}
+.hs-disciplines .cv .n{color:#fff}
+.hs-disciplines .cv .l{color:var(--on-dark-soft)}
+.hs-disciplines .cv .ic{color:var(--green-100)}
+@media (hover:hover) and (pointer:fine){
+  .hs-disciplines .card:hover .cv{clip-path:inset(0)}
+}
+
+/* ---- two by three, then one column ---- */
+@media (min-width:641px) and (max-width:1100px){
+  .hs-disciplines{--ch:clamp(10rem,22*var(--u),14rem);--ns:clamp(1.5rem,3.6*var(--u),2.25rem);--ls:.96875rem}
+  .hs-disciplines .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .hs-disciplines{--seam:.5rem;--pad:1.375rem;--ch:0px;--ic:2.25rem;--ns:clamp(1.5rem,7.6*var(--u),1.875rem);--ls:.96875rem;--lg:1rem;--lm:none}
+  .hs-disciplines .cards{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---- the arrival, once: the ground whole and bare, then the six laid on it in reading order, the page's 90ms apart ---- */
+.js .hs-disciplines:not(.is-in) .cards{opacity:0;transform:translateY(var(--rise-distance)) scale(var(--rise-scale));transition:none}
+.js .hs-disciplines:not(.is-in) .card{opacity:0;transform:translateY(1rem) scale(var(--rise-scale));transition:none}
+@media (prefers-reduced-motion:reduce){
+  .hs-disciplines .cards,.hs-disciplines .card{transform:none!important;opacity:1!important;transition:none!important}
+  /* the green still answers, without travelling */
+  .hs-disciplines .cv{clip-path:none;opacity:0;transition:opacity .2s ease}
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:reduce){
+  .hs-disciplines .card:hover .cv{clip-path:none;opacity:1}
+}

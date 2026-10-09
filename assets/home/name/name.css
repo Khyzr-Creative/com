@@ -1,0 +1,122 @@
+/* =====================================================================
+   The name · Night field (from labs/sections/name.html, design 4)
+   No JS: a dark band with the chapters in flow. With JS: a 460vh track, a
+   sticky stage, and chapters that cross-fade off --pin in pure CSS; the
+   trail of names is projected from the field (assets/home/name/name.js).
+   الخضر stays whole: lang ar, dir rtl, Noto Naskh, no tracking, never split.
+   ===================================================================== */
+
+/* ---------------- shared (the lab page's, scoped) ---------------- */
+.hs-name .ar{font-family:var(--font-arabic);letter-spacing:0;word-spacing:0;font-feature-settings:normal;unicode-bidi:isolate;white-space:nowrap}
+.hs-name .nw{white-space:nowrap}
+
+/* the fifteen tongues: the face follows the lang. --name-ts evens out the optical size of each
+   script against Outfit; it is applied once, on the element that sets the size. */
+.hs-name [lang="en"]{font-family:var(--font-text)}
+.hs-name :lang(ar),.hs-name :lang(fa){font-family:var(--font-arabic)}
+.hs-name :lang(ur){font-family:"Noto Nastaliq Urdu","Noto Naskh Arabic","Urdu Typesetting",serif}
+.hs-name :lang(hi){font-family:"Noto Sans Devanagari","Nirmala UI","Kohinoor Devanagari",sans-serif}
+.hs-name :lang(ta){font-family:"Noto Sans Tamil","Nirmala UI","Tamil Sangam MN",sans-serif}
+.hs-name :lang(zh-Hans){font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+.hs-name :lang(ja){font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic UI",Meiryo,sans-serif}
+.hs-name :lang(ko){font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.hs-name :lang(zh-Hans),.hs-name :lang(ja),.hs-name :lang(ko){--name-ts:.88}
+.hs-name :lang(hi){--name-ts:1}
+.hs-name :lang(ta){--name-ts:.94}
+.hs-name :lang(ar),.hs-name :lang(fa){--name-ts:1.14}
+.hs-name :lang(ur){--name-ts:.9}
+.hs-name [lang]:not([lang="en"]){letter-spacing:0;font-feature-settings:normal}
+
+/* ---------------- nightfall ----------------
+   The way in: the hero's gradient run the other way, white down through the
+   leaf greens into the field's own pitch, so the page walks into the night
+   rather than cutting to it. The same artifact, its stops mirrored. */
+.hs-dusk{height:clamp(18.75rem,62vh,38.75rem);background:#030503;
+  background:linear-gradient(to bottom in oklab,#FFFFFF 0%,#DBE9DB 7%,#85B485 16%,#2F802F 29%,#064606 42%,#043304 64%,#030503 100%)}
+/* after a grey section it starts from that grey, so no white edge stands between the two (8 Oct 2026: Insights,
+   white, is off, and Products, grey, is the section above) */
+.hs--alt + .hs-dusk{background:linear-gradient(to bottom in oklab,var(--surface-2) 0%,#DBE9DB 7%,#85B485 16%,#2F802F 29%,#064606 42%,#043304 64%,#030503 100%)}
+/* from the forest green down, the nav turns to ink (its [data-nav="dark"] marker) */
+.hs-dusk{position:relative}
+.hs-dusk i{position:absolute;left:0;right:0;bottom:0;top:40%}
+
+/* ---------------- night field ---------------- */
+.hs-name{position:relative;background:var(--pitch);color:var(--on-dark-body)}
+.hs-name .stage{position:relative;overflow:hidden;padding:var(--section-pad-y) var(--gx)}
+.hs-name canvas.field{display:none}
+.hs-name .vs{list-style:none}
+.hs-name .ch{position:relative;max-width:var(--container);margin:0 auto}
+.hs-name .ch + .ch,.hs-name .vs .ch,.hs-name .c4{margin-top:clamp(3.5rem,7*var(--u),6rem)}
+.hs-name .c0{text-align:center}
+.hs-name .c0 h2{font:var(--fw-display) var(--text-title)/1.02 var(--font-display);letter-spacing:var(--tracking-display);color:var(--on-dark-heading)}
+.hs-name .c0 .ar{display:block;margin:-.12em auto -.22em;font-weight:400;font-size:clamp(6.5rem,12.5*var(--u),12.25rem);line-height:1.6;color:var(--on-dark-accent)}
+.hs-name .c0 .gl{font:var(--fw-ui) 1.0625rem/1.35 var(--font-text);color:var(--on-dark-body)}
+.hs-name .vs .ch{max-width:min(var(--container),100%)}
+.hs-name .vs h3{font:var(--fw-ui) clamp(1.7rem,2.6*var(--u),2.4rem)/1.1 var(--font-text);letter-spacing:-.024em;color:var(--on-dark-heading)}
+.hs-name .vs p{margin-top:var(--space-2);max-width:31ch;font:var(--fw-text) clamp(1.15rem,1.55*var(--u),1.42rem)/1.5 var(--font-text);letter-spacing:-.008em;color:var(--on-dark-body)}
+.hs-name .vs b{font-weight:var(--fw-ui);color:var(--on-dark-heading)}
+.hs-name .pl{display:flex;justify-content:center;gap:clamp(1.5rem,5*var(--u),5.5rem);list-style:none;font:var(--fw-display) clamp(2.4rem,5.4*var(--u),5.2rem)/1 var(--font-display);letter-spacing:-.035em;color:var(--on-dark-heading)}
+/* the trail, in flow (no JS, reduced motion): the fifteen as a quiet register under the pillars */
+.hs-name .trail{list-style:none;max-width:var(--container);margin:clamp(4rem,8*var(--u),7rem) auto 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.875rem var(--space-3);text-align:center}
+/* the trail's type a step up (2 Oct 2026, Cisco: "increase the size of the language labels and their words abit"): each name, its
+   language and its words about an eighth larger (were 30, 13 and 15px on the field; 26, 13 and 15 in flow): on the field from
+   761px up (a phone keeps its sizes, below), in flow (no JS, reduced motion) at every width */
+.hs-name .trail .nm{display:block;font-size:calc(1.8125rem * var(--name-ts,1));line-height:1.6;font-weight:var(--fw-ui);color:var(--on-dark-heading);white-space:nowrap}
+.hs-name .trail .lg{display:block;font:var(--fw-ui) .90625rem/1.3 var(--font-text);color:var(--on-dark-accent)}
+.hs-name .trail .ws{display:block;margin-top:.375rem;font-size:calc(1.03125rem * var(--name-ts,1));line-height:1.6;color:var(--on-dark-body);text-wrap:balance}
+.hs-name .trail .w + .w{margin-inline-start:.5em}
+.js .hs-name{height:460vh}
+.js .hs-name .stage{position:sticky;top:0;height:100vh;padding:0}
+.js .hs-name canvas.field{display:block;position:absolute;inset:0;width:100%;height:100%}
+.js .hs-name .ch{position:absolute;left:max(var(--gx),calc((100% - var(--container)) / 2));right:max(var(--gx),calc((100% - var(--container)) / 2));top:clamp(5.75rem,15vh,10.5rem);margin:0;
+  opacity:var(--name-o);transform:translate3d(0,calc((1 - var(--name-o)) * 22px),0);visibility:visible}
+.js .hs-name .c0{top:clamp(6rem,13vh,9.375rem)}
+.js .hs-name .c4{top:clamp(6.875rem,19vh,11.875rem)}
+.js .hs-name .c0{--name-o:clamp(0,calc((.125 - var(--pin,0)) * 26),1)}
+.js .hs-name .c1{--name-o:clamp(0,min(calc((var(--pin,0) - .15) * 26),calc((.34 - var(--pin,0)) * 26)),1)}
+.js .hs-name .c2{--name-o:clamp(0,min(calc((var(--pin,0) - .37) * 26),calc((.57 - var(--pin,0)) * 26)),1)}
+.js .hs-name .c3{--name-o:clamp(0,min(calc((var(--pin,0) - .60) * 26),calc((.81 - var(--pin,0)) * 26)),1)}
+.js .hs-name .c4{--name-o:clamp(0,calc((var(--pin,0) - .85) * 26),1)}
+/* with the field to come, the register waits for it out of the layout, so its six scripts' fonts aren't fetched
+   with the page (no JS, no WebGL or reduced motion: it reads in flow) */
+@media (prefers-reduced-motion:no-preference){.js .hs-name:not(.trail-on):not(.gl-off) .trail{display:none}}
+/* the trail, projected: each name stands in the grass where the light left it */
+.js .hs-name.trail-on .trail{position:absolute;inset:0;margin:0;max-width:none;display:block;pointer-events:none}
+.js .hs-name.trail-on .trail li{position:absolute;left:0;top:0;--name-k:1;transform:translate3d(var(--name-x,-999px),var(--name-y,0px),0) translate(-50%,-100%) scale(var(--name-s,1));transform-origin:50% 100%;opacity:var(--name-o,0);will-change:transform,opacity;
+  text-shadow:0 0 2px rgba(3,5,3,.85),0 0 7px rgba(3,5,3,.7)}
+/* each name stands in its own pool of shade, so it reads on the brightest grass and on the light itself */
+.js .hs-name.trail-on .trail li::before{content:"";position:absolute;inset:-.35em -.7em -.25em;z-index:-1;pointer-events:none;filter:blur(6px);
+  background:radial-gradient(closest-side,rgba(3,5,3,.72),rgba(3,5,3,.6) 62%,rgba(3,5,3,0))}
+.js .hs-name.trail-on .trail .nm{font-size:calc(var(--name-k) * 2.125rem * var(--name-ts,1));line-height:1.45}
+.js .hs-name.trail-on .trail .lg{font-size:max(.8125rem,calc(var(--name-k) * .9375rem));margin-top:calc(var(--name-k) * -2px);color:var(--on-dark-soft)}
+.js .hs-name.trail-on .trail .ws{font-size:max(.6875rem,calc(var(--name-k) * 1.0625rem * var(--name-ts,1)));margin-top:calc(var(--name-k) * .3125rem);opacity:var(--name-wo,0);white-space:nowrap}
+@media (max-width:760px){
+  .js .hs-name{height:520vh}
+  .js .hs-name .ch{top:clamp(4.5rem,11vh,6.875rem)}
+  .hs-name .pl{flex-direction:column;align-items:center;gap:.25rem}
+  .hs-name .trail{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hs-name .trail li:last-child:nth-child(odd){grid-column:1/-1}
+  /* on a phone the trail keeps its earlier sizes: the larger ones left the narrow field no clear place for every name */
+  .js .hs-name.trail-on .trail .nm{font-size:calc(var(--name-k) * 1.5rem * var(--name-ts,1))}
+  .js .hs-name.trail-on .trail .lg{font-size:max(.75rem,calc(var(--name-k) * .8125rem))}
+  .js .hs-name.trail-on .trail .ws{font-size:max(.6875rem,calc(var(--name-k) * .9375rem * var(--name-ts,1)))}
+}
+/* a phone on its side: the pillars stand in a row again, so the last frame keeps its field clear */
+@media (max-width:760px) and (orientation:landscape){.hs-name .pl{flex-direction:row;align-items:baseline;gap:clamp(1.5rem,5vw,5.5rem)}}
+@media (max-width:420px){.js .hs-name.trail-on .trail .nm{font-size:calc(var(--name-k) * 1.3125rem * var(--name-ts,1))}}
+@media (max-width:380px){.js .hs-name.trail-on .trail .nm{font-size:calc(var(--name-k) * 1.1875rem * var(--name-ts,1))}}
+@media (prefers-reduced-motion:reduce){
+  .js .hs-name{height:auto}
+  .js .hs-name .stage{position:relative;height:auto;padding:var(--section-pad-y) var(--gx) calc(62vh + var(--space-6))}
+  .js .hs-name canvas.field{top:auto;bottom:0;height:62vh;-webkit-mask-image:linear-gradient(transparent,#000 15%);mask-image:linear-gradient(transparent,#000 15%)}
+  .js .hs-name .ch{position:relative;left:auto;right:auto;top:auto;bottom:auto;margin:0 auto;opacity:1;transform:none}
+  .js .hs-name .vs .ch,.js .hs-name .c4{margin-top:clamp(3.5rem,7*var(--u),6rem)}
+  .js .hs-name .c4{position:absolute;left:0;right:0;bottom:clamp(2.5rem,8vh,5rem)}
+}
+/* JS without WebGL (name.js adds .gl-off): the no-JS layout, so the register never sits over the
+   pinned chapters. Not in the lab, whose stage collided there. */
+.js .hs-name.gl-off{height:auto}
+.js .hs-name.gl-off .stage{position:relative;height:auto;padding:var(--section-pad-y) var(--gx)}
+.js .hs-name.gl-off canvas.field{display:none}
+.js .hs-name.gl-off .ch{position:relative;left:auto;right:auto;top:auto;bottom:auto;margin:0 auto;opacity:1;transform:none}
+.js .hs-name.gl-off .vs .ch,.js .hs-name.gl-off .c4{margin-top:clamp(3.5rem,7*var(--u),6rem)}

@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(r,n){r.classList.add("js");if(matchMedia("(pointer:fine)").matches&&!matchMedia("(forced-colors:active)").matches)r.classList.add("trace-on");if((n.hardwareConcurrency||8)<=2||(n.deviceMemory&&n.deviceMemory<=2))r.classList.add("perf-lite");if(!("gpu" in n)||matchMedia("(prefers-reduced-motion:reduce)").matches)r.classList.add("orb-off");setTimeout(function(){r.classList.add("type-in")},1600);setTimeout(function(){if(!r.classList.contains("orb-on"))r.classList.add("orb-off")},5000)})(document.documentElement,navigator)</script>
+<script src="assets/hero/bloop.js" async fetchpriority="high"></script>
+<title>khyzr | Strive Forward. Thrive Together.</title>
+<meta name="description" content="khyzr — strategy, design, technology, and operations as one team. One ally that becomes part of your business.">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://khyzr.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="khyzr">
+<meta property="og:title" content="khyzr | Strive Forward. Thrive Together.">
+<meta property="og:description" content="khyzr — strategy, design, technology, and operations as one team. One ally that becomes part of your business.">
+<meta property="og:url" content="https://khyzr.com/">
+<meta property="og:image" content="https://khyzr-creative.github.io/com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="khyzr. One for All. We build solutions for everything your enterprise needs.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="design-system/assets/logos/khyzr-symbol_on-dark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  :root{
+    --bg:#ffffff;
+    --surface:#ffffff;
+    --surface-2:#f5f5f5;
+    --ink:#0a0a0a;        /* pitch black — workhorse accent */
+    --body-c:#262d29;
+    --muted:#5d665f;
+    --faint:#8b938c;
+    --hair:#e7e7e7;
+    --green:#0A690A;      /* rare special accent */
+    --green-bright:#91bc91;
+    --font:"Outfit",system-ui,sans-serif;
+    --font-tech:"Manrope",system-ui,sans-serif;
+    --fw-display:600;
+    --fw-ui:500;
+    --fw-text:400;
+    --serif:"Instrument Serif",Georgia,serif;
+  }
+  /* Display face: "Outfit" — LOCKED 2026-07-08 (TWK Everett was considered; not licensed). */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  /* glide (assets/home/glide.js) eases the wheel and in-page links itself; the browser's own smoothing would fight it */
+  html.glide{scroll-behavior:auto}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--font);font-weight:var(--fw-text);color:var(--body-c);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  ::selection{background:rgba(10,105,10,.18)}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:.55em;font-family:var(--font);font-weight:var(--fw-ui);font-size:.9375rem;line-height:1;
+    padding:.875rem 1.625rem;border-radius:999px;cursor:pointer;text-decoration:none;border:1px solid transparent;transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .2s ease,box-shadow .5s ease,border-color .2s ease;white-space:nowrap}
+  .btn-black{background:var(--ink);color:#fff}
+  @media (hover:hover){.btn-black:hover{transform:scale(1.05);background:#000;box-shadow:0 14px 30px -12px rgba(0,0,0,.55)}}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--hair)}
+  @media (hover:hover){.btn-ghost:hover{border-color:#cdcdcd;background:#fff;transform:scale(1.05)}}
+  .btn:active{transform:scale(.98)}
+  /* the pills and buttons answer a press themselves (:active), so a finger gets no grey flash over them */
+  .btn,.btn-nav,button{-webkit-tap-highlight-color:transparent}
+  /* a link under a thumb answers in the brand's green, not the browser's blue */
+  a{-webkit-tap-highlight-color:rgba(10,105,10,.14)}
+  .arrow{display:inline-flex;align-items:center;transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+  .arrow svg{width:1.05em;height:1.05em}
+  .lnk{display:inline-flex;align-items:center;gap:.5em;font-weight:var(--fw-ui);color:var(--ink);text-decoration:none}
+  @media (hover:hover){.lnk:hover .arrow{transform:translateX(4px)}}
+
+  /* ---------- floating nav (paper flip — Components §02 spec) ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:60;height:4rem;
+    padding:0 var(--gx);
+    background:transparent;border-bottom:1px solid transparent;
+    transition:background .35s ease,border-color .35s ease}
+  .nav-in{position:relative;max-width:var(--container);margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between}
+  /* paper once the page moves */
+  .nav.scrolled{background:#fff;border-bottom-color:var(--hair)}
+  html:not(.js) .nav{position:absolute}
+  .nav .brand{display:flex;align-items:center;text-decoration:none;border-radius:var(--radius-s)}
+  /* the wordmark leads, 76px (Cisco, 2 Oct 2026: "reduce the size of this logo"; it was 96), under the system's 90px floor
+     as the product navs' wordmarks are, flagged in its Logos rule; it crossfades on-light → on-dark over the dark sections */
+  .brand .wm{position:relative;display:block;width:4.75rem;aspect-ratio:398.637/183.737}
+  .brand .wm img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .35s ease}
+  .brand .w-dark{opacity:0}
+  .nav.ink .w-dark{opacity:1}
+  .nav.ink .w-light{opacity:0}
+  /* over the dark sections (the name, the close, the footer): the paper's ink twin, no glass. Both are solid: at 97%
+     and 94% the page's words showed through the bar as it passed over them (the phone pass, 9 Oct 2026) */
+  .nav.ink{background:#0a0a0a;border-bottom-color:rgba(255,255,255,.1)}
+  .nav-mid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:.375rem}
+  .nav-mid a{font-size:.875rem;font-weight:var(--fw-ui);color:var(--muted);text-decoration:none;transition:color .25s ease,background .2s ease;padding:.5625rem .9375rem;border-radius:999px}
+  @media (hover:hover){.nav-mid a:hover{color:var(--ink);background:var(--surface-2)}}
+  .nav.ink .nav-mid a{color:rgba(255,255,255,.78)}
+  @media (hover:hover){.nav.ink .nav-mid a:hover{color:#fff;background:rgba(255,255,255,.09)}}
+  /* where you are: the link of the section on screen, with a small green light under it */
+  .nav-mid a{position:relative}
+  .nav-mid a::after{content:"";position:absolute;left:50%;bottom:.1875rem;width:.25rem;height:.25rem;margin-left:-2px;border-radius:50%;background:var(--green);
+    opacity:0;transform:scale(.3);transition:opacity .3s ease,transform .5s cubic-bezier(.34,1.56,.64,1)}
+  .nav-mid a[aria-current="true"]{color:var(--ink)}
+  .nav-mid a[aria-current="true"]::after{opacity:1;transform:none}
+  .nav.ink .nav-mid a[aria-current="true"]{color:#fff}
+  .nav.ink .nav-mid a::after{background:var(--green-bright)}
+  /* skip to content: out of sight until a keyboard reaches it */
+  .skip{position:fixed;left:1rem;top:.75rem;z-index:100;padding:.75rem 1.125rem;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;
+    font:var(--fw-ui) .875rem/1 var(--font);transform:translateY(-160%)}
+  .skip:focus{transform:none}
+  main:focus{outline:none}
+  .btn-nav{background:var(--ink);color:#fff;font-weight:var(--fw-ui);font-size:.84375rem;height:2.5rem;padding:0 1.25rem;display:inline-flex;align-items:center;border-radius:999px;text-decoration:none;transition:transform .5s cubic-bezier(.34,1.56,.64,1),background .3s ease,color .3s ease}
+  @media (hover:hover){.btn-nav:hover{transform:scale(1.05)}}
+  .btn-nav:active{transform:scale(.98)}
+  .nav.ink .btn-nav{background:#fff;color:#0a0a0a}
+  @media(max-width:1000px){ .nav-mid{display:none} }
+  @media(max-width:760px){ .nav{height:3.5rem} }
+  /* a full-size target for a finger */
+  @media (pointer:coarse){ .btn-nav{height:2.75rem} .nav .brand{min-height:2.75rem;padding:0 .375rem;margin:0 -.375rem} }
+
+  /* ---------- hero: the Bloop orb (assets/hero/bloop.js) on white ---------- */
+  .hero{position:relative;z-index:1;width:100%;height:100vh;height:100svh;min-height:45rem;overflow:hidden;background:var(--bg)}
+  /* the content centres in the space under the nav, a little above the middle; the auto margins never push it under the nav */
+  .hero-wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:4rem var(--gx) 8vh}
+  .hero-wrap>:first-child{margin-top:auto}
+  .hero-wrap>:last-child{margin-bottom:auto}
+  /* the orb is drawn 0.9375 of the slot, its canvas 1.12 of the orb; the still stands in without WebGPU */
+  .orb-slot{position:relative;flex:none;width:min(38vh,64vw,26.875rem);aspect-ratio:1}
+  .orb-canvas{position:absolute;left:50%;top:50%;width:105%;height:105%;transform:translate(-50%,-50%);display:block}
+  html:not(.js) .orb-slot,html.orb-off .orb-slot{background:url(assets/hero/bloop-still.webp) center/105% auto no-repeat}
+  html:not(.js) .orb-canvas,html.orb-off .orb-canvas{display:none}
+  .hero-title{margin-top:clamp(1.625rem,4.4vh,3.125rem);font-family:var(--font);font-weight:var(--fw-display);font-size:clamp(3rem,6.8*var(--u,1vw),6.4rem);line-height:1.3;letter-spacing:-.036em;color:var(--ink);text-wrap:balance}
+  .hero-tagline{margin-top:clamp(.75rem,1.8vh,1.25rem);max-width:34ch;font-size:clamp(1.05rem,1.4*var(--u,1vw),1.28rem);line-height:1.5;color:var(--muted);font-weight:var(--fw-text);text-wrap:pretty}
+  .hero-cta{display:flex;gap:.75rem;margin-top:clamp(1.375rem,3.2vh,2rem);flex-wrap:wrap;justify-content:center}
+  /* the words arrive as the orb settles */
+  html.js .hero-title,html.js .hero-tagline,html.js .hero-cta{opacity:0;transform:translateY(22px) scale(.985);transform-origin:50% 100%;transition:opacity .9s ease,transform .9s cubic-bezier(.34,1.45,.64,1)}
+  html.orb-on .hero-title,html.orb-on .hero-tagline,html.orb-on .hero-cta,html.type-in .hero-title,html.type-in .hero-tagline,html.type-in .hero-cta,html.orb-off .hero-title,html.orb-off .hero-tagline,html.orb-off .hero-cta{opacity:1;transform:none}
+  /* a phone: the hero is the screen it is seen on, its actions included (the 720px floor is for a short desktop
+     window), and it grows only if its content needs more */
+  @media (max-width:760px){
+    .hero{height:auto;min-height:0}
+    .hero-wrap{height:auto;min-height:100vh;min-height:100svh}
+  }
+  /* a phone on its side: the orb beside the words, so the first screen holds all of it */
+  @media (orientation:landscape) and (max-height:500px){
+    .hero{height:auto;min-height:0}
+    .hero-wrap{height:auto;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:auto minmax(0,22rem);
+      align-content:center;justify-content:center;column-gap:clamp(1.75rem,6vw,4.5rem);text-align:left;padding:4.25rem var(--gx) 1.25rem}
+    .hero-wrap>:first-child{margin-top:0}
+    .hero-wrap>:last-child{margin-bottom:0}
+    .orb-slot{grid-row:1/4;align-self:center;width:min(62vh,40vw)}
+    .hero-title{margin-top:0;align-self:end;font-size:clamp(2.4rem,12vh,3.4rem);line-height:1.15}
+    .hero-tagline{margin-top:.625rem}
+    .hero-cta{margin-top:1.25rem;justify-content:flex-start}
+  }
+  /* the words come up as the orb begins to bloom, a beat behind it and each a beat behind the last (9 Oct 2026; they
+     waited for the bloom to finish, about two seconds more, with the screen bare but for the orb: 3.6 s on a phone) */
+  html.orb-on .hero-title{transition-delay:.3s}
+  html.orb-on .hero-tagline,html.type-in .hero-tagline{transition-delay:.44s}
+  html.orb-on .hero-cta,html.type-in .hero-cta{transition-delay:.58s}
+  @media (prefers-reduced-motion:reduce){html.js .hero-title,html.js .hero-tagline,html.js .hero-cta{opacity:1;transform:none;transition:none}}
+
+  /* QA: consistent keyboard focus + anchor offset under the floating nav */
+  a:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:9px}
+  .nav.ink a:focus-visible{outline-color:#fff}
+  [id]{scroll-margin-top:6rem}
+</style>
+<link rel="stylesheet" href="assets/home/tokens.css">
+<link rel="stylesheet" href="assets/home/home.css">
+<link rel="stylesheet" href="assets/home/trace.css">
+<!-- @css -->
+<link rel="stylesheet" href="assets/home/manifesto/manifesto.css">
+<link rel="stylesheet" href="assets/home/trusted/trusted.css">
+<link rel="stylesheet" href="assets/home/disciplines/disciplines.css">
+<link class="hs-name-fonts" data-href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&text=%D8%A7%D8%AA%D8%AD%D8%AE%D8%AF%D8%B1%D8%B5%D8%B6%D9%82%D9%84%D9%88%DB%8C%E0%A4%82%E0%A4%95%E0%A4%96%E0%A4%9C%E0%A4%A4%E0%A4%A5%E0%A4%AA%E0%A4%AF%E0%A4%B0%E0%A4%B5%E0%A4%B8%E0%A4%BC%E0%A4%BE%E0%A4%BF%E0%A5%8D%E0%AE%95%E0%AE%9A%E0%AE%9C%E0%AE%A8%E0%AE%AE%E0%AE%B0%E0%AE%B2%E0%AE%B3%E0%AE%B5%E0%AE%BF%E0%AF%86%E0%AF%8D%E3%82%BA%E3%83%92%E3%83%AB%E5%81%A5%E5%85%B9%E5%AF%8C%E5%B0%94%E5%B8%8C%E5%BA%B7%E6%88%90%E8%B4%A2%E9%95%B7%E9%95%BF%EA%B0%95%EA%B1%B4%EB%93%9C%EB%A5%B4%EB%B6%80%EC%84%B1%EC%9E%A5%ED%9E%88&display=swap" rel="stylesheet">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&text=%D8%A7%D8%AA%D8%AD%D8%AE%D8%AF%D8%B1%D8%B5%D8%B6%D9%82%D9%84%D9%88%DB%8C%E0%A4%82%E0%A4%95%E0%A4%96%E0%A4%9C%E0%A4%A4%E0%A4%A5%E0%A4%AA%E0%A4%AF%E0%A4%B0%E0%A4%B5%E0%A4%B8%E0%A4%BC%E0%A4%BE%E0%A4%BF%E0%A5%8D%E0%AE%95%E0%AE%9A%E0%AE%9C%E0%AE%A8%E0%AE%AE%E0%AE%B0%E0%AE%B2%E0%AE%B3%E0%AE%B5%E0%AE%BF%E0%AF%86%E0%AF%8D%E3%82%BA%E3%83%92%E3%83%AB%E5%81%A5%E5%85%B9%E5%AF%8C%E5%B0%94%E5%B8%8C%E5%BA%B7%E6%88%90%E8%B4%A2%E9%95%B7%E9%95%BF%EA%B0%95%EA%B1%B4%EB%93%9C%EB%A5%B4%EB%B6%80%EC%84%B1%EC%9E%A5%ED%9E%88&display=swap" rel="stylesheet"></noscript>
+<link class="hs-name-fonts" data-href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600&text=%D8%A7%D8%A9%D8%AA%D8%AB%D8%AD%D8%AE%D8%AF%D8%B1%D8%B3%D8%B4%D8%B5%D8%B6%D9%82%D9%84%D9%85%D9%86%D9%88%DB%8C&display=swap" rel="stylesheet">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600&text=%D8%A7%D8%A9%D8%AA%D8%AB%D8%AD%D8%AE%D8%AF%D8%B1%D8%B3%D8%B4%D8%B5%D8%B6%D9%82%D9%84%D9%85%D9%86%D9%88%DB%8C&display=swap" rel="stylesheet"></noscript>
+<!-- /@css -->
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-in">
+  <a href="#" class="brand" aria-label="khyzr"><span class="wm">
+    <img class="w-dark" src="design-system/assets/logos/khyzr-wordmark_on-dark.svg" alt="" width="96" height="44">
+    <img class="w-light" src="design-system/assets/logos/khyzr-wordmark_on-light.svg" alt="" width="96" height="44">
+  </span></a>
+  <nav class="nav-mid" aria-label="Main">
+    <a href="#disciplines">What we do</a>
+    <a href="#ecosystem">Ecosystem</a>
+    <a href="#products">Our brands</a>
+    <a href="#name">About</a>
+  </nav>
+  <a href="https://calendar.app.google/kgfHw2AJN4HrpkCr7" class="btn-nav" target="_blank" rel="noopener">Book a conversation</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1 · HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-wrap">
+    <div class="orb-slot" aria-hidden="true"><canvas class="orb-canvas"></canvas></div>
+    <h1 class="hero-title" id="hero-title">One for All.</h1>
+    <p class="hero-tagline">We build solutions for everything your enterprise needs.</p>
+    <div class="hero-cta">
+      <a href="https://calendar.app.google/kgfHw2AJN4HrpkCr7" class="btn btn-black" target="_blank" rel="noopener">Book a conversation</a>
+      <a href="#disciplines" class="btn btn-ghost">Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- 1.25 · MANIFESTO -->
+<!-- @section:manifesto -->
+<section class="hs hs-manifesto" aria-label="What khyzr is">
+  <div class="in">
+    <div class="entry">
+      <p class="ink">The full leadership bench growing companies can’t hire fast enough&nbsp;— strategy, operations, finance and technology, working as one team inside yours.</p>
+    </div>
+  </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="manifesto-deboss" x="-4%" y="-8%" width="108%" height="116%" color-interpolation-filters="sRGB">
+      <feOffset in="SourceAlpha" dx="1.4" dy="2" result="sh"/>
+      <feGaussianBlur in="sh" stdDeviation="1.2" result="shb"/>
+      <feComposite in="SourceAlpha" in2="shb" operator="out" result="rimTop"/>
+      <feFlood flood-color="#0E2C10" flood-opacity=".46"/>
+      <feComposite in2="rimTop" operator="in" result="shade"/>
+      <feOffset in="SourceAlpha" dx="-.9" dy="-1.3" result="hl"/>
+      <feGaussianBlur in="hl" stdDeviation=".8" result="hlb"/>
+      <feComposite in="SourceAlpha" in2="hlb" operator="out" result="rimBot"/>
+      <feFlood flood-color="#FFFFFF" flood-opacity="1"/>
+      <feComposite in2="rimBot" operator="in" result="light"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge>
+    </filter>
+  </svg>
+</section>
+<!-- /@section:manifesto -->
+
+<!-- 1.5 · TRUSTED BY -->
+<!-- @section:trusted -->
+<section class="hs hs-trusted" aria-label="Trusted by">
+  <div class="in">
+    <div class="cap">
+      <div class="stat">
+        <span class="num"><span class="count" data-count="25">25</span><span class="plus">+</span></span>
+        <span class="lbl">Companies</span>
+      </div>
+      <div class="stat">
+        <span class="num"><span class="count" data-count="3">3</span><span class="plus">+</span></span>
+        <span class="lbl">Countries</span>
+      </div>
+    </div>
+    <button class="pp" type="button" aria-label="Pause the logos"></button>
+    <div class="mask">
+      <div class="track">
+        <span class="lg"><img src="assets/clients/light/campus-cloud.png" alt="Campus Cloud" width="147" height="77" loading="lazy" decoding="async" draggable="false" style="height:4.8125rem"></span>
+        <span class="lg"><img src="assets/clients/light/olive-burger.png" alt="Olive Burger" width="98" height="94" loading="lazy" decoding="async" draggable="false" style="height:5.875rem"></span>
+        <span class="lg"><img src="assets/clients/light/habibi.svg" alt="Habibi New York" width="164" height="40" loading="lazy" decoding="async" draggable="false" style="height:2.5rem"></span>
+        <span class="lg"><img src="assets/clients/light/focus-expo.png" alt="Focus Expo 26" width="84" height="101" loading="lazy" decoding="async" draggable="false" style="height:6.3125rem"></span>
+        <span class="lg"><img src="assets/clients/light/zamil-ac.png" alt="ZamilAC" width="148" height="67" loading="lazy" decoding="async" draggable="false" style="height:4.1875rem"></span>
+        <span class="lg"><img src="assets/clients/light/pax-beneficia.png" alt="Pax &amp; Beneficia" width="110" height="89" loading="lazy" decoding="async" draggable="false" style="height:5.5625rem"></span>
+        <span class="lg"><img src="assets/clients/light/pomoroi.svg" alt="Pomoroi" width="168" height="18" loading="lazy" decoding="async" draggable="false" style="height:1.125rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/campus-cloud.png" alt="" width="147" height="77" loading="lazy" decoding="async" draggable="false" style="height:4.8125rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/olive-burger.png" alt="" width="98" height="94" loading="lazy" decoding="async" draggable="false" style="height:5.875rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/habibi.svg" alt="" width="164" height="40" loading="lazy" decoding="async" draggable="false" style="height:2.5rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/focus-expo.png" alt="" width="84" height="101" loading="lazy" decoding="async" draggable="false" style="height:6.3125rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/zamil-ac.png" alt="" width="148" height="67" loading="lazy" decoding="async" draggable="false" style="height:4.1875rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/pax-beneficia.png" alt="" width="110" height="89" loading="lazy" decoding="async" draggable="false" style="height:5.5625rem"></span>
+        <span class="lg" aria-hidden="true"><img src="assets/clients/light/pomoroi.svg" alt="" width="168" height="18" loading="lazy" decoding="async" draggable="false" style="height:1.125rem"></span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /@section:trusted -->
+
+<!-- 2 · DISCIPLINES -->
+<!-- @section:disciplines -->
+<section class="hs hs-disciplines" id="disciplines" aria-labelledby="disciplines-title" data-hs-enter=".cards">
+  <div class="in">
+    <header class="hs-head hs-head--split hs-rise">
+      <h2 class="hs-title" id="disciplines-title">Every discipline. <span class="g">One team.</span></h2>
+      <p class="hs-lede">Wherever the gap is, we already cover it&nbsp;— and the parts talk to each other, because it’s all one team.</p>
+    </header>
+    <!-- six cards on one ground. Each card's mark is its discipline's illustrative icon from the design system (Solar
+         Line Duotone, design-system/assets/icons/illustrative/, vendored by tools/pull-design.ps1), inlined so it draws
+         in forest; it stands in the card's corner (disciplines.css), bare. disciplines.js gives each card its green face -->
+    <ul class="cards">
+      <li class="card" style="--i:0"><span class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10" opacity=".5"></circle><path d="M13.024 14.56c-2.31.924-3.465 1.386-4.124.938a1.5 1.5 0 0 1-.398-.398c-.448-.66.014-1.814.938-4.124c.197-.493.295-.74.465-.933q.065-.074.139-.138c.193-.17.44-.268.932-.465c2.31-.924 3.464-1.386 4.124-.938a1.5 1.5 0 0 1 .398.398c.448.66-.014 1.814-.938 4.124c-.197.493-.296.739-.465.932a2 2 0 0 1-.139.139c-.193.17-.44.268-.932.465Z"></path></g></svg></span><h3>Strategy</h3><p>Direction when the path isn’t clear&nbsp;— positioning, growth plans, and the hard calls that set everything else in motion.</p></li>
+      <li class="card" style="--i:1"><span class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.535 10.971c.073-1.208.11-1.813.424-2.394a3.2 3.2 0 0 1 1.38-1.3C3.94 7 4.627 7 6 7c.512 0 .768 0 1.016-.042a3 3 0 0 0 .712-.214c.23-.101.444-.242.871-.524l.22-.144C11.36 4.399 12.632 3.56 13.7 3.925c.205.07.403.17.58.295c.922.648.993 2.157 1.133 5.174A68 68 0 0 1 15.5 12c0 .532-.035 1.488-.087 2.605c-.14 3.018-.21 4.526-1.133 5.175a2.3 2.3 0 0 1-.58.295c-1.067.364-2.339-.474-4.882-2.151L8.6 17.78c-.427-.282-.64-.423-.871-.525a3 3 0 0 0-.712-.213C6.768 17 6.512 17 6 17c-1.374 0-2.06 0-2.66-.277a3.2 3.2 0 0 1-1.381-1.3c-.314-.582-.35-1.186-.424-2.395A17 17 0 0 1 1.5 12c0-.323.013-.671.035-1.029Z"></path><path stroke-linecap="round" d="M20 6s1.5 1.8 1.5 6s-1.5 6-1.5 6" opacity=".4"></path><path stroke-linecap="round" d="M18 9s.5.9.5 3s-.5 3-.5 3" opacity=".7"></path></g></svg></span><h3>Sales &amp; Marketing</h3><p>Demand that compounds: brand, pipeline, and the systems that keep both running without heroics.</p></li>
+      <li class="card" style="--i:2"><span class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M13.765 2.152C13.398 2 12.932 2 12 2s-1.398 0-1.765.152a2 2 0 0 0-1.083 1.083c-.092.223-.129.484-.143.863a1.62 1.62 0 0 1-.79 1.353a1.62 1.62 0 0 1-1.567.008c-.336-.178-.579-.276-.82-.308a2 2 0 0 0-1.478.396C4.04 5.79 3.806 6.193 3.34 7s-.7 1.21-.751 1.605a2 2 0 0 0 .396 1.479c.148.192.355.353.676.555c.473.297.777.803.777 1.361s-.304 1.064-.777 1.36c-.321.203-.529.364-.676.556a2 2 0 0 0-.396 1.479c.052.394.285.798.75 1.605c.467.807.7 1.21 1.015 1.453a2 2 0 0 0 1.479.396c.24-.032.483-.13.819-.308a1.62 1.62 0 0 1 1.567.008c.483.28.77.795.79 1.353c.014.38.05.64.143.863a2 2 0 0 0 1.083 1.083C10.602 22 11.068 22 12 22s1.398 0 1.765-.152a2 2 0 0 0 1.083-1.083c.092-.223.129-.483.143-.863c.02-.558.307-1.074.79-1.353a1.62 1.62 0 0 1 1.567-.008c.336.178.579.276.819.308a2 2 0 0 0 1.479-.396c.315-.242.548-.646 1.014-1.453s.7-1.21.751-1.605a2 2 0 0 0-.396-1.479c-.148-.192-.355-.353-.676-.555A1.62 1.62 0 0 1 19.562 12c0-.558.304-1.064.777-1.36c.321-.203.529-.364.676-.556a2 2 0 0 0 .396-1.479c-.052-.394-.285-.798-.75-1.605c-.467-.807-.7-1.21-1.015-1.453a2 2 0 0 0-1.479-.396c-.24.032-.483.13-.82.308a1.62 1.62 0 0 1-1.566-.008a1.62 1.62 0 0 1-.79-1.353c-.014-.38-.05-.64-.143-.863a2 2 0 0 0-1.083-1.083Z" opacity=".5"></path></g></svg></span><h3>Operations</h3><p>The machine that runs without you in every meeting&nbsp;— process, people, and the connective tissue between them.</p></li>
+      <li class="card" style="--i:3"><span class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-2.809 0-4.213 0-5.222-.674a4 4 0 0 1-1.104-1.104C2 16.213 2 14.81 2 12s0-4.213.674-5.222a4 4 0 0 1 1.104-1.104C4.787 5 6.19 5 9 5h6c2.809 0 4.213 0 5.222.674a4 4 0 0 1 1.104 1.104C22 7.787 22 9.19 22 12s0 4.213-.674 5.222a4 4 0 0 1-1.104 1.104C19.213 19 17.81 19 15 19z" opacity=".5"></path><path d="M12 9a3 3 0 1 1 0 6a3 3 0 0 1 0-6Z"></path><path stroke-linecap="round" d="M5.5 15V9m13 6V9"></path></g></svg></span><h3>Finance</h3><p>Clarity on the numbers&nbsp;— forecasting, controls, and a straight read on what they’re actually telling you.</p></li>
+      <li class="card" style="--i:4"><span class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M18 12h-.801c-.83 0-1.245 0-1.589.195c-.344.194-.557.55-.984 1.261l-.03.052c-.398.663-.597.994-.886.989s-.476-.344-.849-1.022l-1.687-3.067c-.347-.632-.52-.948-.798-.963c-.277-.015-.484.28-.897.87l-.283.405c-.44.627-.659.94-.984 1.11c-.326.17-.709.17-1.474.17H6"></path><path fill="currentColor" d="m8.962 19.37l.474-.58zM12 5.5l-.55.51a.75.75 0 0 0 1.1 0zm3.038 13.872l.474.581zm-5.602-.581c-1.45-1.183-3.143-2.733-4.467-4.43c-1.339-1.715-2.219-3.478-2.219-5.1h-1.5c0 2.126 1.13 4.22 2.536 6.023c1.421 1.82 3.21 3.452 4.702 4.669zM2.75 9.26c0-2.73 1.258-4.555 2.85-5.218c1.573-.654 3.753-.287 5.85 1.968l1.1-1.022c-2.403-2.581-5.223-3.289-7.526-2.331c-2.282.95-3.774 3.422-3.774 6.603zm12.762 10.692c1.493-1.217 3.28-2.848 4.702-4.67c1.407-1.803 2.536-3.896 2.536-6.022h-1.5c0 1.622-.88 3.385-2.219 5.1c-1.324 1.697-3.017 3.247-4.467 4.43zM22.75 9.26c0-3.18-1.492-5.654-3.774-6.603c-2.303-.958-5.123-.25-7.525 2.33l1.098 1.023c2.098-2.255 4.278-2.622 5.85-1.968c1.593.662 2.851 2.488 2.851 5.218zM8.488 19.952C9.758 20.988 10.64 21.75 12 21.75v-1.5c-.722 0-1.171-.325-2.564-1.46zm6.076-1.163C13.171 19.926 12.722 20.25 12 20.25v1.5c1.359 0 2.241-.762 3.512-1.798z" opacity=".5"></path></g></svg></span><h3>Healthcare</h3><p>Specialist depth for a field that doesn’t forgive guesswork, from operations to compliance to care delivery.</p></li>
+      <li class="card" style="--i:5"><span class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 10c0-1.414 0-2.121.44-2.56C7.878 7 8.585 7 10 7h4c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44h-4c-1.414 0-2.121 0-2.56-.44C7 16.122 7 15.415 7 14z" opacity=".5"></path><path d="M4 12c0-3.771 0-5.657 1.172-6.828S8.229 4 12 4s5.657 0 6.828 1.172S20 8.229 20 12s0 5.657-1.172 6.828S15.771 20 12 20s-5.657 0-6.828-1.172S4 15.771 4 12Z"></path><path stroke-linecap="round" d="M4 12H2m20 0h-2M4 9H2m20 0h-2M4 15H2m20 0h-2m-8 5v2m0-20v2M9 20v2M9 2v2m6 16v2m0-20v2" opacity=".5"></path></g></svg></span><h3>Technology</h3><p>The missing systems built and deployed&nbsp;— AI, cloud, data, and security that create real leverage, not hype.</p></li>
+    </ul>
+  </div>
+</section>
+<!-- /@section:disciplines -->
+
+<!-- 2b · ALONGSIDE (a half-section of its own since 2 Oct 2026) -->
+<!-- @section:alongside -->
+<link rel="stylesheet" href="assets/home/alongside/alongside.css">
+
+<section class="hs hs-alongside" id="alongside" aria-labelledby="alongside-title">
+  <div class="in">
+    <figure class="ph hs-rise">
+      <div class="frame"><img class="hs-photo" src="assets/home/alongside/colleagues-at-screen-800.webp" srcset="assets/home/alongside/colleagues-at-screen-800.webp 800w, assets/home/alongside/colleagues-at-screen-1600.webp 1600w" sizes="(min-width: 861px) min(54vw, 860px), calc(100vw - 48px)" width="1600" height="1067" alt="Two colleagues talking through work at a computer." loading="lazy" decoding="async"></div>
+    </figure>
+    <div class="st hs-rise">
+      <h2 class="lead" id="alongside-title">We come in alongside your people&nbsp;— <span class="g">never over them.</span></h2>
+      <p class="rest">Your team keeps their work and their credit; we add what’s been missing, and leave them stronger than we found them.</p>
+    </div>
+  </div>
+</section>
+<!-- /@section:alongside -->
+
+<!-- 3 · PRINCIPLES -->
+<!-- @section:principles -->
+<link rel="stylesheet" href="assets/home/principles/principles.css">
+
+<section class="hs hs--alt hs-principles" id="principles" aria-labelledby="principles-title">
+  <div class="in">
+    <header class="hs-head hs-head--split hs-rise">
+      <h2 class="hs-title" id="principles-title">Principles we don’t <span class="g">bend.</span></h2>
+      <p class="hs-lede">Five principles that govern how we work, what we build, and who we build it for.</p>
+    </header>
+
+    <div class="row hs-rise" role="group" aria-label="Our principles">
+      <div class="pp"><span class="v" aria-hidden="true">Empathy</span><span class="b"><span class="t">Empathy</span><span class="d">We share the problem before we solve it&nbsp;— and care for your people as much as you do.</span></span></div>
+      <div class="pp on"><span class="v" aria-hidden="true">Integrity</span><span class="b"><span class="t">Integrity</span><span class="d">Honest and direct, always. Solutions from a real place of understanding, never a packaged playbook.</span></span></div>
+      <div class="pp"><span class="v" aria-hidden="true">Efficiency</span><span class="b"><span class="t">Efficiency</span><span class="d">Pragmatic and solution-first. Capability felt as relief, not ceremony.</span></span></div>
+      <div class="pp"><span class="v" aria-hidden="true">Teamwork</span><span class="b"><span class="t">Teamwork</span><span class="d">One team&nbsp;— ours, yours, and the specialists&nbsp;— pulling in the same direction.</span></span></div>
+      <div class="pp"><span class="v" aria-hidden="true">Passion</span><span class="b"><span class="t">Passion</span><span class="d">We treat your work and your culture like our own. Once we’re in, they are.</span></span></div>
+    </div>
+
+  </div>
+</section>
+<!-- /@section:principles -->
+
+<!-- 3.5 · VOICES -->
+<!-- @section:voices -->
+<link rel="stylesheet" href="assets/home/voices/voices.css">
+
+<section class="hs hs-voices" aria-labelledby="voices-title" data-hs-enter=".frame">
+  <h2 class="vh-title" id="voices-title">In their words</h2>
+  <div class="in">
+    <div class="frame">
+      <div class="panes">
+        <figure class="pane p0">
+          <blockquote><p><span class="hang">“</span>Most firms want to change your brand. khyzr wanted to understand it first. That’s why the strategy we built together for new markets and tradeshows actually feels like Habibi.”</p></blockquote>
+          <figcaption><span><span class="nm">Tabassum Khan and Shakir Ahmed</span>Founders, Habibi&nbsp;NY</span></figcaption>
+        </figure>
+        <figure class="pane p1">
+          <blockquote><p><span class="hang">“</span>khyzr is the kind of partner you trust with your own clients. They bring big-firm thinking, move fast and make everyone around them look good.”</p></blockquote>
+          <figcaption><span><span class="nm">Nabil Pervez</span>Founder, Nabil Pervez Consulting</span></figcaption>
+        </figure>
+        <figure class="pane p2">
+          <blockquote><p><span class="hang">“</span>We knew something was off but couldn’t prove it. khyzr stacked us against our peers line by line and showed us exactly where the gaps were. That changed how we make decisions.”</p></blockquote>
+          <figcaption><span><span class="nm">Mouyyad Abdulhadi</span>Founder and CEO, Pax&nbsp;&amp;&nbsp;Beneficia</span></figcaption>
+        </figure>
+        <figure class="pane p3">
+          <blockquote><p><span class="hang">“</span>I’ve organized events with a lot of teams. khyzr is the one I’d call first. They plan like strategists and execute like operators.”</p></blockquote>
+          <figcaption><span><span class="nm">Zohaib Rattu</span>Co-founder, Refunnel</span></figcaption>
+        </figure>
+      </div>
+      <div class="louver" aria-hidden="true"></div>
+    </div>
+    <div class="ctrl">
+      <button class="pp" type="button" aria-label="Pause the quotes"></button>
+      <div class="names" role="group" aria-label="Voices">
+        <button class="vb on" type="button" aria-pressed="true" aria-label="Tabassum Khan and Shakir Ahmed, Habibi NY"><span class="sw" style="background:var(--ink)"></span><span>Habibi<span class="lnm">&nbsp;NY</span></span><i class="bar" aria-hidden="true"></i></button>
+        <button class="vb" type="button" aria-pressed="false" aria-label="Nabil Pervez, Nabil Pervez Consulting"><span class="sw" style="background:var(--green-900)"></span><span>Nabil<span class="lnm">&nbsp;Pervez Consulting</span></span></button>
+        <button class="vb" type="button" aria-pressed="false" aria-label="Mouyyad Abdulhadi, Pax &amp; Beneficia"><span class="sw" style="background:var(--mint)"></span><span>Pax<span class="lnm">&nbsp;&amp;&nbsp;Beneficia</span></span></button>
+        <button class="vb" type="button" aria-pressed="false" aria-label="Zohaib Rattu, Refunnel"><span class="sw" style="background:var(--khyzr-green)"></span><span>Refunnel</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /@section:voices -->
+
+<!-- 3.75 · CASE STUDIES -->
+<!-- @section:cases -->
+<link rel="stylesheet" href="assets/home/cases/cases.css">
+
+<section class="hs hs-cases" id="work" aria-labelledby="cases-title" data-hs-enter=".mk">
+  <div class="in">
+    <header class="hs-head hs-head--split hs-rise">
+      <h2 class="hs-title" id="cases-title">Real results. <span class="g">Real change.</span></h2>
+      <p class="hs-lede">A sample of engagements across our practice areas. Real problems, real work, real outcomes.</p>
+    </header>
+    <!-- the wall. The six stand here in the wall's order (an anchor first, an anchor last), each written open: that
+         is how they read without JavaScript. cases.js makes each head a control, shuts them and places them. -->
+    <div class="wall">
+      <article class="t g-g k-fig m-open" data-id="zamil-ac">
+        <div class="c">
+          <h3 class="hd"><span class="tb" id="cases-zamil-ac-b"><span class="cl"><img src="assets/home/cases/marks/zamil-ac.svg" alt="Zamil AC" width="987" height="284" loading="lazy" decoding="async" draggable="false"></span> <span class="ti">Better equipment at better prices</span></span></h3>
+          <p class="dz">Procurement, Operations</p>
+          <div class="fg"><p class="f"><span class="n">20–25%</span><span class="l">Materials savings</span></p></div>
+          <ol class="bt" id="cases-zamil-ac-p">
+            <li class="b b1"><h4>The reality</h4><p>A global HVAC manufacturer paying premium prices for parts sourced abroad, with no visibility into what was available stateside.</p></li>
+            <li class="b b2"><h4>Our move</h4><p>Identified U.S.-based alternatives for their key materials and stepped in as a direct supplier at significantly better rates.</p></li>
+            <li class="b b3"><h4>The payoff</h4><p>20–25% cost reduction on sourced materials. An immediate, measurable hit to their cost of goods.</p></li>
+          </ol>
+        </div>
+      </article>
+      <article class="t g-w k-pic m-open" data-id="focus-expo">
+        <div class="c">
+          <h3 class="hd"><span class="tb" id="cases-focus-expo-b"><span class="cl"><img src="assets/home/cases/marks/focus-expo.svg" alt="Focus Expo" width="276" height="69" loading="lazy" decoding="async" draggable="false"></span> <span class="ti">Built a conference from nothing</span></span></h3>
+          <p class="dz">Strategy, Operations, Marketing, Technology</p>
+          <figure class="ph"><img src="assets/home/cases/focus-expo-flyer.webp" alt="The conference’s flyer: the Focus Expo 26 compass mark on ivory, early bird tickets, April 4 2026 at Plano Event Center." width="960" height="540" loading="lazy" decoding="async" draggable="false"></figure>
+          <ol class="bt" id="cases-focus-expo-p">
+            <li class="b b1"><h4>The reality</h4><p>They had a date on the calendar and nothing else. No brand, no team, no speakers, no venue.</p></li>
+            <li class="b b2"><h4>Our move</h4><p>We assembled the team and ran the show. khyzr led strategy, brand, and technology&nbsp;— and brought in two specialized partners to cover production and marketing. One point of contact. No gaps.</p></li>
+            <li class="b b3"><h4>The payoff</h4><p>A packed, fully produced professional conference that ran like it had been planned for years. It was built in months, by a team we put together.</p></li>
+          </ol>
+        </div>
+      </article>
+      <article class="t g-s m-open" data-id="olive-burger">
+        <div class="c">
+          <h3 class="hd"><span class="tb" id="cases-olive-burger-b"><span class="cl"><img src="assets/home/cases/marks/olive-burger.png" alt="Olive Burger" width="152" height="216" loading="lazy" decoding="async" draggable="false"></span> <span class="ti">Finding dollars in the lettuce for a burger chain</span></span></h3>
+          <p class="dz">Operations, Strategy</p>
+          <ol class="bt" id="cases-olive-burger-p">
+            <li class="b b1"><h4>The reality</h4><p>Good people, real potential, zero clarity on what to fix first. The team was pulling in every direction and moving in none.</p></li>
+            <li class="b b2"><h4>Our move</h4><p>We got in the room, asked the hard questions, and helped them cut through the noise to lock in on what actually mattered.</p></li>
+            <li class="b b3"><h4>The payoff</h4><p>Customer growth and revenue moved in the right direction. So did the team’s confidence.</p></li>
+          </ol>
+        </div>
+      </article>
+      <article class="t g-w m-open" data-id="pax-beneficia">
+        <div class="c">
+          <h3 class="hd"><span class="tb" id="cases-pax-beneficia-b"><span class="cl"><img src="assets/home/cases/marks/pax-beneficia.svg" alt="Pax &amp; Beneficia" width="705" height="744" loading="lazy" decoding="async" draggable="false"></span> <span class="ti">A gut feeling turned into a diagnosis</span></span></h3>
+          <p class="dz">Finance, Strategy</p>
+          <ol class="bt" id="cases-pax-beneficia-p">
+            <li class="b b1"><h4>The reality</h4><p>Leadership had a gut feeling they were underperforming but no data to confirm it, and no clarity on where to focus.</p></li>
+            <li class="b b2"><h4>Our move</h4><p>We stacked them up against their closest peers, line by line, and showed leadership exactly where the gaps were and how wide.</p></li>
+            <li class="b b3"><h4>The payoff</h4><p>For the first time, the gaps were visible. That clarity changed how they made every strategic decision after.</p></li>
+          </ol>
+        </div>
+      </article>
+      <article class="t g-s m-open" data-id="campus-cloud">
+        <div class="c">
+          <h3 class="hd"><span class="tb" id="cases-campus-cloud-b"><span class="cl"><img src="assets/home/cases/marks/campus-cloud.png" alt="Campus Cloud" width="241" height="68" loading="lazy" decoding="async" draggable="false"></span> <span class="ti">Go-to-market beyond the Great White North</span></span></h3>
+          <p class="dz">Strategy, Business Development</p>
+          <ol class="bt" id="cases-campus-cloud-p">
+            <li class="b b1"><h4>The reality</h4><p>A Canadian SaaS company with real ambition to crack the U.S. market. No map, no relationships, no starting point.</p></li>
+            <li class="b b2"><h4>Our move</h4><p>We mapped the competitive field, worked through the regulatory picture, and then made the first prospect calls ourselves.</p></li>
+            <li class="b b3"><h4>The payoff</h4><p>They’re now actively pursuing U.S. partnerships with a real strategy and boots on the ground.</p></li>
+          </ol>
+        </div>
+      </article>
+      <article class="t g-k k-fig m-open" data-id="gem-center">
+        <div class="c">
+          <h3 class="hd"><span class="tb" id="cases-gem-center-b"><span class="cl"><img src="assets/home/cases/marks/gem-center.png" alt="GEM Center" width="520" height="240" loading="lazy" decoding="async" draggable="false"></span> <span class="ti">Fixing the handoff between marketing and sales</span></span></h3>
+          <p class="dz">Sales, Marketing</p>
+          <div class="fg"><p class="f"><span class="n">5×</span><span class="l">Lead response</span></p><p class="f"><span class="n">80%</span><span class="l">Conversions</span></p></div>
+          <ol class="bt" id="cases-gem-center-p">
+            <li class="b b1"><h4>The reality</h4><p>Leads were coming in but dying in the handoff. No marketing direction. No sales playbook. Just a lot of missed opportunities.</p></li>
+            <li class="b b2"><h4>Our move</h4><p>Rebuilt their SEO foundation, launched targeted paid campaigns, and gave the sales team a repeatable process that actually worked.</p></li>
+            <li class="b b3"><h4>The payoff</h4><p>5x faster lead response. 80% jump in conversions. Same budget, completely different results.</p></li>
+          </ol>
+        </div>
+      </article>
+      <i class="pr" aria-hidden="true"></i><i class="mk" aria-hidden="true"></i>
+    </div>
+  </div>
+</section>
+<!-- /@section:cases -->
+
+<!-- 4 · ECOSYSTEM -->
+<!-- @section:ecosystem -->
+<link rel="stylesheet" href="assets/home/ecosystem/ecosystem.css">
+
+<section class="hs hs-ecosystem" id="ecosystem" aria-labelledby="ecosystem-title" data-hs-enter=".body">
+  <div class="in">
+    <header class="hs-head grid head hs-rise">
+      <h2 class="hs-title" id="ecosystem-title">In good company.</h2>
+      <p class="hs-lede">We build alongside best‑in‑class specialists&nbsp;— so you get genuine expertise at every layer, and one ally accountable for&nbsp;all&nbsp;of&nbsp;it.</p>
+    </header>
+    <div class="grid body">
+      <ul class="roster" aria-label="Partners">
+        <li style="--d:2"><span class="mk"><img class="eco-mark m-npc" src="assets/home/ecosystem/marks/npc.png" alt="" width="120" height="109" loading="lazy" decoding="async"></span><span class="nm">Nabil Pervez Consulting</span><span class="det"><span class="dc">Brand, Marketing, Design</span><span class="ln">Brand identity and demand, built to last.</span></span></li>
+        <li style="--d:1"><span class="mk"><img class="eco-mark m-tfs" src="assets/home/ecosystem/marks/texas-finserv.png" alt="" width="120" height="113" loading="lazy" decoding="async"></span><span class="nm">Texas FinServ</span><span class="det"><span class="dc">Finance, Accounting</span><span class="ln">The numbers, handled with rigor.</span></span></li>
+        <li style="--d:0"><span class="mk"><img class="eco-mark m-96m" src="assets/home/ecosystem/marks/96-meridian.png" alt="" width="120" height="120" loading="lazy" decoding="async"></span><span class="nm">96 Meridian AI</span><span class="det"><span class="dc">Healthcare AI</span><span class="ln">Intelligent systems for clinical reality.</span></span></li>
+        <li style="--d:0"><span class="mk"><img class="eco-mark m-wax" src="assets/home/ecosystem/marks/waveaxis.png" alt="" width="120" height="120" loading="lazy" decoding="async"></span><span class="nm">WaveAxis</span><span class="det"><span class="dc">Healthcare IT, Cloud</span><span class="ln">Infrastructure that holds under pressure.</span></span></li>
+        <li style="--d:1"><span class="mk"><img class="eco-mark m-tds" src="assets/home/ecosystem/marks/td-synnex.png" alt="" width="120" height="120" loading="lazy" decoding="async"></span><span class="nm">TD SYNNEX</span><span class="det"><span class="dc">Technology Distribution</span><span class="ln">Global reach for hardware, software, and cloud.</span></span></li>
+        <li style="--d:2"><span class="mk"><img class="eco-mark m-uc" src="assets/home/ecosystem/marks/unique-creations.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span><span class="nm">Unique Creations</span><span class="det"><span class="dc">Ecosystem Partner</span></span></li>
+      </ul>
+      <div class="brace v" aria-hidden="true">
+        <svg class="cap" viewBox="0 0 56 28" width="56" height="28"><path pathLength="1" d="M20.5 28 V17 C20.5 8.5 14.5 2.5 5 2.5"/></svg>
+        <i class="arm up"></i>
+        <svg class="mid" viewBox="0 0 56 52" width="56" height="52"><path pathLength="1" d="M53 26 C33 26 20.5 19.5 20.5 8 V0"/><path pathLength="1" d="M53 26 C33 26 20.5 32.5 20.5 44 V52"/></svg>
+        <i class="arm dn"></i>
+        <svg class="cap" viewBox="0 0 56 28" width="56" height="28"><path pathLength="1" d="M20.5 0 V11 C20.5 19.5 14.5 25.5 5 25.5"/></svg>
+      </div>
+      <div class="brace h" aria-hidden="true">
+        <svg class="cap" viewBox="0 0 28 56" width="28" height="56"><path pathLength="1" d="M28 20.5 H17 C8.5 20.5 2.5 14.5 2.5 5"/></svg>
+        <i class="arm lf"></i>
+        <svg class="mid" viewBox="0 0 52 56" width="52" height="56"><path pathLength="1" d="M26 53 C26 33 19.5 20.5 8 20.5 H0"/><path pathLength="1" d="M26 53 C26 33 32.5 20.5 44 20.5 H52"/></svg>
+        <i class="arm rt"></i>
+        <svg class="cap" viewBox="0 0 28 56" width="28" height="56"><path pathLength="1" d="M0 20.5 H11 C19.5 20.5 25.5 14.5 25.5 5"/></svg>
+      </div>
+      <div class="feat">
+        <h3>One team,<br>not twenty vendors.</h3>
+        <p>Partners are how we go deep&nbsp;— but the accountability stays with us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /@section:ecosystem -->
+
+<!-- 4.25 · PRODUCTS -->
+<!-- @section:products -->
+<link rel="stylesheet" href="assets/home/products/products.css">
+
+<section class="hs hs--alt hs-products" id="products" aria-labelledby="products-title" data-hs-enter=".art">
+  <svg class="pr-defs" aria-hidden="true" focusable="false"><defs>
+    <!-- the khyzr symbol, path data untouched from the design system: eight bands, two per corner, in paint order (back pair top left, the middle four, front pair bottom right) -->
+    <path id="products-tl-i" pathLength="1" d="M 46.019531 46.019531 C 40.046875 51.988281 33.089844 56.679688 25.339844 59.957031 C 17.300781 63.355469 8.777344 65.078125 0 65.078125 L 0 46.445312 C 25.648438 46.445312 46.445312 25.648438 46.445312 0 L 65.078125 0 C 65.078125 8.777344 63.355469 17.300781 59.957031 25.339844 C 56.679688 33.089844 51.988281 40.046875 46.019531 46.019531"/>
+    <path id="products-tl-o" pathLength="1" d="M 87.058594 58.722656 C 83.304688 64.277344 78.996094 69.5 74.246094 74.25 C 69.5 78.996094 64.277344 83.304688 58.722656 87.058594 C 53.105469 90.851562 47.101562 94.109375 40.878906 96.742188 C 27.921875 102.222656 14.167969 105.003906 0 105.003906 L 0 86.367188 C 47.699219 86.367188 86.367188 47.699219 86.367188 0 L 105.003906 0 C 105.003906 14.167969 102.222656 27.921875 96.742188 40.878906 C 94.109375 47.101562 90.851562 53.105469 87.058594 58.722656"/>
+    <path id="products-bl-i" pathLength="1" d="M 46.019531 113.980469 C 40.046875 108.011719 33.089844 103.320312 25.339844 100.042969 C 17.300781 96.644531 8.777344 94.921875 0 94.921875 L 0 113.554688 C 25.648438 113.554688 46.445312 134.351562 46.445312 160 L 65.078125 160 C 65.078125 151.222656 63.355469 142.699219 59.957031 134.660156 C 56.679688 126.910156 51.988281 119.953125 46.019531 113.980469"/>
+    <path id="products-bl-o" pathLength="1" d="M 87.058594 101.277344 C 83.304688 95.722656 78.996094 90.5 74.246094 85.75 C 69.5 81.003906 64.277344 76.695312 58.722656 72.941406 C 53.105469 69.148438 47.101562 65.890625 40.878906 63.257812 C 27.921875 57.777344 14.167969 54.996094 0 54.996094 L 0 73.632812 C 47.699219 73.632812 86.367188 112.300781 86.367188 160 L 105.003906 160 C 105.003906 145.832031 102.222656 132.078125 96.742188 119.121094 C 94.109375 112.898438 90.851562 106.894531 87.058594 101.277344"/>
+    <path id="products-tr-i" pathLength="1" d="M 113.980469 46.019531 C 119.953125 51.988281 126.910156 56.679688 134.660156 59.957031 C 142.699219 63.355469 151.222656 65.078125 160 65.078125 L 160 46.445312 C 134.351562 46.445312 113.554688 25.648438 113.554688 0 L 94.921875 0 C 94.921875 8.777344 96.644531 17.300781 100.042969 25.339844 C 103.320312 33.089844 108.011719 40.046875 113.980469 46.019531"/>
+    <path id="products-tr-o" pathLength="1" d="M 72.941406 58.722656 C 76.695312 64.277344 81.003906 69.5 85.753906 74.25 C 90.5 78.996094 95.722656 83.304688 101.277344 87.058594 C 106.894531 90.851562 112.898438 94.109375 119.121094 96.742188 C 132.078125 102.222656 145.832031 105.003906 160 105.003906 L 160 86.367188 C 112.300781 86.367188 73.632812 47.699219 73.632812 0 L 54.996094 0 C 54.996094 14.167969 57.777344 27.921875 63.257812 40.878906 C 65.890625 47.101562 69.148438 53.105469 72.941406 58.722656"/>
+    <path id="products-br-i" pathLength="1" d="M 113.980469 113.980469 C 119.953125 108.011719 126.910156 103.320312 134.660156 100.042969 C 142.699219 96.644531 151.222656 94.921875 160 94.921875 L 160 113.554688 C 134.351562 113.554688 113.554688 134.351562 113.554688 160 L 94.921875 160 C 94.921875 151.222656 96.644531 142.699219 100.042969 134.660156 C 103.320312 126.910156 108.011719 119.953125 113.980469 113.980469"/>
+    <path id="products-br-o" pathLength="1" d="M 72.941406 101.277344 C 76.695312 95.722656 81.003906 90.5 85.753906 85.75 C 90.5 81.003906 95.722656 76.695312 101.277344 72.941406 C 106.894531 69.148438 112.898438 65.890625 119.121094 63.257812 C 132.078125 57.777344 145.832031 54.996094 160 54.996094 L 160 73.632812 C 112.300781 73.632812 73.632812 112.300781 73.632812 160 L 54.996094 160 C 54.996094 145.832031 57.777344 132.078125 63.257812 119.121094 C 65.890625 112.898438 69.148438 106.894531 72.941406 101.277344"/>
+    <!-- the wordmark's stem and dot, outlined (khyzr in its own letterforms), for the blank page -->
+    <g id="products-stem"><path d="M 84.429688 130.542969 L 58.144531 89.496094 L 84.554688 60 Z M 149.753906 49.917969 C 144.023438 47.402344 137.683594 46.007812 131.015625 46.007812 C 124.347656 46.007812 118.007812 47.402344 112.273438 49.917969 L 112.011719 49.917969 L 112.011719 0.0117188 L 84.753906 9.097656 L 84.628906 45.441406 L 62.253906 45.441406 L 27.628906 83.871094 L 27.628906 0.0117188 L 0 0.0117188 L 0 147.371094 L 27.628906 147.371094 L 27.628906 121.507812 L 38.828125 109.707031 L 63.050781 147.371094 L 112.011719 147.371094 L 112.011719 92.234375 C 112.027344 81.851562 120.542969 73.4375 130.925781 73.4375 C 136.121094 73.4375 140.820312 75.539062 144.230469 78.941406 C 147.632812 82.34375 149.746094 87.042969 149.753906 92.234375 L 149.753906 147.371094 L 177.472656 147.371094 L 177.472656 92.207031 C 177.472656 73.324219 166.078125 57.082031 149.753906 49.917969"/><path d="M 338.496094 104.855469 L 338.46875 121.730469 L 295.207031 121.582031 L 340.261719 64.429688 L 340.261719 45.4375 L 241.144531 45.4375 L 218.320312 102.765625 L 193.527344 45.4375 L 163.535156 45.4375 L 204.105469 137.5625 L 185.6875 183.460938 L 214.933594 183.460938 L 260.1875 71.25 L 300.4375 71.152344 L 255.382812 127.828125 L 255.382812 147.367188 L 366.023438 147.246094 L 366.4375 101.742188 C 366.59375 84.417969 380.683594 70.453125 398.007812 70.453125 L 398.007812 45.4375 C 365.179688 45.4375 338.550781 72.023438 338.496094 104.855469"/></g>
+    <path id="products-dot" d="M423.522 149.475Q416.788 149.475 412.474 144.951Q408.16 140.426 408.16 133.903Q408.16 127.168 412.474 122.749Q416.788 118.33 423.522 118.33Q430.257 118.33 434.571 122.749Q438.885 127.168 438.885 133.903Q438.885 140.426 434.571 144.951Q430.257 149.475 423.522 149.475Z"/>
+  </defs></svg>
+
+  <div class="in">
+    <div class="q q-tl"><h2 class="hs-title" id="products-title">One khyzr. <span class="g">Many ways in.</span></h2></div>
+    <div class="art">
+      <svg viewBox="0 0 320 320" role="img" aria-label="The khyzr symbol in four cuts set edge to edge: khyzr&#8217;s green, khyzr.ai&#8217;s, khyzr.studio&#8217;s, and a fourth drawn in line. At the centre their quarter rings close into one ring.">
+        <defs>
+          <clipPath id="products-ring"><path clip-rule="evenodd" d="M94.922 160a65.078 65.078 0 1 0 130.156 0a65.078 65.078 0 1 0 -130.156 0ZM113.555 160a46.445 46.445 0 1 0 92.89 0a46.445 46.445 0 1 0 -92.89 0ZM54.996 160a105.004 105.004 0 1 0 210.008 0a105.004 105.004 0 1 0 -210.008 0ZM73.633 160a86.367 86.367 0 1 0 172.734 0a86.367 86.367 0 1 0 -172.734 0Z"/></clipPath>
+          <filter id="products-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+          <filter id="products-drop" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="6"/></filter>
+          <clipPath id="products-c-tl"><use href="#products-tl-i"/><use href="#products-tl-o"/></clipPath>
+          <clipPath id="products-c-tr"><use href="#products-tr-i"/><use href="#products-tr-o"/></clipPath>
+          <clipPath id="products-c-bl"><use href="#products-bl-i"/><use href="#products-bl-o"/></clipPath>
+          <clipPath id="products-c-br"><use href="#products-br-i"/><use href="#products-br-o"/></clipPath>
+        </defs>
+        <g class="tiles">
+          <g class="cell" data-q="k"><g class="tile t-k"><g class="lift"><rect class="drop" x="5" y="8" width="150" height="152"/><rect class="gr" width="160" height="160"/><use href="#products-tl-i" class="k1"/><use href="#products-tl-o" class="k1"/><use href="#products-bl-i" class="k2"/><use href="#products-bl-o" class="k2"/><use href="#products-tr-i" class="k2"/><use href="#products-tr-o" class="k2"/><use href="#products-br-i" class="k3"/><use href="#products-br-o" class="k3"/><g class="sheen" clip-path="url(#products-c-br)"><path class="sh" pathLength="1" d="M104.24 160A55.76 55.76 0 0 1 160 104.24"/><path class="sh" pathLength="1" d="M64.31 160A95.69 95.69 0 0 1 160 64.31"/></g></g></g></g>
+          <g class="cell" data-q="ai" transform="translate(160 0)"><g class="tile t-ai"><g class="lift"><rect class="drop" x="5" y="8" width="150" height="152"/><rect class="gr" width="160" height="160"/><use href="#products-tl-i" class="k1"/><use href="#products-tl-o" class="k1"/><use href="#products-bl-i" class="k2"/><use href="#products-bl-o" class="k2"/><g class="sheen" clip-path="url(#products-c-bl)"><path class="sh" pathLength="1" d="M0 104.24A55.76 55.76 0 0 1 55.76 160"/><path class="sh" pathLength="1" d="M0 64.31A95.69 95.69 0 0 1 95.69 160"/></g><use href="#products-tr-i" class="k2"/><use href="#products-tr-o" class="k2"/><use href="#products-br-i" class="k3"/><use href="#products-br-o" class="k3"/></g></g></g>
+          <g class="cell" data-q="st" transform="translate(0 160)"><g class="tile t-st"><g class="lift"><rect class="drop" x="5" y="8" width="150" height="152"/><rect class="gr" width="160" height="160"/><use href="#products-tl-i" class="k1"/><use href="#products-tl-o" class="k1"/><use href="#products-bl-i" class="k2"/><use href="#products-bl-o" class="k2"/><use href="#products-tr-i" class="k2"/><use href="#products-tr-o" class="k2"/><g class="sheen" clip-path="url(#products-c-tr)"><path class="sh" pathLength="1" d="M160 55.76A55.76 55.76 0 0 1 104.24 0"/><path class="sh" pathLength="1" d="M160 95.69A95.69 95.69 0 0 1 64.31 0"/></g><use href="#products-br-i" class="k3"/><use href="#products-br-o" class="k3"/></g></g></g>
+          <g class="cell" data-q="nx" transform="translate(160 160)"><g class="tile t-nx"><g class="lift"><rect class="drop" x="5" y="8" width="150" height="152"/><rect class="gr" width="160" height="160"/><use href="#products-tl-i" class="k1"/><use href="#products-tl-o" class="k1"/><g class="sheen" clip-path="url(#products-c-tl)"><path class="sh" pathLength="1" d="M55.76 0A55.76 55.76 0 0 1 0 55.76"/><path class="sh" pathLength="1" d="M95.69 0A95.69 95.69 0 0 1 0 95.69"/></g><use href="#products-bl-i" class="k2"/><use href="#products-bl-o" class="k2"/><use href="#products-tr-i" class="k2"/><use href="#products-tr-o" class="k2"/><use href="#products-br-i" class="k3"/><use href="#products-br-o" class="k3"/></g></g></g>
+        </g>
+        <g clip-path="url(#products-ring)"><circle class="glint" cx="160" cy="160" r="55.76" pathLength="1" transform="rotate(-90 160 160)"/><circle class="glint" cx="160" cy="160" r="95.69" pathLength="1" transform="rotate(-90 160 160)"/></g>
+      </svg>
+      <!-- the four cuts as controls: each opens its stage (products.js shows them) -->
+      <div class="qbs" hidden>
+        <button class="qb" type="button" data-q="k" aria-expanded="false" aria-controls="products-stage-k"><span class="pr-sr">Open khyzr</span></button>
+        <button class="qb" type="button" data-q="ai" aria-expanded="false" aria-controls="products-stage-ai"><span class="pr-sr">Open khyzr.ai</span></button>
+        <button class="qb" type="button" data-q="st" aria-expanded="false" aria-controls="products-stage-st"><span class="pr-sr">Open khyzr.studio</span></button>
+        <button class="qb" type="button" data-q="nx" aria-expanded="false" aria-controls="products-stage-nx"><span class="pr-sr">Open More coming soon</span></button>
+      </div>
+    </div>
+    <div class="q q-tr">
+      <h3 class="t">Agents for the whole business.</h3>
+      <p class="s">Finance, operations, strategy and security, run by AI agents inside your own AWS account.</p>
+      <a class="hs-link" href="https://khyzr.ai">Visit khyzr.ai<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg></a>
+    </div>
+    <div class="q q-bl">
+      <h3 class="t">Design, on&nbsp;subscription.</h3>
+      <p class="s">A senior design partner on one monthly membership. Send the requests; get back finished work.</p>
+      <a class="hs-link" href="https://khyzr.studio">Visit khyzr.studio<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg></a>
+    </div>
+    <div class="q q-br"><h3 class="t">More coming soon.</h3></div>
+  </div>
+
+  <!-- the stage each cut opens into: one canvas, a panel per world (products.js places and shows it) -->
+  <div class="stage" hidden>
+    <canvas class="cv" aria-hidden="true"></canvas>
+    <div class="panel p-k" id="products-stage-k" role="region" aria-labelledby="products-stage-k-h" hidden>
+      <div class="w">
+        <h3 id="products-stage-k-h" tabindex="-1">One for All.</h3>
+        <p>We build solutions for everything your enterprise needs.</p>
+        <a class="hs-link" href="https://calendar.app.google/kgfHw2AJN4HrpkCr7" target="_blank" rel="noopener">Book a conversation<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg></a>
+      </div>
+      <button class="x" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.75 2.75l10.5 10.5M13.25 2.75l-10.5 10.5"/></svg></button>
+    </div>
+    <div class="panel p-ai" id="products-stage-ai" role="region" aria-labelledby="products-stage-ai-h" hidden>
+      <div class="w">
+        <h3 id="products-stage-ai-h" tabindex="-1">Agents for the whole business.</h3>
+        <p>Finance, operations, strategy and security, run by AI agents inside your own AWS account.</p>
+        <a class="hs-link" href="https://khyzr.ai">Visit khyzr.ai<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg></a>
+      </div>
+      <button class="x" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.75 2.75l10.5 10.5M13.25 2.75l-10.5 10.5"/></svg></button>
+    </div>
+    <div class="panel p-st" id="products-stage-st" role="region" aria-labelledby="products-stage-st-h" hidden>
+      <div class="w">
+        <h3 id="products-stage-st-h" tabindex="-1">Design, on&nbsp;subscription.</h3>
+        <p>A senior design partner on one monthly membership. Send the requests; get back finished work.</p>
+        <a class="hs-link" href="https://khyzr.studio">Visit khyzr.studio<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 12h16m0 0l-6-6m6 6l-6 6"/></svg></a>
+      </div>
+      <button class="x" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.75 2.75l10.5 10.5M13.25 2.75l-10.5 10.5"/></svg></button>
+    </div>
+    <div class="panel p-nx" id="products-stage-nx" role="region" aria-labelledby="products-stage-nx-h" hidden>
+      <div class="w">
+        <svg class="wm" viewBox="0 -4.149 470 187.61" aria-hidden="true" focusable="false"><use href="#products-stem"/><use href="#products-dot"/><line class="caret" x1="447" y1="-2" x2="447" y2="183.46"/></svg>
+        <h3 id="products-stage-nx-h" tabindex="-1">More coming soon.</h3>
+      </div>
+      <button class="x" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.75 2.75l10.5 10.5M13.25 2.75l-10.5 10.5"/></svg></button>
+    </div>
+  </div>
+</section>
+<!-- /@section:products -->
+
+<!-- 4.5 · INSIGHTS -->
+<!-- @section:insights -->
+
+<!-- /@section:insights -->
+
+<!-- 5 · THE NAME -->
+<!-- @section:name -->
+<link rel="stylesheet" href="assets/home/name/name.css">
+
+<div class="hs-dusk" aria-hidden="true"><i data-nav="dark"></i></div>
+<section data-nav="dark" class="hs hs-dark hs-name" id="name" aria-labelledby="name-title" data-hs-pin>
+  <div class="stage">
+    <canvas class="field" aria-hidden="true"></canvas>
+    <header class="ch c0">
+      <h2 id="name-title">Why we’re called khyzr.</h2>
+      <span class="ar" lang="ar" dir="rtl">الخضر</span>
+      <p class="gl"><span class="nw">Al-Khidr</span>&nbsp;— “the Green One.”</p>
+    </header>
+    <ol class="vs">
+      <li class="ch c1"><h3>The one they sought</h3><p>In old stories from this part of the world, <span class="nw">Al-Khidr</span> is the wise man travelers went looking for when they couldn’t see the way forward.</p></li>
+      <li class="ch c2"><h3>Never the ruler</h3><p>He wasn’t a king and didn’t want to be one. He gave counsel, did the work, and moved on&nbsp;— the credit stayed with the people he helped.</p></li>
+      <li class="ch c3"><h3>The green trace</h3><p>They say grass grew wherever he stood. We took the name as a standard to hold ourselves to: <b>when we leave, things should be growing that weren’t before.</b></p></li>
+    </ol>
+    <ul class="ch c4 pl"><li>Growth</li><li>Health</li><li>Wealth</li></ul>
+    <ol class="trail">
+        <li lang="ur" dir="rtl" data-i="0"><span class="nm">الخضر</span> <span class="lg" lang="en" dir="ltr">Urdu</span> <span class="ws"><span class="w">ترقی</span> <span class="w">صحت</span> <span class="w">دولت</span></span></li>
+        <li lang="tr" dir="ltr" data-i="1"><span class="nm">Hızır</span> <span class="lg" lang="en" dir="ltr">Turkish</span> <span class="ws"><span class="w">Büyüme</span> <span class="w">Sağlık</span> <span class="w">Servet</span></span></li>
+        <li lang="hi" dir="ltr" data-i="2"><span class="nm">ख़िज़्र</span> <span class="lg" lang="en" dir="ltr">Hindi</span> <span class="ws"><span class="w">विकास</span> <span class="w">स्वास्थ्य</span> <span class="w">संपत्ति</span></span></li>
+        <li lang="zh-Hans" dir="ltr" data-i="3"><span class="nm">希兹尔</span> <span class="lg" lang="en" dir="ltr">Mandarin</span> <span class="ws"><span class="w">成长</span> <span class="w">健康</span> <span class="w">财富</span></span></li>
+        <li lang="fr" dir="ltr" data-i="4"><span class="nm">Khidr</span> <span class="lg" lang="en" dir="ltr">French</span> <span class="ws"><span class="w">Croissance</span> <span class="w">Santé</span> <span class="w">Richesse</span></span></li>
+        <li lang="es" dir="ltr" data-i="5"><span class="nm">Jidr</span> <span class="lg" lang="en" dir="ltr">Spanish</span> <span class="ws"><span class="w">Crecimiento</span> <span class="w">Salud</span> <span class="w">Riqueza</span></span></li>
+        <li lang="fa" dir="rtl" data-i="6"><span class="nm">خضر</span> <span class="lg" lang="en" dir="ltr">Farsi</span> <span class="ws"><span class="w">رشد</span> <span class="w">سلامت</span> <span class="w">ثروت</span></span></li>
+        <li lang="ja" dir="ltr" data-i="7"><span class="nm">ヒズル</span> <span class="lg" lang="en" dir="ltr">Japanese</span> <span class="ws"><span class="w">成長</span> <span class="w">健康</span> <span class="w">富</span></span></li>
+        <li lang="ko" dir="ltr" data-i="8"><span class="nm">히드르</span> <span class="lg" lang="en" dir="ltr">Korean</span> <span class="ws"><span class="w">성장</span> <span class="w">건강</span> <span class="w">부</span></span></li>
+        <li lang="ga" dir="ltr" data-i="9"><span class="nm">Khizr</span> <span class="lg" lang="en" dir="ltr">Irish</span> <span class="ws"><span class="w">Fás</span> <span class="w">Sláinte</span> <span class="w">Saibhreas</span></span></li>
+        <li lang="ar" dir="rtl" data-i="10"><span class="nm">الخضر</span> <span class="lg" lang="en" dir="ltr">Arabic</span> <span class="ws"><span class="w">نمو</span> <span class="w">صحة</span> <span class="w">ثروة</span></span></li>
+        <li lang="pt" dir="ltr" data-i="11"><span class="nm">Jidr</span> <span class="lg" lang="en" dir="ltr">Portuguese</span> <span class="ws"><span class="w">Crescimento</span> <span class="w">Saúde</span> <span class="w">Riqueza</span></span></li>
+        <li lang="de" dir="ltr" data-i="12"><span class="nm">Chidr</span> <span class="lg" lang="en" dir="ltr">German</span> <span class="ws"><span class="w">Wachstum</span> <span class="w">Gesundheit</span> <span class="w">Wohlstand</span></span></li>
+        <li lang="nl" dir="ltr" data-i="13"><span class="nm">Jidr</span> <span class="lg" lang="en" dir="ltr">Dutch</span> <span class="ws"><span class="w">Groei</span> <span class="w">Gezondheid</span> <span class="w">Welvaart</span></span></li>
+        <li lang="ta" dir="ltr" data-i="14"><span class="nm">கிஜ்ர்</span> <span class="lg" lang="en" dir="ltr">Tamil</span> <span class="ws"><span class="w">வளம்</span> <span class="w">நலம்</span> <span class="w">செல்வம்</span></span></li>
+    </ol>
+  </div>
+</section>
+<!-- /@section:name -->
+
+<!-- 6 · CLOSE -->
+<!-- @section:close -->
+<link rel="stylesheet" href="assets/home/close/close.css">
+
+<section class="hs hs-dark hs-close" id="start" data-nav="dark" aria-labelledby="close-title" data-hs-enter=".tg">
+  <div class="in">
+    <div class="tg"><h2 id="close-title" aria-label="Strive forward. Thrive together."><span class="ln l1 rise k1">Strive forward.</span><br><span class="ln l2 rise k2">Thrive together<span class="vh">.</span><span class="dot" aria-hidden="true"><i></i></span></span></h2><a class="stop" href="https://calendar.app.google/kgfHw2AJN4HrpkCr7" target="_blank" rel="noopener"><span class="bg" aria-hidden="true"></span><span class="lab">Book a conversation</span></a></div>
+  </div>
+</section>
+<!-- /@section:close -->
+
+</main>
+
+<!-- FOOTER -->
+<!-- @section:footer -->
+<link rel="stylesheet" href="assets/home/footer/footer.css">
+
+<footer class="hs hs-footer" data-nav="dark">
+  <div class="in">
+    <div class="top">
+      <div class="col brand">
+        <a class="mark" href="#"><img src="design-system/assets/logos/khyzr-wordmark_on-dark.svg" alt="khyzr" width="399" height="184" loading="lazy" decoding="async"></a>
+        <p>The one ally that becomes part of your business&nbsp;— completing what’s missing, not replacing what works.</p>
+      </div>
+      <nav class="map" aria-label="Site map">
+        <div class="col"><h2>What we do</h2><ul><li><a href="#disciplines">Strategy</a></li><li><a href="#disciplines">Sales &amp; Marketing</a></li><li><a href="#disciplines">Operations</a></li><li><a href="#disciplines">Finance</a></li><li><a href="#disciplines">Healthcare</a></li><li><a href="#disciplines">Technology</a></li></ul></div>
+        <div class="col"><h2>Company</h2><ul><li><a href="#name">About</a></li><li><a href="#ecosystem">Our ecosystem</a></li><li><a href="#work">Case studies</a></li><li><a href="mailto:contact@khyzr.com">Contact</a></li></ul></div>
+        <div class="col"><h2>Our brands</h2><ul><li class="ext"><a href="https://khyzr.ai">khyzr.ai<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6m0 0H9m9 0v9"/></svg></a></li><li class="ext"><a href="https://khyzr.studio">khyzr.studio<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6m0 0H9m9 0v9"/></svg></a></li></ul></div>
+      </nav>
+    </div>
+    <div class="base">
+      <p class="copy">© 2026 khyzr. Strive forward. Thrive together.</p>
+      <ul class="legal" aria-label="Legal"><li><a href="legal/privacy/">Privacy</a></li><li><a href="legal/terms/">Terms</a></li></ul>
+    </div>
+  </div>
+</footer>
+<!-- /@section:footer -->
+
+<script>
+/* nav: ink on the white hero, paper once the page moves, its ink twin over the dark sections */
+(function(){
+  const nav = document.querySelector('.nav');
+  const darks = [...document.querySelectorAll('[data-nav="dark"]')];
+  const links = [...document.querySelectorAll('.nav-mid a[href^="#"]')].map(a => [a, document.getElementById(a.getAttribute('href').slice(1))]).filter(x => x[1]);
+  if (!nav) return;
+  /* the dark sections and the linked ones by their place in the page, kept whenever its size changes, so a
+     scroll never has to measure */
+  let navH = 64, D = [], L = [], cur = null, tick = false;
+  const place = el => { const r = el.getBoundingClientRect(); return [r.top + scrollY, r.bottom + scrollY]; };
+  const measure = () => { navH = nav.offsetHeight; D = darks.map(place); L = links.map(([a, s]) => [a, place(s)]); };
+  const upd = () => {
+    tick = false;
+    const sy = window.scrollY;
+    /* over a dark section (the name, the close, the footer) the nav turns to ink */
+    const y = sy + navH / 2;
+    const onDark = D.some(([t, b]) => t <= y && b > y);
+    nav.classList.toggle('ink', onDark);
+    nav.classList.toggle('scrolled', sy > 24 && !onDark);
+    /* the section on screen (at 40% of the viewport) marks its link */
+    const probe = sy + innerHeight * 0.4;
+    let here = null;
+    for (const [a, [t, b]] of L) if (t <= probe && b > probe) here = a;
+    if (here !== cur) { if (cur) cur.removeAttribute('aria-current'); if (here) here.setAttribute('aria-current', 'true'); cur = here; }
+  };
+  const again = () => { measure(); upd(); };
+  window.addEventListener('scroll', () => { if (!tick){ tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  window.addEventListener('resize', again);
+  window.addEventListener('load', again);
+  /* the first measure waits for the page's first layout (the observer's first call), rather than forcing it
+     early from here */
+  if ('ResizeObserver' in window) new ResizeObserver(again).observe(document.body); else requestAnimationFrame(again);
+})();
+</script>
+<script src="assets/home/hs.js"></script>
+<script src="assets/home/glide.js"></script>
+<script src="assets/home/trace.js"></script>
+<!-- @scripts -->
+<script src="assets/home/manifesto/manifesto.js"></script>
+<script src="assets/home/trusted/trusted.js"></script>
+<script src="assets/home/disciplines/disciplines.js"></script>
+<script src="assets/home/principles/principles.js"></script>
+<script src="assets/home/voices/voices.js"></script>
+<script src="assets/home/cases/cases.js"></script>
+<script src="assets/home/products/products.js"></script>
+<script src="assets/home/name/name.js"></script>
+<script src="assets/home/close/close.js"></script>
+<!-- /@scripts -->
+</body>
+</html>

@@ -1,0 +1,226 @@
+/* ============================================================
+   khyzr.com homepage · Case studies · "Real results. Real change."
+   The wall. Cisco's pick from the case studies lab, design 3, on
+   8 Oct 2026 ("case studies lab: d3 The wall"); the lab and the four
+   that lost, the section's first design among them (The trace), are
+   in the archive, labs khyzr-com/cases-lab/. The six studies are the
+   company's own, word for word.
+
+   All six on one wall: one slab, divided by hairline seams into six
+   tiles of unlike sizes, set in the page's own grounds. Two whites,
+   two #F5F5F5, one ink and one green; the ink and the green are the
+   two studies that have figures, and they hold the wall's two far
+   corners.
+
+   The one move: choose a tile and the seams slide. The tile takes
+   the room, its column-mate becomes a band, the other columns stand
+   narrow beside it. Nothing changes place, so a study is always
+   where it was. The open tile divides the way the wall does: a head
+   over three cells, the reality, our move, the payoff; the payoff's
+   cell takes a ground of its own, and a figure stands over the payoff
+   it belongs to. At rest, a tile under a pointer leans: its seams move
+   out a little, the same move at a whisper.
+
+   The markup holds the six written open (preview.html). cases.js
+   makes each head a control, shuts the tiles and places them (left,
+   top, width, height, in px), and gives each one's words their final
+   width at once, so the words are set once and the moving tile
+   uncovers them: nothing re-wraps in flight. It marks the section
+   .live when it has; until then, and without JavaScript, the six
+   stand one under the other, each told in full (the last block here).
+
+   Three compositions, chosen from the wall's own width (.w3 three
+   columns of two, .w2 two columns of three, .w1 one column of six).
+   Modes on a tile: .m-rest, .m-open, .m-narrow, .m-band. How an open
+   tile sets its three cells follows its own width (a container query
+   on .c): across from 43rem, in rows with the beat's name beside from
+   29rem, in rows under it below that.
+
+   White, between Voices (which ends in its controls on this ground:
+   this section's own measure is that seam) and the ecosystem, also
+   white: those two share the seam, .6 of a measure each.
+   ============================================================ */
+.hs-cases{--p:clamp(1.25rem,1.9*var(--u),1.75rem);--wh:clamp(35rem,49*var(--u),43rem);--nw:clamp(11.5rem,15.5*var(--u),14.5rem);--bh:9.25rem;
+  --S:2.125rem;--Sb:1.5rem;--mv:.85s var(--ease-drift);--cd:.1s;
+  padding:var(--section-pad-y) var(--gx) calc(var(--section-pad-y) * .6);color:var(--body)}
+.hs-cases.w2{--wh:40rem;--bh:8.25rem}
+.hs-cases.ln{--mv:.6s var(--ease-drift)}
+.hs-cases .in{max-width:var(--container);margin:0 auto}
+
+/* ---- the wall: one slab; the seams are the slab showing between the tiles ---- */
+.hs-cases .wall{position:relative;height:var(--wh);margin-top:var(--hs-head-gap);border-radius:var(--radius-l);background:var(--hairline);box-shadow:0 0 0 1px var(--hairline);overflow:hidden;
+  transition:height var(--mv),opacity .6s ease}
+.hs-cases.live .wall:not(.on){opacity:0}
+/* what cases.js reads its measures from: the wall's height at rest, a narrow column's width, a band's height */
+.hs-cases .pr{position:absolute;left:0;top:0;box-sizing:content-box;width:var(--nw);height:var(--wh);padding-top:var(--bh);visibility:hidden;pointer-events:none}
+/* the wall arrives when this much of it is on screen (the section's moment, data-hs-enter), so the seams are seen finding their places */
+.hs-cases .mk{position:absolute;left:0;top:min(6rem,25%);width:1px;height:1px;visibility:hidden;pointer-events:none}
+
+/* ---- a tile ---- */
+.hs-cases .t{position:absolute;left:0;top:0;overflow:hidden;contain:layout paint;background:var(--bg);color:var(--fg2);
+  --fg:var(--ink);--fg2:var(--body);--fg3:var(--muted);--seam:var(--hairline);--acc:var(--khyzr-green);--fo:var(--khyzr-green);--ring:rgba(10,10,10,.2);--ring-bg:rgba(10,10,10,.05);
+  transition:left var(--mv),top var(--mv),width var(--mv),height var(--mv),background-color .35s ease}
+.hs-cases .g-w{--bg:var(--paper);--pay:var(--green-050)}
+.hs-cases .g-s{--bg:var(--surface-2);--seam:#E2E2E2;--pay:var(--paper)}
+.hs-cases .g-k{--bg:var(--ink);--fg:#fff;--fg2:var(--on-dark-body);--fg3:var(--on-dark-muted);--seam:rgba(255,255,255,.14);--acc:var(--on-dark-accent);--fo:var(--on-dark-accent);--ring:rgba(255,255,255,.32);--ring-bg:rgba(255,255,255,.1);--pay:var(--green-900)}
+.hs-cases .g-g{--bg:var(--khyzr-green);--fg:#fff;--fg2:var(--on-dark-soft);--fg3:var(--green-100);--seam:rgba(255,255,255,.24);--acc:#fff;--fo:#fff;--ring:rgba(255,255,255,.4);--ring-bg:rgba(255,255,255,.12);--pay:var(--forest)}
+
+/* its content: as wide as the tile will be (cases.js), as tall as the tile is */
+.hs-cases .c{display:flex;flex-direction:column;height:100%;padding:var(--p)}
+.hs-cases .hd{display:flex;flex:1;min-height:0;font:inherit}
+/* the control: the client and the title are its name, and it covers the whole tile until the tile is open */
+.hs-cases .tb{appearance:none;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;width:100%;margin:0;padding:0;border:0;border-radius:0;background:none;
+  color:inherit;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hs-cases .tb::after{content:"";position:absolute;inset:0}
+.hs-cases .tb:focus-visible{outline:none}
+.hs-cases .tb:focus-visible::after{outline:2px solid var(--fo);outline-offset:-.4375rem;border-radius:.8125rem}
+.hs-cases .cl{display:block;padding-right:2.25rem;font:var(--fw-ui) 1rem/1.2 var(--font-text);letter-spacing:-.005em;color:var(--fg);white-space:nowrap}
+/* the client's own mark stands where its name stood (8 Oct 2026, Cisco: "find and incorporate the logos for each company"):
+   real artwork in one flat colour, ink on the white and the grey, white on the green and the ink, each file's source and
+   what was done to it in marks/SOURCES.md. The name is the image's alt: it names the control, and it is what stands here
+   in the type above where the picture does not load (so the image carries no width or height of its own: a box cut to the
+   mark would crop the name). One size in every mode but a tablet's band, so a mark does not change as the seams move.
+   Sized by eye to weigh the same, the way the ecosystem's marks are: --S the nominal height, --e each mark's own factor */
+.hs-cases .cl img{display:block;height:calc(var(--S) * var(--e,1));width:auto;max-width:none;user-select:none}
+.hs-cases [data-id="zamil-ac"]{--e:.84}
+.hs-cases [data-id="focus-expo"]{--e:.76}
+.hs-cases [data-id="olive-burger"]{--e:1.62}
+.hs-cases [data-id="pax-beneficia"]{--e:1.58}
+.hs-cases [data-id="campus-cloud"]{--e:.82}
+.hs-cases [data-id="gem-center"]{--e:.94}
+.hs-cases .ti{display:block;max-width:14em;margin-top:1.5rem;font:var(--fw-display) var(--ts,1.75rem)/1.06 var(--font-display);letter-spacing:-.027em;color:var(--fg);text-wrap:balance}
+.hs-cases .dz,.hs-cases .bt,.hs-cases .ph{display:none}
+/* the plus in the tile's corner (cases.js draws it with the control): it rides the corner, turns to a cross when the tile is open */
+.hs-cases .rg{position:absolute;top:calc(var(--p) - .65rem);right:calc(var(--p) - .875rem);display:grid;place-items:center;width:2.5rem;height:2.5rem;border:1px solid transparent;border-radius:50%;color:var(--fg);
+  transition:border-color .3s ease,background-color .3s ease}
+.hs-cases .rg svg{width:.75rem;height:.75rem;overflow:visible;transition:transform .6s var(--ease-trace)}
+.hs-cases .rg path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+
+/* a tile with figures: the title steps back under the client, the figures stand at the foot */
+.hs-cases .k-fig .hd{flex:none}
+.hs-cases .k-fig .tb{justify-content:flex-start}
+.hs-cases .k-fig .ti{max-width:15em;margin-top:.9375rem;font:var(--fw-ui) clamp(1.0625rem,1.5*var(--u),1.3125rem)/1.22 var(--font-text);letter-spacing:-.014em}
+.hs-cases .fg{display:flex;gap:clamp(1.5rem,3*var(--u),2.75rem);margin-top:auto;padding-top:1.5rem}
+.hs-cases .f{min-width:0}
+.hs-cases .n{display:block;margin-left:-.035em;font:var(--fw-display) var(--fs,4rem)/.84 var(--font-display);letter-spacing:-.05em;color:var(--fg);white-space:nowrap}
+.hs-cases .l{display:block;margin-top:.8125rem;font:var(--fw-ui) .9375rem/1.25 var(--font-text);color:var(--fg2)}
+
+/* ---- the three compositions' type ---- */
+.hs-cases.w3 .t{--ts:clamp(1.5rem,2.15*var(--u),1.95rem);--fs:clamp(3.5rem,5.9*var(--u),5.3rem)}
+.hs-cases.w3 .t[data-s="l"]{--ts:clamp(1.9rem,3.05*var(--u),2.75rem);--fs:clamp(4.25rem,7.5*var(--u),6.8rem)}
+.hs-cases.w2 .t{--ts:clamp(1.3125rem,3.1*var(--u),1.75rem);--fs:clamp(2.75rem,7.4*var(--u),4.25rem)}
+.hs-cases.w2 .t[data-s="l"]{--ts:clamp(1.5rem,3.6*var(--u),2.125rem);--fs:clamp(3.75rem,10.4*var(--u),5.75rem)}
+.hs-cases.w1 .t{--ts:1.4375rem;--fs:clamp(3.5rem,17*var(--u),4.5rem)}
+.hs-cases.w1 .t[data-s="l"]{--ts:1.8125rem;--fs:clamp(3.75rem,19.5*var(--u),5rem)}
+.hs-cases.w1 .m-rest .c{min-height:8rem}
+.hs-cases.w1 .m-rest[data-s="l"] .c{min-height:11.5rem}
+.hs-cases.w1 .k-fig.m-rest .c{min-height:15rem}
+
+/* ---- narrow: a tile beside the open one ---- */
+.hs-cases .m-narrow .ti{font:var(--fw-display) 1.0625rem/1.2 var(--font-display);letter-spacing:-.014em}
+.hs-cases .k-fig.m-narrow .ti{font:var(--fw-ui) 1rem/1.25 var(--font-text)}
+.hs-cases .m-narrow .fg{flex-direction:column;gap:.875rem}
+.hs-cases .m-narrow .n{font-size:2.125rem}
+.hs-cases .m-narrow .l,.hs-cases .m-band .l{margin-top:.4375rem;font-size:max(.8125rem,11px)}
+
+/* ---- a band: the open tile's column-mate ---- */
+.hs-cases .m-band .c{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--space-4)}
+.hs-cases .m-band .hd{flex:none}
+.hs-cases .m-band .tb{justify-content:space-between}
+.hs-cases .m-band .ti{max-width:none;margin-top:.75rem;font:var(--fw-display) 1.25rem/1.15 var(--font-display);letter-spacing:-.018em;color:var(--fg)}
+.hs-cases .m-band .fg{align-self:end;gap:1.75rem;margin:0;padding:0}
+.hs-cases .m-band .n{font-size:2.375rem}
+.hs-cases.w2 .m-band .n{font-size:2.125rem}
+/* a band is low. Its mark gives way to its title: it stands at its own size where the title leaves it the room (every band
+   three columns wide), and where a tablet's title runs to two or three lines it closes down, never under --Sb, the title
+   close under it, so the band holds what it held when the name was set in type */
+.hs-cases .m-band .cl{flex:0 1 calc(var(--S) * var(--e,1));min-height:min(calc(var(--S) * var(--e,1)),var(--Sb))}
+.hs-cases .m-band .cl img{height:100%}
+.hs-cases.w2 .m-band .ti{margin-top:.45rem}
+
+/* ---- open: a head over three cells. The tile's own width is what its cells answer to (the container queries below);
+   only an open tile is a container: on a resting one, WebKit measured the words taller than they stand ---- */
+.hs-cases .m-open .c{container:cases-tile / inline-size;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto auto minmax(var(--space-4),1fr) auto;padding:0}
+.hs-cases .m-open .hd{display:block;grid-column:1/-1;grid-row:1;padding:var(--p) var(--p) 0}
+.hs-cases .m-open .tb{display:block;cursor:default;pointer-events:none}
+.hs-cases .m-open .tb::after{display:none}
+.hs-cases .m-open .ti{max-width:16em;margin-top:.9375rem;font:var(--fw-display) clamp(1.75rem,7.4*var(--u),2.25rem)/1.04 var(--font-display);letter-spacing:-.03em;color:var(--fg)}
+.hs-cases .m-open .dz{display:block;grid-column:1/-1;grid-row:2;padding:.8125rem var(--p) 0;font:var(--fw-text) .9375rem/1.4 var(--font-text);color:var(--fg3)}
+.hs-cases .m-open .fg{grid-column:1/-1;grid-row:3;gap:1.75rem;margin:0;padding:1.75rem var(--p) 0}
+.hs-cases .m-open .n{font-size:clamp(2.75rem,12*var(--u),3.5rem)}
+.hs-cases .m-open .l{margin-top:.625rem}
+/* one study has a picture of its own (.k-pic): Focus Expo's flyer, the real piece (marks/SOURCES.md). It shows only in the
+   open study and stands where a figure stands: under the disciplines when the cells run down, over the payoff when they
+   run across. No other study has a real picture, so no other has one; the file carries its own size, so the tile is
+   measured right before it loads */
+.hs-cases .m-open .ph{display:block;grid-column:1/-1;grid-row:3;margin:0;padding:1.5rem var(--p) 0}
+.hs-cases .ph img{display:block;width:100%;max-width:22rem;height:auto;border-radius:var(--radius-s);user-select:none}
+.hs-cases .m-open .bt{display:grid;grid-column:1/-1;grid-row:5;grid-template-columns:minmax(0,1fr);list-style:none;border-top:1px solid var(--seam)}
+.hs-cases .b{padding:1.125rem var(--p) 1.375rem}
+.hs-cases .b + .b{border-top:1px solid var(--seam)}
+.hs-cases .b h4{font:var(--fw-ui) .9375rem/1.2 var(--font-text);color:var(--fg3)}
+.hs-cases .b2 h4{color:var(--fg)}
+.hs-cases .b3 h4{color:var(--acc)}
+.hs-cases .b3{background:var(--pay)}
+.hs-cases .b p{max-width:60ch;margin-top:.625rem;font:var(--fw-text) clamp(1rem,1.16*var(--u),1.125rem)/1.55 var(--font-text);color:var(--fg2);text-wrap:pretty}
+.hs-cases .b3 p{color:var(--fg)}
+.hs-cases .g-g .b p{color:#fff}
+/* the cells in rows, each beat's name in a column of its own (a tablet's open tile) */
+@container cases-tile (min-width:29rem){
+  .hs-cases .m-open .b{display:grid;grid-template-columns:6.25rem minmax(0,1fr);column-gap:1.25rem;align-items:baseline}
+  .hs-cases .m-open .b p{margin-top:0}
+}
+/* the cells across: three tiles under the head, and the figures stand over the payoff */
+@container cases-tile (min-width:43rem){
+  .hs-cases .m-open .ti{font-size:clamp(2.1rem,3.7*var(--u),3.3rem)}
+  .hs-cases .m-open.k-fig .ti{font-size:clamp(1.9rem,3.05*var(--u),2.7rem)}
+  .hs-cases .m-open.k-fig .hd,.hs-cases .m-open.k-fig .dz,.hs-cases .m-open.k-pic .hd,.hs-cases .m-open.k-pic .dz{grid-column:1/3}
+  .hs-cases .m-open .fg{grid-column:3;grid-row:1/5;align-self:end;gap:clamp(1.125rem,2*var(--u),1.75rem);padding:3.25rem var(--p) 1.375rem}
+  .hs-cases .m-open .ph{grid-column:3;grid-row:1/5;align-self:end;padding:3.5rem var(--p) 1.375rem}
+  .hs-cases .m-open .ph img{max-width:none}
+  .hs-cases .m-open .n{font-size:clamp(2.25rem,3.6*var(--u),3.4rem)}
+  .hs-cases .m-open .l{font-size:clamp(.875rem,1.05*var(--u),.9375rem);white-space:nowrap}
+  .hs-cases .m-open .bt{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hs-cases .m-open .b{display:block;padding:1.25rem var(--p) var(--p)}
+  .hs-cases .m-open .b + .b{border-top:0;border-left:1px solid var(--seam)}
+  .hs-cases .m-open .b p{max-width:38ch;margin-top:.625rem}
+}
+/* open, the plus is a cross in a ring, and the ring is the control */
+.hs-cases .m-open .rg{border-color:var(--ring);cursor:pointer;pointer-events:auto}
+.hs-cases .m-open .rg svg{transform:rotate(45deg)}
+.hs-cases .m-open .tb:focus-visible .rg{outline:2px solid var(--fo);outline-offset:3px}
+.hs-cases .m-open .rg:active{background:var(--ring-bg)}
+
+/* ---- what answers a pointer that hovers: the plus takes its ring, and the tile leans out a little (cases.js moves its seams) ---- */
+@media (hover:hover){
+  .hs-cases .t:not(.m-open):hover .rg{border-color:var(--ring)}
+  .hs-cases .m-open .rg:hover{background:var(--ring-bg)}
+}
+@media (pointer:coarse){
+  .hs-cases .rg::before{content:"";position:absolute;inset:-.5rem}
+}
+
+/* ---- the words change with the tile's mode: out quickly as the seams start, back as the tile takes its shape ---- */
+.hs-cases .ti,.hs-cases .fg,.hs-cases .dz,.hs-cases .bt,.hs-cases .ph{transition:opacity .55s ease var(--cd)}
+.hs-cases .sw .ti,.hs-cases .sw .fg,.hs-cases .sw .dz,.hs-cases .sw .bt,.hs-cases .sw .ph{opacity:0;transition:opacity .12s ease}
+/* a mark keeps its size and stays, except on a tablet, where a band can close it down: there it is re-set with the words */
+.hs-cases.w2 .cl img{transition:opacity .55s ease var(--cd)}
+.hs-cases.w2 .sw .cl img{opacity:0;transition:opacity .12s ease}
+/* the disciplines and the cells are not there until the tile is open, so they cannot fade from what they were: they arrive on a keyframe */
+.hs-cases.live .m-open .dz,.hs-cases.live .m-open .bt,.hs-cases.live .m-open .ph{animation:cases-up .55s ease .12s both}
+@keyframes cases-up{from{opacity:0}to{opacity:1}}
+/* the arrival: the wall stands as six even tiles for a moment, then the seams find the composition and the words come up */
+.hs-cases.live .wall:not(.on) .cl,.hs-cases.live .wall:not(.on) .ti,.hs-cases.live .wall:not(.on) .fg,.hs-cases.live .wall:not(.on) .rg{opacity:0}
+.hs-cases .cl,.hs-cases .rg{transition:opacity .55s ease var(--cd),border-color .3s ease,background-color .3s ease}
+
+/* ---- no motion: while cases.js re-lays the wall for a new width, and for a visitor who asked for none ---- */
+.hs-cases.nt .wall,.hs-cases.nt .t,.hs-cases.nt .t *{transition:none!important;animation:none!important}
+@media (prefers-reduced-motion:reduce){
+  .hs-cases .wall,.hs-cases .t,.hs-cases .t *{transition:none!important;animation:none!important}
+}
+
+/* ---- until cases.js has the wall, and without JavaScript: nothing is placed and nothing is shut. The six stand one
+   under the other on the slab, its hairline between them, each told in full the way an open tile is ---- */
+.hs-cases:not(.live) .wall{display:grid;row-gap:1px;height:auto;transition:none}
+.hs-cases:not(.live) .t{position:static;transition:none}
+.hs-cases:not(.live) .c{height:auto}

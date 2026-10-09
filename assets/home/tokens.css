@@ -1,0 +1,50 @@
+/* ============================================================
+   khyzr.com homepage — the sections' shared ground.
+   The design system's tokens (copied from the vault's
+   web-design-system/web/design-system/tokens/, 2026-10-01, the same set the
+   labs speak), and the base every section design was built on, scoped to
+   .hs so the hero, nav and original sections keep their own.
+   ============================================================ */
+/* the two faces, from the site itself (9 Oct 2026; they came from Google Fonts): no page asks a third party for
+   anything as it loads (the homepage asks Google for the name section's tongues when that section nears), and
+   Outfit is preloaded by each page. Latin as Google cuts it; Outfit's extended Latin loads only
+   where a page uses it. Both are under the SIL Open Font License 1.1, its text beside the files (assets/fonts/). */
+@font-face{font-family:"Outfit";font-style:normal;font-weight:400 600;font-display:swap;src:url(../fonts/outfit-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Outfit";font-style:normal;font-weight:400 600;font-display:swap;src:url(../fonts/outfit-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Manrope";font-style:normal;font-weight:500 600;font-display:swap;src:url(../fonts/manrope-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  /* colour */
+  --khyzr-green:#0A690A; --forest:#064606; --deep-forest:#053805; --mint:#85B485;
+  --green-050:#EFF7EF; --green-100:#DBE9DB; --green-200:#A9CBA9; --green-300:#91BC91; --green-400:#3B873B;
+  --green-500:#0A690A; --green-600:#085808; --green-700:#064606; --green-800:#053805; --green-900:#043304;
+  --leaf:#2F802F; /* gradient-only bright leaf */
+  --cobalt:#2F5FB5; --marigold:#E8A93C; --marigold-text:#946C26; --terracotta:#C2582F; --terracotta-text:#B6532C; --steel:#6E7B8A;
+  --paper:#FFFFFF; --surface:#FFFFFF; --surface-2:#F5F5F5; --hairline:#E7E7E7;
+  --faint:#8B938C; --muted:#5D665F; --body:#262D29; --ink:#0A0A0A; --pitch:#030503;
+  --on-dark-heading:#FFFFFF; --on-dark-soft:#EEF2EE; --on-dark-body:#C8CEC9; --on-dark-muted:#8D948F; --on-dark-faint:#7B827D;
+  --on-dark-accent:#91BC91; --on-dark-divider:rgba(255,255,255,.10); --on-dark-border:rgba(255,255,255,.11);
+  --selection:rgba(10,105,10,.16);
+  --gradient-hero:linear-gradient(to bottom in oklab,#030503 0%,#043304 36%,#064606 58%,#2F802F 71%,#85B485 84%,#DBE9DB 93%,#FFFFFF 100%);
+  /* type */
+  --font-display:"Outfit",system-ui,sans-serif; --font-text:"Outfit",system-ui,sans-serif;
+  --font-tech:"Manrope",system-ui,sans-serif; --font-serif-accent:"Instrument Serif",Georgia,serif;
+  --font-arabic:"Noto Naskh Arabic","Times New Roman",serif;
+  --fw-display:600; --fw-ui:500; --fw-text:400;
+  --text-title:clamp(2.1rem,4.6vw,3.7rem); --text-quote:clamp(1.65rem,3.5vw,2.9rem);
+  --text-lede:clamp(1.06rem,1.5vw,1.32rem); --text-body:16px; --text-eyebrow:12px; --text-label:11px;
+  --tracking-display:-0.027em; --tracking-eyebrow:.16em;
+  /* space and shape */
+  --space-1:12px; --space-2:16px; --space-3:24px; --space-4:32px; --space-5:40px; --space-6:64px;
+  --section-pad-y:clamp(88px,14vh,180px); --gutter:clamp(24px,5vw,96px);
+  --container:1560px; --measure-reading:1180px; --measure-lede:600px;
+  --radius-s:9px; --radius-m:16px; --radius-l:20px; --radius-pill:999px;
+  /* motion */
+  --ease-trace:cubic-bezier(.34,1.45,.64,1); --ease-pop:cubic-bezier(.34,1.56,.64,1); --ease-drift:cubic-bezier(.22,.9,.36,1);
+  --dur-enter:900ms; --dur-stagger:140ms; --dur-hover:500ms; --dur-pulse:420ms; --dur-count:1600ms;
+  --rise-distance:30px; --rise-scale:.96;
+}
+.hs{position:relative;isolation:isolate}
+.hs *,.hs *::before,.hs *::after{box-sizing:border-box}
+.hs img,.hs svg,.hs canvas,.hs video{display:block;max-width:100%}
+.hs :focus-visible{outline:2px solid var(--khyzr-green);outline-offset:3px}

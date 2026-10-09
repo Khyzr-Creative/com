@@ -1,0 +1,79 @@
+/* ============================================================
+   khyzr.com homepage — Principles (the original section, on the
+   shared layer). The five principles as an expanding spine (a pointer,
+   focus or a tap opens one; Integrity rests open). The one it held
+   quietly, beside a photograph, left on 2 Oct 2026 (Cisco: "Remove this";
+   labs khyzr-com/homepage-cuts/).
+   Since 2 Oct 2026 it fits one screen (Cisco: "this should fit in a single screen, it's too tall"): the title and
+   the quote stand side by side over the spine, the spine is shorter, and the one held quietly is a strip with the
+   photograph as its thumbnail. It was about 1,500px tall at 1440 × 900 (the head, the quote, a spine of 56vh and
+   the photograph at 180px, each under the other).
+   Since 5 Oct 2026 it stands on the page's own rhythm (Cisco: "some sections look too close to others"): a whole
+   measure above the title and under the spine, as every other band has, and the shared gap under the head. The
+   fit to one screen had left it under half of that (6.5vh), so the title crowded the grey's top edge and the
+   spine the dark facade below. With the strip gone it still fits one screen: 825px at 1920 × 1065, 716 at 1440 × 780.
+   Since 8 Oct 2026, his pick from the principles lab ("lets keep this but make the title words for each pillar
+   horizontal and left aligned"): the section stays, and a closed pillar's name lies flat at its foot. The line it held with clients beside the title ("The right answer isn't always comfortable…", scrubbed in
+   word by word) left the same day (Cisco: "remove this"), so the head is split as Disciplines' and the case
+   studies' are, the title left and the lede right. The lab, and the section as it stood: labs khyzr-com/principles-lab/.
+   The hand-over, the same evening (Cisco: "needs a UX improvement… when mouse hovering it becomes very hard for a
+   split second to read the title of each pillar"). A pillar used to change by fading: its ground from paper to
+   green, its dark name out and a second, larger, white one in at another height, so for a third of a second both
+   names lay ghosted on a grey-green and the line under them was cut by the pillar's edge. Now a pillar has two
+   faces, as a discipline's card has: the paper one, and a green one lying over it that comes up from the foot. The
+   name is set on both at the same place and moves the same way on both (it lifts to make room for its line, and
+   grows), so the edge passes through it and leaves it whole, ink above and white below, at every moment and in
+   both directions. The line arrives once its pillar has the room, and leaves at once.
+   The numbers over the names, 01 to 05, left with it (Cisco: "yes remove the numbers"): the five are not an order.
+   ============================================================ */
+/* the spine's measures: the padding both faces are set by, the name closed, how much it grows open, and the one time
+   everything in a hand-over takes (--grow follows what the open name measured before it was one name: 27px at 1000,
+   35 at 1440, 31 at 1920). --dh, a pillar's own, is the height of its line (principles.js reads it) */
+.hs-principles{--px:calc(1.5rem + 1px);--pb:calc(1.625rem + 1px);--ns:clamp(1rem,1.78*var(--u),1.7rem);--grow:1.46;--t:.52s;
+  padding:var(--section-pad-y) var(--gx)}
+@media (min-width:1480px){.hs-principles{--grow:1.4}}
+@media (min-width:1560px){.hs-principles{--grow:1.353}}
+.hs-principles .in{max-width:var(--container);margin:0 auto}
+
+/* ---- stacked: every principle reads. Under 1000px, where a closed pillar has no room for its name lying flat, and
+   at any width without JS, where the spine can't open ---- */
+.hs-principles .row{margin-top:min(var(--hs-head-gap),6.5vh);display:flex;flex-direction:column;gap:.75rem}
+/* the hairline is drawn inside the box, so the green face covers it */
+.hs-principles .pp{position:relative;display:flex;flex-direction:column;
+  padding:var(--px) var(--px) var(--pb);border:0;border-radius:var(--radius-m);background:var(--paper);box-shadow:inset 0 0 0 1px var(--hairline)}
+.hs-principles .v{display:none}
+.hs-principles .b{display:block}
+.hs-principles .t{display:block;margin-bottom:.375rem;font:var(--fw-ui) 1.2rem/1.1 var(--font-text);letter-spacing:-.022em;color:var(--ink)}
+.hs-principles .d{display:block;max-width:38ch;font-size:.97rem;line-height:1.6;color:var(--muted);text-wrap:pretty}
+@media (min-width:641px) and (max-width:999px){.hs-principles .d{max-width:60ch}}
+@media (forced-colors:active){.hs-principles .pp,.hs-principles .pp.on .b{outline:1px solid ButtonBorder;outline-offset:-1px}}
+
+/* ---- the spine ---- */
+@media (min-width:1000px){
+  /* the shared gap under the head, a little less on a short screen so the band keeps to one */
+  .js .hs-principles .row{flex-direction:row;gap:.625rem;min-height:clamp(13.5rem,32vh,25rem)}
+  .js .hs-principles .pp{flex:1 1 0;min-width:0;overflow:hidden;cursor:pointer;transition:flex-grow var(--t) var(--ease-drift)}
+  .js .hs-principles .pp.on{flex-grow:3.4;cursor:default}
+
+  /* the green face: the pillar again, set on green, lying over the paper one and uncovered from the foot. Its edge
+     travels a twentieth past the pillar at each end, so it leaves at speed and no sliver lingers while the curve settles */
+  .js .hs-principles .b{position:absolute;inset:0;margin:0;background:var(--green-900);clip-path:inset(105% 0 0 0);transition:clip-path var(--t) var(--ease-drift)}
+  .js .hs-principles .pp.on .b{clip-path:inset(-5% 0 0 0)}
+
+  /* the name, once on each face: flat at the foot, sized to the narrowest pillar's room ("Efficiency" the longest).
+     Open, it lifts by its line's height and grows from its own foot */
+  .js .hs-principles .v,.js .hs-principles .t{display:block;position:absolute;left:var(--px);bottom:var(--pb);margin:0;white-space:nowrap;
+    font:var(--fw-ui) var(--ns)/1 var(--font-text);letter-spacing:-.015em;transform-origin:0 100%;transition:transform var(--t) var(--ease-drift)}
+  .js .hs-principles .v{color:var(--ink)}
+  .js .hs-principles .t{color:var(--on-dark-heading)}
+  .js .hs-principles .pp.on .v,.js .hs-principles .pp.on .t{transform:translateY(calc(-1 * (var(--dh,3.3rem) + var(--space-1) + .15rem))) scale(var(--grow))}
+
+  /* the line: under the name, at the foot. It leaves at once; it arrives when its pillar is wide enough to hold it */
+  .js .hs-principles .d{position:absolute;left:var(--px);bottom:var(--pb);width:clamp(15rem,27*var(--u),25.625rem);font-size:1.02rem;color:var(--on-dark-body);
+    opacity:0;transform:translateY(.625rem);transition:opacity .1s linear,transform 0s linear .1s}
+  .js .hs-principles .pp.on .d{opacity:1;transform:none;transition:opacity .34s ease .17s,transform var(--t) var(--ease-drift) .17s}
+}
+
+/* while the window is resized nothing travels: the measures change under the open pillar (principles.js) */
+.hs-principles.still .pp,.hs-principles.still .b,.hs-principles.still .v,.hs-principles.still .t,.hs-principles.still .d{transition:none!important}
+@media (prefers-reduced-motion:reduce){.hs-principles .pp,.hs-principles .b,.hs-principles .v,.hs-principles .t,.hs-principles .d{transition:none!important}}

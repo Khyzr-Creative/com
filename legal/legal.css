@@ -1,0 +1,152 @@
+/* ============================================================
+   khyzr.com — the legal pages (2 Oct 2026, the launch kit:
+   docs/LAUNCH.md). The privacy policy and the terms of service
+   carry the company's own text since 8 Oct 2026 (the documents,
+   below); the imprint's draft left the site on 9 Oct 2026 (its rules stay),
+   and what is still to be confirmed there is marked where it
+   stands. All three are noindex and out of the sitemap until
+   launch. On the homepage's tokens (assets/home/tokens.css), its
+   section header (home.css) and its footer's base row
+   (footer/footer.css). One small script, legal.js, for the
+   documents' contents; without it they are plain links.
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--body);font:var(--fw-text) var(--text-body)/1.65 var(--font-text);-webkit-font-smoothing:antialiased}
+::selection{background:var(--selection)}
+a{color:inherit;-webkit-tap-highlight-color:rgba(10,105,10,.14)}
+.skip{position:fixed;left:1rem;top:.75rem;z-index:100;padding:.75rem 1.125rem;border-radius:var(--radius-pill);background:var(--ink);color:#fff;
+  font:var(--fw-ui) .875rem/1 var(--font-text);text-decoration:none;transform:translateY(-200%)}
+.skip:focus{transform:none}
+
+/* the bar: the wordmark home, and the homepage's one ask */
+.lg-bar{padding:0 var(--gutter)}
+.lg-bar .in{max-width:var(--container);margin:0 auto;height:4.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;border-bottom:1px solid var(--hairline)}
+.lg-bar .home img{display:block;width:4.75rem;height:auto}   /* the homepage nav's size (2 Oct 2026) */
+.lg-bar .cta{display:inline-flex;align-items:center;height:2.5rem;padding:0 1.25rem;border-radius:var(--radius-pill);background:var(--ink);color:#fff;
+  font:var(--fw-ui) .84375rem/1 var(--font-text);text-decoration:none;white-space:nowrap;transition:transform var(--dur-hover) var(--ease-pop),background-color .2s ease}
+@media (hover:hover){.lg-bar .cta:hover{transform:scale(1.05);background:#000}}
+.lg-bar .cta:active{transform:scale(.98)}
+.lg-bar a:focus-visible{outline:2px solid var(--khyzr-green);outline-offset:3px;border-radius:6px}
+.lg-bar .cta:focus-visible{border-radius:var(--radius-pill)}
+
+/* the page: one reading column */
+.lg{padding:clamp(3.5rem,9vh,7rem) var(--gutter) var(--section-pad-y)}
+.lg .in{max-width:45rem;margin:0 auto}
+.lg .hs-title{font-size:clamp(2.3rem,5vw,3.4rem)}
+.lg-date{margin-top:var(--space-3);font:600 var(--text-eyebrow)/1.4 var(--font-tech);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.lg-draft{margin-top:var(--space-3);padding:.875rem 1.125rem;border-radius:var(--radius-m);background:var(--surface-2);font-size:.9375rem;line-height:1.55;color:var(--muted)}
+.lg-lede{margin-top:var(--space-5);font-size:var(--text-lede);line-height:1.55;color:var(--muted)}
+.lg h2{margin:clamp(2.75rem,5vw,3.75rem) 0 var(--space-2);font:var(--fw-display) clamp(1.3rem,2vw,1.55rem)/1.25 var(--font-display);letter-spacing:-.014em;color:var(--ink)}
+.lg p{max-width:66ch;text-wrap:pretty}
+.lg h2 + p,.lg p + p{margin-top:var(--space-2)}
+.lg h2 + p{margin-top:0}
+.lg p a{text-decoration:underline 1px;text-decoration-color:var(--green-200);text-underline-offset:.24em;transition:color .2s ease,text-decoration-color .2s ease}
+.lg p a:hover{color:var(--ink);text-decoration-color:var(--khyzr-green)}
+/* what is still to be confirmed shows as such */
+.tbd{padding:.02em .2em;margin:0 -.04em;border-radius:5px;background:rgba(232,169,60,.2);color:var(--ink);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* the imprint's facts. The label's column keeps its full-size width, 208px, when the page is drawn smaller:
+   the label stops at 11px (home.css), so its longest line needs the same room at every size */
+.lg-facts{margin-top:var(--space-5);display:grid;grid-template-columns:minmax(0,max(13em,208px)) minmax(0,1fr);border-top:1px solid var(--hairline)}
+.lg-facts dt,.lg-facts dd{padding:.875rem 0;border-bottom:1px solid var(--hairline)}
+.lg-facts dt{padding-top:1.0625rem;font:600 var(--text-label)/1.5 var(--font-tech);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.lg-facts dd{color:var(--ink)}
+/* a finger's target: the bar's pill at full height, and the email in the facts the height of its row */
+@media (pointer:coarse){.lg-bar .cta{height:2.75rem}.lg-bar .home{display:flex;align-items:center;min-height:2.75rem;padding:0 .375rem;margin:0 -.375rem}
+  .lg-facts dd a,.lg-contact a,.lg-next a{position:relative}.lg-facts dd a::after,.lg-contact a::after,.lg-next a::after{content:"";position:absolute;inset:-.75rem -.375rem}}
+@media (max-width:560px){
+  .lg-facts{grid-template-columns:minmax(0,1fr)}
+  .lg-facts dt{padding-bottom:0;border-bottom:0}
+  .lg-facts dd{padding-top:.25rem}
+}
+
+/* ---- the documents: the privacy policy and the terms of service (8 Oct 2026) ----
+   The title and its two dates stand on one seam; under it the contents keep to the left while the text is read on
+   the right, each numbered section opening on a hairline with its number hung in the margin. On a phone the
+   contents are one line that stays at the top and scrolls sideways.
+   The reading text holds between 17 and 18px where the page is drawn smaller (home.css): this page is read, line after line. */
+@media (prefers-reduced-motion:no-preference){html:has(.lg--doc){scroll-behavior:smooth}}
+.lg--doc{--lg-text:max(44rem,664px);--lg-hang:3.25rem}
+.lg--doc .in{max-width:var(--container)}
+.lg-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,min(var(--lg-text),60%));align-items:end;gap:var(--space-3) var(--space-6);
+  padding-bottom:clamp(1.75rem,3*var(--u),2.75rem);border-bottom:1px solid var(--hairline)}
+@supports (align-items:last baseline){.lg-head{align-items:last baseline}}
+/* two words a line: both titles break the same way, and the head has the weight to stand over a long text */
+.lg--doc .hs-title{max-width:5.6em;font-size:clamp(2.75rem,6.4*var(--u),5.5rem);line-height:.98;letter-spacing:-.035em;text-wrap:balance}
+.lg-meta{display:flex;gap:var(--space-6);padding-left:var(--lg-hang)}
+.lg-meta dt{font:var(--fw-text) max(.9375rem,14px)/1.4 var(--font-text);color:var(--muted)}
+.lg-meta dd{margin-top:.125rem;font:var(--fw-ui) max(1.25rem,18px)/1.3 var(--font-text);letter-spacing:-.01em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.lg-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,min(var(--lg-text),60%));gap:0 var(--space-6);align-items:start}
+
+/* the contents */
+.lg-toc{position:sticky;top:0;max-width:19rem;max-height:100vh;overflow-y:auto;scrollbar-width:none;padding:clamp(2.25rem,4*var(--u),3.5rem) 0 var(--space-3)}
+.lg-toc::-webkit-scrollbar{display:none}
+.lg-cap{display:block;margin-bottom:.625rem;font:var(--fw-text) max(.875rem,13px)/1.4 var(--font-text);color:var(--muted)}
+.lg-toc ol{list-style:none}
+.lg-toc ol a{display:grid;grid-template-columns:2.125rem minmax(0,1fr);padding:.4375rem 0;font:var(--fw-text) max(1rem,15px)/1.4 var(--font-text);color:var(--muted);
+  text-decoration:none;border-radius:var(--radius-s);transition:color .2s ease}
+.lg-toc .n{font-variant-numeric:tabular-nums;transition:color .2s ease}
+@media (hover:hover){.lg-toc ol a:hover{color:var(--ink)}}
+.lg-toc ol a[aria-current]{color:var(--ink)}
+.lg-toc ol a[aria-current] .n{color:var(--khyzr-green)}
+.lg-also{margin-top:var(--space-3);padding-top:var(--space-3);border-top:1px solid var(--hairline);max-width:13rem}
+.lg-also .lg-cap,.lg-next .lg-cap{margin-bottom:.25rem}
+.lg-sib{font:var(--fw-ui) max(1rem,15px)/1.4 var(--font-text);color:var(--ink);text-decoration:underline 1px;text-decoration-color:var(--green-200);text-underline-offset:.24em;
+  transition:text-decoration-color .2s ease}
+@media (hover:hover){.lg-sib:hover{text-decoration-color:var(--khyzr-green)}}
+
+/* the text */
+.lg-text{min-width:0;padding-top:clamp(2.25rem,4*var(--u),3.5rem);font-size:clamp(17px,1.1875rem,18px);line-height:1.6}
+/* about seventy characters a line */
+.lg--doc .lg-text p,.lg-list,.lg-terms{max-width:34em}
+.lg--doc .lg-text .lg-lede{margin:0 0 0 var(--lg-hang);max-width:none;font-size:max(clamp(1.25rem,1.9*var(--u),1.5rem),20px);line-height:1.45;letter-spacing:-.008em;color:var(--ink)}
+.lg-text section{position:relative;margin-top:clamp(2.25rem,4*var(--u),3.25rem);padding:clamp(1.5rem,2.6*var(--u),2.125rem) 0 0 var(--lg-hang);
+  border-top:1px solid var(--hairline);scroll-margin-top:1.25rem}
+.lg-text section h2{margin:0 0 var(--space-2);font-size:max(clamp(1.4rem,2.2*var(--u),1.75rem),22px)}
+.lg-text h2 .n{position:absolute;left:0;font-weight:var(--fw-text);color:var(--muted);font-variant-numeric:tabular-nums}
+.lg-text section > * + p,.lg-text section > * + ul,.lg-text section > * + dl{margin-top:var(--space-2)}
+.lg-text section h2 + *{margin-top:0}
+.lg-list{list-style:none}
+.lg-list li{position:relative;padding-left:1.375rem;text-wrap:pretty}
+.lg-list li + li{margin-top:.5rem}
+.lg-list li::before{content:"–";position:absolute;left:0;color:var(--khyzr-green)}
+/* a term and what it covers: the term stands over its line */
+.lg-terms > div + div{margin-top:var(--space-2)}
+.lg-terms dt{font-weight:var(--fw-ui);color:var(--ink)}
+.lg-terms dd{text-wrap:pretty}
+.lg-contact{margin-top:var(--space-3);display:grid;justify-items:start;gap:.375rem;font-style:normal}
+.lg-contact .who{font:var(--fw-display) max(clamp(1.4rem,2.2*var(--u),1.75rem),22px)/1.25 var(--font-display);letter-spacing:-.014em;color:var(--ink)}
+.lg-contact a,.lg-next a{font-size:max(clamp(1.25rem,1.9*var(--u),1.5rem),20px);line-height:1.4;color:var(--ink);text-decoration:underline 1px;text-decoration-color:var(--green-200);text-underline-offset:.24em;
+  transition:text-decoration-color .2s ease}
+@media (hover:hover){.lg-contact a:hover,.lg-next a:hover{text-decoration-color:var(--khyzr-green)}}
+/* the other document, where the reading ends: on a phone the contents carry no link to it */
+.lg--doc .lg-text .lg-next{display:none}
+
+@media (max-width:1040px){
+  .lg--doc{--lg-hang:0rem}
+  .lg-head{grid-template-columns:minmax(0,1fr)}
+  .lg-meta{gap:var(--space-5)}
+  .lg-meta dd{font-size:1.125rem}
+  .lg-body{display:block}
+  /* the contents, one line: it stays at the top while the text is read, and scrolls sideways */
+  .lg-toc{z-index:2;display:flex;max-width:none;max-height:none;margin:0 calc(-1 * var(--gx));padding:0 var(--gx);background:var(--paper);border-bottom:1px solid var(--hairline);
+    overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain}
+  /* the line fades out at the right edge under a strip of the paper that stays there. A mask on the bar itself took
+     its ground away with its entries, and the text behind showed through (the phone pass, 9 Oct 2026) */
+  .lg-toc::after{content:"";flex:none;position:sticky;right:calc(-1 * var(--gx));width:3rem;margin-left:-3rem;background:linear-gradient(to right,rgb(255 255 255 / 0),var(--paper));pointer-events:none}
+  .lg-toc ol{display:flex;gap:1.75rem;width:max-content;padding-right:3rem}
+  .lg-toc ol a{display:flex;align-items:center;gap:.5rem;height:3.25rem;padding:0;white-space:nowrap}
+  .lg-toc > .lg-cap,.lg-also{display:none}
+  .lg-text{max-width:36rem;font-size:1.0625rem}
+  .lg-text section{scroll-margin-top:4.25rem}
+  .lg-text h2 .n{position:static;margin-right:.375em}
+  .lg--doc .lg-text .lg-next{display:block;margin-top:clamp(2.25rem,4*var(--u),3.25rem);padding-top:clamp(1.5rem,2.6*var(--u),2.125rem);border-top:1px solid var(--hairline);max-width:none}
+}
+
+/* the footer: the homepage footer's base row alone */
+.lg-foot.hs-footer{padding-top:1.75rem;padding-bottom:1.75rem}
+.lg-foot .base{margin-top:0;padding-top:0}
+.lg-foot .base::before{display:none}
+.lg-foot .legal a[aria-current]{color:var(--on-dark-body)}

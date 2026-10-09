@@ -1,0 +1,140 @@
+{
+ "source": "khyzr.com, the 'What's in a Name?' section: the site's own data array (Wn) in /assets/index-CQwjmZ7i.js, read 2026-10-01. Strings verbatim; lang is the lab's tag (the live site sets none). The live site cycles them in this order, one every 3500 ms; words are Growth, Health, Wealth in order.",
+ "languages": [
+  {
+   "language": "Urdu",
+   "lang": "ur",
+   "dir": "rtl",
+   "name": "الخضر",
+   "growth": "ترقی",
+   "health": "صحت",
+   "wealth": "دولت"
+  },
+  {
+   "language": "Turkish",
+   "lang": "tr",
+   "dir": "ltr",
+   "name": "Hızır",
+   "growth": "Büyüme",
+   "health": "Sağlık",
+   "wealth": "Servet"
+  },
+  {
+   "language": "Hindi",
+   "lang": "hi",
+   "dir": "ltr",
+   "name": "ख़िज़्र",
+   "growth": "विकास",
+   "health": "स्वास्थ्य",
+   "wealth": "संपत्ति"
+  },
+  {
+   "language": "Mandarin",
+   "lang": "zh-Hans",
+   "dir": "ltr",
+   "name": "希兹尔",
+   "growth": "成长",
+   "health": "健康",
+   "wealth": "财富"
+  },
+  {
+   "language": "French",
+   "lang": "fr",
+   "dir": "ltr",
+   "name": "Khidr",
+   "growth": "Croissance",
+   "health": "Santé",
+   "wealth": "Richesse"
+  },
+  {
+   "language": "Spanish",
+   "lang": "es",
+   "dir": "ltr",
+   "name": "Jidr",
+   "growth": "Crecimiento",
+   "health": "Salud",
+   "wealth": "Riqueza"
+  },
+  {
+   "language": "Farsi",
+   "lang": "fa",
+   "dir": "rtl",
+   "name": "خضر",
+   "growth": "رشد",
+   "health": "سلامت",
+   "wealth": "ثروت"
+  },
+  {
+   "language": "Japanese",
+   "lang": "ja",
+   "dir": "ltr",
+   "name": "ヒズル",
+   "growth": "成長",
+   "health": "健康",
+   "wealth": "富"
+  },
+  {
+   "language": "Korean",
+   "lang": "ko",
+   "dir": "ltr",
+   "name": "히드르",
+   "growth": "성장",
+   "health": "건강",
+   "wealth": "부"
+  },
+  {
+   "language": "Irish",
+   "lang": "ga",
+   "dir": "ltr",
+   "name": "Khizr",
+   "growth": "Fás",
+   "health": "Sláinte",
+   "wealth": "Saibhreas"
+  },
+  {
+   "language": "Arabic",
+   "lang": "ar",
+   "dir": "rtl",
+   "name": "الخضر",
+   "growth": "نمو",
+   "health": "صحة",
+   "wealth": "ثروة"
+  },
+  {
+   "language": "Portuguese",
+   "lang": "pt",
+   "dir": "ltr",
+   "name": "Jidr",
+   "growth": "Crescimento",
+   "health": "Saúde",
+   "wealth": "Riqueza"
+  },
+  {
+   "language": "German",
+   "lang": "de",
+   "dir": "ltr",
+   "name": "Chidr",
+   "growth": "Wachstum",
+   "health": "Gesundheit",
+   "wealth": "Wohlstand"
+  },
+  {
+   "language": "Dutch",
+   "lang": "nl",
+   "dir": "ltr",
+   "name": "Jidr",
+   "growth": "Groei",
+   "health": "Gezondheid",
+   "wealth": "Welvaart"
+  },
+  {
+   "language": "Tamil",
+   "lang": "ta",
+   "dir": "ltr",
+   "name": "கிஜ்ர்",
+   "growth": "வளம்",
+   "health": "நலம்",
+   "wealth": "செல்வம்"
+  }
+ ]
+}

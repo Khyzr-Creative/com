@@ -1,0 +1,89 @@
+/* ============================================================
+   khyzr.com homepage — the footer: the map of the site and the
+   legal line, nothing more. The close has already made the ask
+   ("Strive forward. Thrive together." ending in the pill), so the
+   old footer's headline, button and note are gone.
+
+   It stands on the close's ink without a seam. Each column starts
+   on its own hairline, so the map reads as one ruled index broken
+   only by the gutters; the base row runs one unbroken rule. The
+   green dot before the copyright line is the close's light, small.
+   Entrance (with motion): the rules draw left to right, column by
+   column, and each column's type fades in behind its rule.
+   ============================================================ */
+/* the close and the footer share one ground, so the map follows the close at the page's rhythm
+   (the close's own bottom padding), not after a second section's worth of black */
+.hs-footer{background:var(--ink);color:var(--on-dark-body);padding:var(--space-4) var(--gx) 2.5rem}
+.hs-footer .in{max-width:var(--container);margin:0 auto}
+.hs-footer ul{list-style:none}
+.hs-footer .top{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,5fr);gap:2.5rem 1.75rem}
+/* three columns since 9 Oct 2026, on the five-column measure, standing to the right: the map lists what has an
+   address (it listed sixteen pages and accounts that do not exist yet; the list is in docs/STATE.md) */
+.hs-footer .map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2.5rem 1.75rem}
+.hs-footer .map .col:first-child{grid-column-start:3}
+.hs-footer .col{position:relative;padding-top:1.375rem}
+.hs-footer .col::before,.hs-footer .base::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--on-dark-divider);transform-origin:0 50%}
+
+/* the brand column: the wordmark (over its 90px floor) and its one line */
+.hs-footer .mark{display:inline-block;border-radius:4px}
+.hs-footer .mark img{width:clamp(6.5rem,8.6*var(--u),7.75rem);height:auto}
+.hs-footer .brand p{margin-top:1.25rem;max-width:30ch;font:var(--fw-text) .9375rem/1.6 var(--font-text);color:var(--on-dark-muted);text-wrap:pretty}
+
+/* the columns: heads in the technical register, links in Outfit */
+.hs-footer h2{margin:1px 0 .75rem;font:600 var(--text-eyebrow)/1.3 var(--font-tech);letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-faint)}
+.hs-footer .map a{display:inline-block;padding:.3125rem 0;font:var(--fw-text) .9375rem/1.4 var(--font-text);color:var(--on-dark-body);
+  text-decoration:underline 1px transparent;text-underline-offset:.32em;transition:color .2s ease,text-decoration-color .3s ease}
+@media (hover:hover){.hs-footer .map a:hover{color:var(--on-dark-heading);text-decoration-color:var(--green-300)}}
+/* the sister sites sit quieter, with the outward arrow */
+.hs-footer li:not(.ext) + .ext{margin-top:.375rem}
+.hs-footer .map .ext a{color:var(--on-dark-muted)}
+@media (hover:hover){.hs-footer .map .ext a:hover{color:var(--on-dark-heading)}}
+.hs-footer .ext svg{display:inline-block;width:.8em;height:.8em;margin-left:.28em;vertical-align:-.04em;transition:transform var(--dur-hover) var(--ease-pop)}
+@media (hover:hover){.hs-footer .ext a:hover svg{transform:translate(2px,-2px)}}
+
+/* the base row: the green dot, the copyright line, the legal links */
+.hs-footer .base{position:relative;margin-top:clamp(3.5rem,6.4*var(--u),5.5rem);padding-top:1.375rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem 1.75rem;flex-wrap:wrap;
+  font:var(--fw-text) .875rem/1.5 var(--font-text);color:var(--on-dark-faint)}
+.hs-footer .copy{display:flex;align-items:center;gap:.75rem}
+.hs-footer .copy::before{content:"";flex:none;width:.4375rem;height:.4375rem;border-radius:50%;background:var(--green-300);
+  box-shadow:0 0 5px rgba(145,188,145,.6),0 0 16px rgba(59,135,59,.6)}
+.hs-footer .legal{display:flex;gap:2px 1.5rem;flex-wrap:wrap}
+.hs-footer .legal a{display:inline-block;padding:.375rem 0;color:var(--on-dark-faint);text-decoration:none;transition:color .2s ease}
+@media (hover:hover){.hs-footer .legal a:hover{color:var(--on-dark-body)}}
+/* a finger gets a full-height target on every link (44px; the pointer's 31 and 33 read tighter) */
+@media (pointer:coarse){.hs-footer .map a,.hs-footer .legal a{padding:.75rem 0}}
+
+/* focus: white on dark */
+.hs-footer a:focus-visible{outline:2px solid var(--on-dark-heading);outline-offset:3px;border-radius:4px}
+
+/* entrance */
+.hs-footer .brand{--i:0}
+.hs-footer .map .col:nth-child(1){--i:1}.hs-footer .map .col:nth-child(2){--i:2}.hs-footer .map .col:nth-child(3){--i:3}
+.hs-footer .map .col:nth-child(4){--i:4}.hs-footer .map .col:nth-child(5){--i:5}
+.hs-footer .base{--i:6}
+.hs-footer .col::before,.hs-footer .base::before{transition:transform 1.2s var(--ease-drift) calc(var(--i) * 90ms)}
+.hs-footer .col > *,.hs-footer .base > *{transition:opacity .9s ease calc(.32s + var(--i) * 90ms)}
+.js .hs-footer:not(.is-in) .col::before,.js .hs-footer:not(.is-in) .base::before{transform:scaleX(0);transition:none}
+.js .hs-footer:not(.is-in) .col > *,.js .hs-footer:not(.is-in) .base > *{opacity:0;transition:none}
+
+/* tablet: the brand line above the map */
+@media (max-width:1080px){
+  .hs-footer .top{grid-template-columns:minmax(0,1fr);gap:3rem}
+  .hs-footer .map{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hs-footer .map .col:first-child{grid-column-start:auto}
+  .hs-footer .brand{display:flex;justify-content:space-between;align-items:flex-start;gap:1.75rem}
+  .hs-footer .brand p{margin-top:0;text-align:right}
+}
+/* phone: the brand line on top, then two columns */
+@media (max-width:560px){
+  .hs-footer .top{gap:2.75rem}
+  .hs-footer .brand{display:block}
+  .hs-footer .brand p{margin-top:1.125rem;text-align:left}
+  .hs-footer .map{grid-template-columns:repeat(2,minmax(0,1fr));gap:2.25rem 1.25rem}
+  .hs-footer .map > :last-child:nth-child(odd){grid-column:1/-1}
+  .hs-footer .base{flex-direction:column;align-items:flex-start;gap:.625rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .hs-footer .col::before,.hs-footer .base::before{transform:none!important;transition:none!important}
+  .hs-footer .col > *,.hs-footer .base > *{opacity:1!important;transition:none!important}
+}

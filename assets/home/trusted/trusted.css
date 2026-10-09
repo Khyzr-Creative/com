@@ -1,0 +1,40 @@
+/* ============================================================
+   khyzr.com homepage — Trusted by (the original logo roll, on the
+   shared layer). The proof pair counts up once, with its settle
+   pulse; the client logos roll beside it on a 30-second
+   marquee (seven logos at the pace five kept in 30), which pauses on hover and sleeps off screen.
+   ============================================================ */
+.hs-trusted{border-bottom:1px solid var(--hairline);padding:clamp(2.5rem,5.5*var(--u),4rem) var(--gx)}
+.hs-trusted .in{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:clamp(2rem,4.5*var(--u),4.5rem)}
+.hs-trusted .cap{display:flex;gap:clamp(2.25rem,4*var(--u),4rem);padding-right:clamp(2rem,4.5*var(--u),4.5rem);border-right:1px solid var(--hairline)}
+.hs-trusted .num{display:block;font:var(--fw-display) clamp(2.6rem,4.2*var(--u),4rem)/1 var(--font-display);letter-spacing:-.03em;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums;transform-origin:0 100%}
+.hs-trusted .plus{color:var(--khyzr-green)}
+.hs-trusted .lbl{display:block;margin-top:var(--space-1);font:600 var(--text-eyebrow)/1.2 var(--font-tech);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--muted)}
+.hs-trusted .mask{overflow:hidden;min-width:0;-webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent)}
+.hs-trusted .track{display:flex;align-items:center;gap:clamp(3.5rem,7*var(--u),6.875rem);width:max-content;padding-right:clamp(3.5rem,7*var(--u),6.875rem);animation:trusted-roll 45s linear infinite}
+@keyframes trusted-roll{to{transform:translateX(-50%)}}
+@media (hover:hover){.hs-trusted .mask:hover .track{animation-play-state:paused}}   /* a tap would stop the roll */
+.hs-trusted .track.sleep{animation-play-state:paused}
+.hs-trusted .lg{display:flex;align-items:center;user-select:none}
+.hs-trusted .lg img{width:auto;max-width:none}
+@media (max-width:760px){
+  .hs-trusted .in{grid-template-columns:minmax(0,1fr);gap:1.625rem}
+  .hs-trusted .cap{border-right:0;padding-right:0;gap:2.75rem}
+  .hs-trusted .track{gap:2.75rem;padding-right:2.75rem}
+  .hs-trusted .lg img{zoom:.8}
+}
+@media (prefers-reduced-motion:reduce){.hs-trusted .track{animation:none}}
+/* pause and play: the voices' control, at the roll's end */
+.hs-trusted .pp{display:none}
+.js .hs-trusted .pp{position:relative;z-index:1;grid-column:2;grid-row:1;justify-self:end;display:inline-grid;place-items:center;width:2.75rem;height:2.75rem;
+  border-radius:var(--radius-pill);border:1px solid var(--hairline);background:var(--paper);color:var(--ink);cursor:pointer;
+  transition:border-color .2s ease,background .2s ease,transform .2s ease}
+@media (hover:hover){.hs-trusted .pp:hover{border-color:#cfcfcf;background:var(--surface-2)}}
+.hs-trusted .pp:active{transform:scale(.95)}
+.hs-trusted .pp svg{width:1rem;height:1rem}
+.hs-trusted .mask{grid-column:2;grid-row:1}
+.hs-trusted .track.paused{animation-play-state:paused}
+@media (max-width:760px){.hs-trusted .mask,.js .hs-trusted .pp{grid-column:1;grid-row:2}}
+@media (prefers-reduced-motion:reduce){.js .hs-trusted .pp{display:none}}
+/* the roll ends before its pause button, so no logo slides under it */
+@media (prefers-reduced-motion:no-preference){.js .hs-trusted .mask{margin-right:3.75rem}}

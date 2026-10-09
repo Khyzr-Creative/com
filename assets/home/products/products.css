@@ -1,0 +1,165 @@
+/* ============================================================
+   khyzr.com homepage — Products.
+   Design 2 of the products lab, "The meeting point"
+   (labs/sections/products.html, .d2): four cuts of the symbol set
+   edge to edge close their quarter rings into one ring. Each cut is
+   a control that opens its stage the way design 4, "Through the
+   icon", opens an icon; the stage is drawn by products.js.
+   ============================================================ */
+
+/* ---- shared, from the lab ---- */
+.hs-products .pr-defs{position:absolute;width:0;height:0;overflow:hidden}
+.hs-products .pr-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.hs-products p,.hs-products h3{text-wrap:pretty}
+
+/* ===============================================================
+   The meeting point (the lab's .d2, verbatim apart from the scope)
+   =============================================================== */
+.hs-products{--products-s:clamp(18.75rem,44*var(--u),40rem);padding:var(--section-pad-y) var(--gx);color:var(--body);overflow:hidden}
+.hs-products .in{max-width:min(82.5rem,var(--container));margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) var(--products-s) minmax(0,1fr);grid-template-rows:auto auto;column-gap:clamp(2rem,4*var(--u),4rem)}
+.hs-products .art{position:relative;grid-column:2;grid-row:1/3;width:var(--products-s);height:var(--products-s)}
+.hs-products .art svg{display:block;width:100%;height:100%;overflow:visible}
+.hs-products .q{max-width:19.5rem}
+.hs-products .q-tl{grid-column:1;grid-row:1;justify-self:end;text-align:right;align-self:start}
+.hs-products .q-tr{grid-column:3;grid-row:1;align-self:start}
+.hs-products .q-bl{grid-column:1;grid-row:2;justify-self:end;text-align:right;align-self:end}
+.hs-products .q-br{grid-column:3;grid-row:2;align-self:end}
+/* the section header, set to the corner it holds: right-aligned against the cuts */
+
+.hs-products .t{font:var(--fw-display) clamp(1.4rem,1.9*var(--u),1.75rem)/1.12 var(--font-display);letter-spacing:-.02em;color:var(--ink);text-wrap:balance}
+.hs-products .s{margin-top:.75rem;font-size:1rem;line-height:1.55;color:var(--body)}
+.hs-products .q .hs-link{margin-top:.875rem}
+/* the four cuts: khyzr's own on its green-900 tile, the two products on their deep tiles, the fourth in line */
+.hs-products .k1{fill:var(--products-k1)}
+.hs-products .k2{fill:var(--products-k2)}
+.hs-products .k3{fill:var(--products-k3)}
+.hs-products .t-k{--products-k1:#136E13;--products-k2:#149314;--products-k3:#5CBA5C;--products-gr:#043304}
+.hs-products .t-ai{--products-k1:#7280FC;--products-k2:#62A5FA;--products-k3:#43F0F4;--products-gr:#022853}
+.hs-products .t-st{--products-k1:#CC3E66;--products-k2:#F38239;--products-k3:#F7CD3A;--products-gr:#3B2300}
+.hs-products .t-nx{--products-gr:var(--paper)}
+.hs-products .gr{fill:var(--products-gr)}
+.hs-products .t-nx use{fill:var(--paper);stroke:var(--khyzr-green);stroke-width:1.25px;vector-effect:non-scaling-stroke;stroke-dasharray:1 1;stroke-dashoffset:0}
+.hs-products .glint{fill:none;stroke:#fff;stroke-width:18.64;stroke-dasharray:.1 .9;stroke-dashoffset:.1;opacity:0;mix-blend-mode:screen;filter:url(#products-soft)}
+/* motion: the four come in from their corners on a spring, khyzr's first; the fourth draws
+   itself as it lands; then one light runs round the ring they close, once. */
+.hs-products .tile{transform-box:fill-box;transform-origin:50% 50%;transition:transform 1.05s var(--ease-trace) var(--products-d),opacity .55s ease var(--products-d)}
+.hs-products .t-k{--products-d:.1s;--products-dx:-1;--products-dy:-1}
+.hs-products .t-ai{--products-d:.26s;--products-dx:1;--products-dy:-1}
+.hs-products .t-st{--products-d:.42s;--products-dx:-1;--products-dy:1}
+.hs-products .t-nx{--products-d:.58s;--products-dx:1;--products-dy:1}
+.hs-products .t-nx use{transition:stroke-dashoffset 1.3s var(--ease-drift) .66s}
+.hs-products .q{transition:opacity .8s ease var(--products-qd),transform var(--dur-enter) var(--ease-trace) var(--products-qd)}
+.hs-products .q-tl{--products-qd:.05s}
+.hs-products .q-tr{--products-qd:.75s}
+.hs-products .q-bl{--products-qd:.89s}
+.hs-products .q-br{--products-qd:1.03s}
+.hs-products.is-in .glint{animation:products-glint 1.9s cubic-bezier(.45,.05,.25,1) 1.55s both}
+@keyframes products-glint{0%{stroke-dashoffset:.1;opacity:0}14%{opacity:.62}82%{opacity:.62}100%{stroke-dashoffset:-.9;opacity:0}}
+.js .hs-products:not(.is-in) .tile{transform:translate(calc(var(--products-dx) * 30px),calc(var(--products-dy) * 30px)) scale(.88);opacity:0;transition:none}
+.js .hs-products:not(.is-in) .t-nx use{stroke-dashoffset:1;transition:none}
+.js .hs-products:not(.is-in) .q{opacity:0;transform:translateY(var(--rise-distance)) scale(var(--rise-scale));transition:none}
+
+/* ===============================================================
+   The cuts as controls (shown by products.js)
+   A cut answers hover and focus by lifting a hair over its
+   neighbours, and its quarter of the ring catching the light.
+   =============================================================== */
+.hs-products .qbs{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.hs-products .qbs[hidden]{display:none}
+.hs-products .qb{display:block;width:100%;height:100%;padding:0;margin:0;border:0;border-radius:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hs-products .qb:focus-visible{outline:2px solid var(--khyzr-green);outline-offset:3px;box-shadow:0 0 0 3px #fff}
+.hs-products .lift{transform-box:fill-box;transform-origin:50% 50%;transition:transform .6s var(--ease-trace)}
+.hs-products .drop{fill:#032403;opacity:0;filter:url(#products-drop);transition:opacity .5s ease}
+/* the light is wider than its band and clipped to it: even across the band, soft only at its head */
+.hs-products .sh{fill:none;stroke:#fff;stroke-width:32;stroke-dasharray:1 1;stroke-dashoffset:1;opacity:0;mix-blend-mode:screen;filter:url(#products-soft);
+  transition:stroke-dashoffset .8s var(--ease-drift),opacity .5s ease}
+.hs-products .t-nx .sh{stroke:var(--green-100);mix-blend-mode:multiply}
+.hs-products .hot .lift{transform:translateY(-1.5px) scale(1.016)}
+.hs-products .hot .drop{opacity:.3}
+.hs-products .hot .sh{stroke-dashoffset:0;opacity:.34}
+.hs-products .hot .t-nx .sh{opacity:.85}
+
+/* ===============================================================
+   The stage: the tile grown into a world (products.js places it,
+   sizes it and draws the canvas; the words sit over it, as in
+   design 4)
+   =============================================================== */
+.hs-products .stage{position:absolute;z-index:3;left:0;top:0;width:0;height:0}
+.hs-products .stage[hidden]{display:none}
+.hs-products .stage .cv{position:absolute;inset:0;width:100%;height:100%}
+.hs-products .stage.s-nx{cursor:crosshair;touch-action:pan-y pinch-zoom}
+.hs-products .panel{position:absolute;inset:0;pointer-events:none}
+.hs-products .panel[hidden]{display:none}
+.hs-products .panel .w{position:absolute;left:clamp(1.75rem,5.6*var(--u),6.5rem);bottom:clamp(2.25rem,10vh,7rem);max-width:min(46rem,calc(100% - 3.5rem));
+  opacity:0;transform:translateY(18px);transition:opacity .16s ease,transform .16s ease}
+.hs-products .panel h3{font:var(--fw-display) clamp(2.4rem,5.2*var(--u),4.6rem)/1 var(--font-display);letter-spacing:-.034em;text-wrap:balance}
+.hs-products .panel h3:focus{outline:none}
+.hs-products .panel p{margin-top:1.25rem;font-size:clamp(1rem,1.3*var(--u),1.1875rem);line-height:1.55;max-width:34ch}
+.hs-products .panel .hs-link{margin-top:1.5rem;font-size:1.0625rem;color:inherit}
+/* close: a hairline ring and a cross, in the world's own light */
+.hs-products .x{position:absolute;top:clamp(.875rem,1.9*var(--u),1.625rem);right:clamp(.875rem,1.9*var(--u),1.625rem);display:grid;place-items:center;width:3rem;height:3rem;padding:0;
+  border:1px solid var(--products-x-lo);border-radius:50%;background:transparent;color:var(--products-x-hi);cursor:pointer;opacity:0;
+  transition:opacity .16s ease,background-color .35s ease,border-color .35s ease}
+.hs-products .x svg{width:1rem;height:1rem;overflow:visible}
+.hs-products .x path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+@media (hover:hover){.hs-products .x:hover{background:var(--products-x-bg);border-color:var(--products-x-hi)}}
+
+.hs-products .panel.on .w{opacity:1;transform:none;pointer-events:auto;transition:opacity .55s ease,transform .9s var(--ease-drift)}
+.hs-products .panel.on .x{opacity:1;pointer-events:auto;transition:opacity .55s ease .1s,background-color .35s ease,border-color .35s ease}
+/* reduced motion: the stage fades in and out instead of growing */
+.hs-products .stage.fade{opacity:0}
+
+/* khyzr: One for All, in its greens */
+.hs-products .p-k h3,.hs-products .p-k .hs-link{color:#EFF7EF}
+.hs-products .p-k p{color:#A9CBA9}
+.hs-products .p-k{--products-x-lo:rgba(239,247,239,.3);--products-x-hi:#EFF7EF;--products-x-bg:rgba(239,247,239,.1)}
+.hs-products .p-k :focus-visible{outline-color:#91BC91}
+/* khyzr.ai and khyzr.studio: design 4's colours */
+.hs-products .p-ai h3,.hs-products .p-ai .hs-link{color:#E0E9F0}
+.hs-products .p-ai p{color:#A7B6C7}
+.hs-products .p-ai{--products-x-lo:rgba(224,233,240,.3);--products-x-hi:#E0E9F0;--products-x-bg:rgba(224,233,240,.1)}
+.hs-products .p-ai :focus-visible{outline-color:#43F0F4}
+.hs-products .p-ai .w{isolation:isolate}
+.hs-products .p-ai .w::before{content:"";position:absolute;inset:-3rem -4rem;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(2,40,83,.86),rgba(2,40,83,.62) 58%,rgba(2,40,83,0));filter:blur(10px)}
+.hs-products .p-st h3,.hs-products .p-st .hs-link{color:#EDE7DF}
+.hs-products .p-st p{color:#CFC6BC}
+.hs-products .p-st{--products-x-lo:rgba(237,231,223,.3);--products-x-hi:#EDE7DF;--products-x-bg:rgba(237,231,223,.1)}
+.hs-products .p-st :focus-visible{outline-color:#F7CD3A}
+/* the blank page: paper, ink, and a khyzr-green hairline */
+.hs-products .p-nx{--products-x-lo:rgba(10,105,10,.32);--products-x-hi:var(--khyzr-green);--products-x-bg:var(--green-050)}
+.hs-products .p-nx .wm{display:block;width:clamp(14.375rem,31*var(--u),29.375rem);height:auto;overflow:visible}
+.hs-products .p-nx .wm use{fill:var(--ink)}
+.hs-products .p-nx .caret{stroke:var(--khyzr-green);stroke-width:3px;vector-effect:non-scaling-stroke;animation:products-caret 1.1s steps(1,end) infinite}
+@keyframes products-caret{0%{opacity:1}50%{opacity:0}}
+.hs-products .p-nx h3{margin-top:clamp(1.25rem,2.6*var(--u),2.125rem);font-size:clamp(1.5rem,2.2*var(--u),2rem);line-height:1.12;letter-spacing:-.022em;color:var(--ink)}
+
+@media (max-width:860px){
+  .hs-products{--products-s:min(calc(100vw - 2 * var(--gx)),32.5rem)}
+  .hs-products .in{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .hs-products .art{grid-column:1;grid-row:2;justify-self:start;margin:2.5rem 0 2.75rem}
+  .hs-products .q{max-width:30rem}
+  .hs-products .q-tl{grid-row:1;justify-self:start;text-align:left}
+  .hs-products .q-tr{grid-column:1;grid-row:3}
+  .hs-products .q-bl{grid-column:1;grid-row:4;justify-self:start;text-align:left;margin-top:2.25rem}
+  .hs-products .q-br{grid-column:1;grid-row:5;margin-top:2.25rem}
+  
+  /* stacked under the cuts, the words arrive as soon as the cuts have landed */
+  .hs-products .q-tr{--products-qd:.25s}.hs-products .q-bl{--products-qd:.35s}.hs-products .q-br{--products-qd:.45s}
+}
+@media (max-width:640px){
+  .hs-products .panel .w{left:1.375rem;right:1.375rem;bottom:1.875rem}
+  .hs-products .panel h3{font-size:clamp(2.1rem,10vw,2.7rem)}
+  .hs-products .p-nx .wm{width:min(100%,15.625rem)}
+  .hs-products .p-nx h3{font-size:1.5rem}
+  .hs-products .x{width:2.75rem;height:2.75rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .hs-products *{transition:none!important;animation:none!important}
+  .hs-products .stage{transition:opacity .2s ease!important}
+}
+
+/* while a stage is open the words around the cuts step back, so the growing stage never cuts through a line of them;
+   they come back as it closes, on their own entrance timing (.q above) */
+.hs-products.st-open .in > .q{opacity:0;transition:opacity .2s ease}
+.hs-products.st-open.st-short .art{opacity:0;transition:opacity .2s ease}   /* a stage shorter than the cuts: they step back too */
+@media (prefers-reduced-motion:reduce){.hs-products .in > .q,.hs-products.st-open .in > .q{transition:none}}

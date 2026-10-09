@@ -1,0 +1,109 @@
+/* ===============================================================
+   khyzr.com homepage · Voices · "In their words"
+   From the voices section lab, design 5 · Louvers
+   (labs/sections/voices.html, .d5; engine voices/louvers.js and
+   the shared clock voices/rotor.js), re-scoped to .hs-voices.
+
+   A kinetic facade of triangular prisms, edge to edge and fluted so
+   it reads as slats at rest. The source panels (.panes) are the real
+   content. JS builds the facade from them: N prisms, each with three
+   faces, each face a clone of one voice's panel offset by the slat's
+   position. Without JS the panels simply stack.
+
+   Cisco (2026-10-01): the white face is black (--ink); the two
+   green faces stay as they were.
+   8 Oct 2026: the four real voices (Cisco: "Place the quotes on the
+   section with the quotes"). A prism still has three faces; the face
+   that is about to turn in is dressed with the next voice, so any
+   number of voices turn on it, each in its own colour. The fourth is
+   khyzr green. The quotes are longer than the three they replace, so
+   the type is a step smaller on a wider measure, and the client logos
+   are gone from the captions (there is no artwork for two of the four).
+   =============================================================== */
+.hs-voices [hidden]{display:none!important}
+
+/* .lg crops a client logo to its artwork (the PNGs carry wide transparent
+   margins), so logos size by what you see. --s is one source pixel. */
+.hs-voices .lg{--s:.0625rem;display:inline-block;position:relative;overflow:hidden;flex:none;
+  width:calc(var(--bw) * var(--s));height:calc(var(--bh) * var(--s))}
+.hs-voices .lg img{position:absolute;max-width:none;width:calc(var(--iw) * var(--s));height:calc(var(--ih) * var(--s));
+  left:calc(var(--bx) * var(--s) * -1);top:calc(var(--by) * var(--s) * -1)}
+.hs-voices .lg.cc{--iw:164;--ih:86;--bx:14;--by:30;--bw:128;--bh:37}
+.hs-voices .lg.za{--iw:164;--ih:74;--bx:23;--by:24;--bw:118;--bh:34}
+.hs-voices .lg.ob{--iw:100;--ih:96;--bx:29;--by:25;--bw:41;--bh:56}
+
+/* the facade stands flush on the section above (no strip of paper between the two grounds);
+   the voices sit under it, on paper, and nothing more: the next section's own measure is the seam (5 Oct 2026;
+   a bottom padding of its own, 8vh, added to that measure and left the next title half a screen away) */
+.hs-voices{position:relative;padding:0}
+/* the facade runs edge to edge, like a wall; the words keep the page's container */
+.hs-voices .frame{position:relative;overflow:hidden;background:var(--pitch)}
+/* built, the facade is a control for a pointer: a click turns it to the next voice (voices.js) */
+.hs-voices.built .frame{cursor:pointer}
+.hs-voices .pane{--edge:max(var(--gx), calc((100vw - var(--container)) / 2));display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-5);
+  padding:clamp(3rem,8*var(--u),6.5rem) var(--edge);min-height:clamp(28.75rem,min(66vh,70vw),43.75rem)}
+.hs-voices .pane blockquote{max-width:19.5em;font:var(--fw-display) clamp(1.5rem,3.3*var(--u),3.3rem)/1.08 var(--font-display);letter-spacing:-.027em;text-wrap:pretty}
+.hs-voices .hang{margin-left:-.4em}
+.hs-voices .pane figcaption{display:flex;align-items:center;gap:1.125rem;font:var(--fw-text) .9375rem/1.45 var(--font-text)}
+.hs-voices .pane figcaption .lg{--s:.055rem}
+.hs-voices .pane .nm{display:block;font-weight:var(--fw-ui);font-size:1.0625rem}
+.hs-voices .pane .rule{width:1px;align-self:stretch}
+/* the black face: on-dark words, and fluting that lights each slat's left edge (a shadow alone can't read on black) */
+.hs-voices .p0{background:var(--ink);--fl:rgba(255,255,255,.06);--fd:rgba(0,0,0,.3)}
+.hs-voices .p0 blockquote,.hs-voices .p0 .nm{color:var(--on-dark-heading)} .hs-voices .p0 figcaption{color:var(--on-dark-body)} .hs-voices .p0 .rule{background:var(--on-dark-border)}
+.hs-voices .p1{background:var(--green-900);--fl:rgba(255,255,255,.035);--fd:rgba(0,0,0,.2)}
+.hs-voices .p1 blockquote,.hs-voices .p1 .nm{color:var(--on-dark-heading)} .hs-voices .p1 figcaption{color:var(--on-dark-body)} .hs-voices .p1 .rule{background:var(--on-dark-border)}
+.hs-voices .p2{background:var(--mint);--fl:rgba(255,255,255,.16);--fd:rgba(4,51,4,.12)}
+.hs-voices .p2 blockquote,.hs-voices .p2 .nm{color:var(--ink)} .hs-voices .p2 figcaption{color:var(--body)} .hs-voices .p2 .rule{background:rgba(4,51,4,.22)}
+.hs-voices .p3{background:var(--khyzr-green);--fl:rgba(255,255,255,.05);--fd:rgba(0,0,0,.16)}
+.hs-voices .p3 blockquote,.hs-voices .p3 .nm{color:var(--on-dark-heading)} .hs-voices .p3 figcaption{color:var(--on-dark-soft)} .hs-voices .p3 .rule{background:rgba(255,255,255,.2)}
+/* the facade */
+.hs-voices .louver{position:relative;margin:0 auto;perspective:2200px;perspective-origin:50% 50%}
+.hs-voices .slot{position:absolute;top:0}
+.hs-voices .prism{position:absolute;inset:0;transform-style:preserve-3d}
+.hs-voices .face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.hs-voices .face .pane{position:absolute;top:0;margin:0}
+/* fluting: every slat catches the light on its left and falls off to its right, so the facade reads at rest */
+.hs-voices .face .pane::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,var(--fl) 0,rgba(0,0,0,0) calc(var(--w) * .42),var(--fd) var(--w))}
+.hs-voices .face .pane > *{position:relative;z-index:1}
+.hs-voices .face .shade{position:absolute;inset:0;background:var(--pitch);opacity:0;z-index:3;pointer-events:none}
+.hs-voices.built .panes{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+html:not(.js) .hs-voices .louver{display:none}
+html:not(.js) .hs-voices .frame{background:none;overflow:visible}
+
+/* the voices, under the facade: a swatch of each voice's face */
+.hs-voices .ctrl{display:flex;align-items:center;flex-wrap:wrap;gap:.375rem;max-width:var(--container);margin:var(--space-3) auto 0;padding:0 var(--gx);box-sizing:content-box}
+.hs-voices .pp{display:inline-grid;place-items:center;width:2.75rem;height:2.75rem;border-radius:var(--radius-pill);border:1px solid var(--hairline);
+  background:var(--paper);color:var(--ink);cursor:pointer;margin-right:.625rem;transition:border-color .2s ease,background .2s ease,transform .2s ease}
+@media (hover:hover){.hs-voices .pp:hover{border-color:#cfcfcf;background:var(--surface-2)}}
+.hs-voices .pp:active{transform:scale(.95)}
+.hs-voices .pp svg{width:1rem;height:1rem}
+.hs-voices .vb{position:relative;display:inline-flex;align-items:center;gap:.625rem;appearance:none;border:0;background:none;cursor:pointer;
+  padding:.75rem .875rem .875rem .75rem;border-radius:var(--radius-pill);font:var(--fw-ui) .90625rem/1 var(--font-text);color:var(--muted);transition:color .25s ease,background .25s ease}
+@media (hover:hover){.hs-voices .vb:hover{color:var(--ink);background:var(--surface-2)}}
+.hs-voices .vb.on{color:var(--ink)}
+.hs-voices .vb .sw{width:.75rem;height:.75rem;border-radius:var(--radius-pill);box-shadow:inset 0 0 0 1px rgba(10,10,10,.14)}
+.hs-voices .vb .bar{position:absolute;left:2.125rem;right:.875rem;bottom:.375rem;height:2px;border-radius:var(--radius-pill);background:var(--khyzr-green);transform:scaleX(0);transform-origin:0 50%}
+.hs-voices .vb:not(.on) .bar{visibility:hidden}
+html:not(.js) .hs-voices .ctrl{display:none}
+@media (max-width:640px){
+  .hs-voices .pane figcaption{gap:.875rem}
+  .hs-voices .pane figcaption .lg{--s:.04375rem}
+  .hs-voices .vb{padding:.875rem .625rem 1rem .5rem;font-size:.875rem}
+  .hs-voices .vb .bar{left:1.75rem;right:.625rem}
+  .hs-voices .vb .lnm{display:none}
+  /* four voices on a phone's row: only the one speaking keeps its name, the others are their swatch (each still a finger wide) */
+  .hs-voices .vb:not(.on){justify-content:center;min-width:2.75rem;padding-left:0;padding-right:0}
+  .hs-voices .vb:not(.on) .sw + span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .hs-voices .pane{min-height:clamp(22.5rem,52vh,30rem)}
+}
+/* a finger's target on each voice (44px), at every width */
+@media (pointer:coarse){.hs-voices .vb{padding-top:.875rem;padding-bottom:1rem}}
+/* a phone on its side: the facade fits the screen under the nav, the words and who said them together */
+@media (orientation:landscape) and (max-height:500px){
+  .hs-voices .pane{min-height:0;padding-top:1.75rem;padding-bottom:1.75rem}
+  .hs-voices .pane blockquote{font-size:clamp(1.4rem,7.2vh,2.2rem)}
+}
+/* the section's heading, for screen readers (the voices themselves are its face) */
+.hs-voices .vh-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

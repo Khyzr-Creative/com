@@ -1,0 +1,103 @@
+/* ============================================================
+   khyzr.com homepage — the shared vocabulary every section uses.
+   One rhythm, two surfaces, one section header, one text link, one
+   entrance. Values are the design system's tokens (tokens.css); the
+   section header and the text link are the system's Components page,
+   the entrance is its Motion page (The Green Trace).
+   ============================================================ */
+
+/* ---- rhythm and surfaces ----
+   Every section stands on paper and pads by the section rhythm; the
+   surface alternates White → #F5F5F5 (the system's Layout rule) so
+   neighbours read as two places, not one long page.
+   The air between sections (5 Oct 2026, Cisco: "some sections look too close to others and viceversa"): one
+   measure, --section-pad-y, stands between a section's content and any edge where the ground changes (white,
+   grey, dark, a hairline), the same on both sides of that edge. Two neighbours on one ground with nothing
+   between them share the seam, .6 of a measure each (Disciplines and Alongside; the manifesto under the hero,
+   which brings its own air). A section that ends in its own controls on the next one's ground adds nothing
+   under them (Voices): the next section's measure is the seam. */
+.hs{--hs-head-gap:clamp(2.75rem,6*var(--u),4.5rem);background:var(--paper)}
+.hs.hs--alt{background:var(--surface-2)}
+section.hs[id]{scroll-margin-top:0}
+/* the side gutter, kept clear of a phone's notch and rounded corners when it is turned on its side (index.html asks
+   for the whole screen, viewport-fit=cover, so the dark sections run to its edges): the system's gutter, or the
+   screen's safe inset where that is wider */
+:root{--gx:max(var(--gutter),env(safe-area-inset-left,0px),env(safe-area-inset-right,0px))}
+
+/* ---- the desktop scale (2 Oct 2026, Cisco: "increase the margins (and therefor like zoom out) the page on viewports
+   like 1920x1080 and similar sizes", it "reads AMAZING at 2440p"; 5 Oct: "better adjust the margins for 1920p screens
+   and below"). The type and the sections reach full size by about 1400px wide and hold it, and the column filled the
+   window to a flat 5% gutter until it met its 1560px cap, so every screen under 2560 showed the same page with less
+   and less room around it. Two curves now, nothing stepped, and nothing reflows:
+     the type     the root's size, which every size in the sections follows (they are in rem): 100% up to 1200px
+                  wide, one line down to 85% at 1920, one line back up to 100% at 2560.
+     the column   97.5rem from 1920 up, so a 1920 screen draws the 2560 page whole at 85% (a 24in 1920 monitor's
+                  pixels are that much larger than a 27in 2560's, so it is the same size in the hand) with 297px
+                  margins (they were 180, then 258). Below 1920 it narrows on a curve that keeps each width the
+                  layout it always had, a little smaller, in wider margins: 5% of the screen a side at 1200, 7.5%
+                  at 1440 (108px, was 72), 11.4% at 1680 (192, was 84 then 138), 15.5% at 1920, 19.5% at 2560.
+   A dense screen under 1728px wide (a laptop's, its pixels small) stops at 95%. 2560px and up, tablets and phones
+   are as they were. The system's px tokens are stated here as their rem twins, the same at full size, so they
+   follow the root too; its two smallest, the eyebrow and the label, stop at 11px, the smallest the system sets
+   (at 85% they were 10.2px and 9.35px capitals).
+   The root is stated in px, not %: the page is drawn in px (the system's tokens are), and both curves are read
+   off the window, so a browser's own text size (16px unless a visitor changed it) must not move the type while
+   the column stays put. In % a larger one made the column jump at 1920 and pushed the close's pill off its line.
+   Zoom is how the page is enlarged: it narrows the window the curves read, so the layout follows. */
+:root{--space-1:.75rem;--space-2:1rem;--space-3:1.5rem;--space-4:2rem;--space-5:2.5rem;--space-6:4rem;
+  --gutter:clamp(1.5rem,5vw,6rem);--section-pad-y:clamp(5.5rem,14vh,11.25rem);
+  --text-body:1rem;--text-eyebrow:max(.75rem,11px);--text-label:max(.6875rem,11px);--measure-reading:73.75rem;--measure-lede:37.5rem;
+  --container:min(60vw + 360px,30vw + 792px,12.5vw + 1086px)}
+@media (min-width:1920px){:root{--container:97.5rem}}
+/* --u, the column's own "vw": a ninetieth of the column, which is what 1vw was while the column filled the window to
+   its 5% gutters. Sizes inside a section that grew with the window (N vw) grow with the column instead (N * --u), so
+   each width shows the layout an older, narrower window had, whole and a little smaller, and nothing wraps anew. Up to
+   1200px wide it is 1vw exactly. From 1680 it eases up to 1.2rem at 1920, where every such size has reached its cap,
+   as it has at 2560: from 1920 up the page is the 2560 page. */
+:root{--u:min(1vw,calc(var(--container) / 90) + max(0px,(100vw - 1680px) * .00662))}
+@media (min-width:1920px){:root{--u:1.2rem}}
+html{font-size:min(16px,max(13.6px + (100vw - 1920px) * .00375,16px - (100vw - 1200px) * .003333))}
+@media (min-resolution:1.5dppx),(-webkit-min-device-pixel-ratio:1.5){
+  html{font-size:min(16px,max(13.6px + (100vw - 1920px) * .00375,16px - (100vw - 1200px) * .003333,min(15.2px,15.2px - (100vw - 1728px) * .008333)))}
+}
+/* a section that receives focus after an in-page jump (glide.js) takes it quietly */
+.hs[tabindex="-1"]:focus{outline:none}
+
+/* ---- the section header: title, lede (the eyebrows went page-wide on 2 Oct 2026, Cisco: "remove eyebrows page-wide") ---- */
+.hs-title{font:var(--fw-display) var(--text-title)/1.02 var(--font-display);letter-spacing:var(--tracking-display);color:var(--ink);text-wrap:balance}
+.hs-title .g{color:var(--khyzr-green)}
+.hs-lede{max-width:34ch;font:var(--fw-text) var(--text-lede)/1.5 var(--font-text);color:var(--muted);text-wrap:pretty}
+.hs-head > .hs-lede{margin-top:var(--space-3)}
+/* split: the title holds the left, the lede stands at the right on the title's last line */
+.hs-head--split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);align-items:end;gap:var(--space-3) var(--space-6)}
+.hs-head--split > .hs-lede{margin:0;padding-bottom:.3em}
+@media (max-width:760px){
+  .hs-head--split{grid-template-columns:minmax(0,1fr);gap:0}
+  .hs-head--split > .hs-lede{margin-top:var(--space-3);padding:0}
+}
+/* on dark */
+.hs-dark .hs-title{color:var(--on-dark-heading)}
+.hs-dark .hs-lede{color:var(--on-dark-body)}
+
+/* ---- the text link: ink, an arrow that slides 4px on hover ---- */
+.hs-link{position:relative;display:inline-flex;align-items:center;gap:.5em;font:var(--fw-ui) 1rem/1.3 var(--font-text);color:var(--ink);text-decoration:none;border-radius:var(--radius-s)}
+/* a 44px hit area, without moving anything */
+.hs-link::after{content:"";position:absolute;inset:-.75rem -.375rem}
+.hs-link svg{flex:none;width:1.05em;height:1.05em;transition:transform var(--dur-hover) var(--ease-pop)}
+@media (hover:hover){.hs-link:hover svg{transform:translateX(4px)}}
+.hs-link:focus-visible{outline-offset:4px}
+
+/* ---- the entrance: rise from the baseline, crisp, overlapping (hs.js staggers a batch) ---- */
+.hs-rise{transform-origin:50% 100%;transition:opacity .9s ease var(--hs-d,0s),transform var(--dur-enter) var(--ease-trace) var(--hs-d,0s)}
+.js .hs-rise:not(.is-in){opacity:0;transform:translateY(var(--rise-distance)) scale(var(--rise-scale));transition:none}
+@media (prefers-reduced-motion:reduce){.hs-rise{opacity:1!important;transform:none!important;transition:none!important}}
+
+/* ---- photographs develop in rather than pop in (hs.js adds .ld when each has loaded) ---- */
+.js .hs-photo{opacity:0;transition:opacity .7s ease}
+.js .hs-photo.ld{opacity:1}
+@media (prefers-reduced-motion:reduce){.js .hs-photo{transition:none}}
+
+/* ---- touch: hovers that move things only where there is a pointer that hovers; presses answer every pointer ---- */
+.hs-link:active svg{transform:translateX(2px)}
+/* a placeholder link (its page isn't built yet): it reads as the design has it, and does nothing */
+.hs a:not([href]){pointer-events:none;cursor:default}
